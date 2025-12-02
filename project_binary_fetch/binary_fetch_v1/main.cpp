@@ -82,17 +82,24 @@ int main() {
         cout << endl;
         cout << "_>> BinaryFetch____________________________________________________" << endl;
 
-        // ---------------- Compact Summary Section ----------------
+        
+        /*================[ Minimal OS ]==================*/
+
         cout << "[OS]  -> " << c_os.getOSName()
             << c_os.getOSBuild()
             << " (" << c_os.getArchitecture() << ")"
             << " (uptime: " << c_os.getUptime() << ")" << endl;
+
+
+        /*================[ minimal CPU ]==================*/
 
         cout << "[CPU] -> " << c_cpu.getCPUName() << " ("
             << c_cpu.getCPUCores() << "C/"
             << c_cpu.getCPUThreads() << "T)"
             << std::fixed << std::setprecision(2)
             << " @ " << c_cpu.getClockSpeed() << " GHz " << endl;
+
+        /*================[ minimal SCREEN ]==================*/
 
         auto screens = c_screen.get_screens();
         int i = 1;
@@ -102,9 +109,13 @@ int main() {
                 << s.refresh_rate << "Hz\n";
         }
 
+        /*================[ minimal MEMORY ]==================*/
+
         cout << "[Memory] -> " << "(total: " << c_memory.get_total_memory() << " GB)"
             << " (free: " << c_memory.get_free_memory() << " GB)"
             << " ( " << c_memory.get_used_memory_percent() << "% ) " << endl;
+
+        /*================[ MINIMAL AUDIO ]==================*/
 
         cout << "[Audio Input] -> " << c_audio.active_audio_input()
             << c_audio.active_audio_input_status() << endl;
@@ -112,13 +123,19 @@ int main() {
         cout << "[Audio Output] -> " << c_audio.active_audio_output()
             << c_audio.active_audio_output_status() << endl;
 
+        /*================[ MINIMAL BIOS ]==================*/
+
         cout << "[BIOS] -> " << c_system.getBIOSInfo() << endl;
         cout << "[Motherboard] -> " << c_system.getMotherboardInfo() << endl;
+
+        /*================[ MINIMAL GPU ]==================*/
 
         cout << "[GPU] -> " << c_gpu.getGPUName()
             << " (" << c_gpu.getGPUUsagePercent() << "%)"
             << " (" << c_gpu.getVRAMGB() << " GB)"
             << " (@" << c_gpu.getGPUFrequency() << ") " << endl;
+
+        /*================[ MINIMAL PERFORMANCE ]==================*/
 
         cout << "[Performance] -> "
             << "(CPU: " << c_perf.getCPUUsage() << "%) "
@@ -126,17 +143,25 @@ int main() {
             << "(RAM: " << c_perf.getRAMUsage() << "%) "
             << "(Disk: " << c_perf.getDiskUsage() << "%) " << endl;
 
+        /*================[ MINIMAL USER INFO ]==================*/
+
         cout << "[User] -> @" << c_user.getUsername()
             << " -> (Domain: " << c_user.getDomain()
             << ") -> (Type: " << c_user.isAdmin() << ")" << endl;
+
+        /*================[ MINIMAL NETWORK INFO ]==================*/
 
         cout << "[network] -> " << "(Name: " << c_net.get_network_name()
             << ") (Type: " << c_net.get_network_type()
             << ") (ip: " << c_net.get_network_ip() << ") " << endl;
 
+
+        /*================[ MINIMAL ALL DISK USAGE ]==================*/
+
         auto disks = disk.getAllDiskUsage();
 
-        // print disk usage in percentage---------------------------------
+        // print disk usage in percentage
+        //e.g. [Disk] -> (C: 97%) (D: 45%) (G: 91%) (H: 58%) (I: 62%) (Y: 22%)
         std::cout << "[Disk] -> ";
         for (const auto& d : disks) {
             std::cout << "(" << d.first[0] << ": "
@@ -144,7 +169,9 @@ int main() {
                 << d.second << "%) ";
         }
         std::cout << std::endl;
-        // print disk capacity in GB---------------------------------------
+
+        // print disk capacity in GB
+        //  e.g. [Disk Cap] -> (C-237GB)(D-465GB)(G-112GB)(H-931GB)(I-110GB)(Y-465GB)
         auto caps = disk.getDiskCapacity();
         std::cout << "[Disk Cap] -> ";
         for (const auto& c : caps) {
@@ -154,7 +181,7 @@ int main() {
 
 
 
-        // ---------------- FULL DETAILED INFO (Option A order) ----------------
+        // ---------------- FULL DETAILED INFO (A order) ----------------
         cout << endl;
         cout << "---------------Memory Info--------------" << endl;
         std::cout << "(Total: " << ram.getTotal() << " GB) "
