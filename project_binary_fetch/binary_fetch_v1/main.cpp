@@ -1,37 +1,43 @@
 
 #include <iostream>
-#include <iomanip>   // good morning 
+#include <iomanip>        // Formatting utilities (setw, precision)
 #include <vector>
 #include <functional>
-#include <sstream>
+#include <sstream>        // For string stream operations
 
 
-#include "OSInfo.h"
-#include "CPUInfo.h"
-#include "MemoryInfo.h"
-#include "GPUInfo.h"
-#include "StorageInfo.h"
-#include "NetworkInfo.h"
-#include "DetailedGPUInfo.h"
-#include "PerformanceInfo.h"
-#include "UserInfo.h"
-#include "SystemInfo.h"
-#include "DisplayInfo.h"
-#include "ExtraInfo.h"
+// ------------------ Full System Info Modules ------------------
+#include "OSInfo.h"             // OS name, version, build info
+#include "CPUInfo.h"            // CPU model, threads, cores, base/boost clocks
+#include "MemoryInfo.h"         // RAM capacity, usage, speed, type
+#include "GPUInfo.h"            // GPU model and basic information
+#include "StorageInfo.h"        // Disk drives, partitions, used/free space
+#include "NetworkInfo.h"        // Active network adapters, IP, speeds
+#include "DetailedGPUInfo.h"    // Deep GPU details: VRAM usage, clocks, temps
+#include "PerformanceInfo.h"    // CPU load, RAM load, GPU usage
+#include "UserInfo.h"           // Username, PC name, domain
+#include "SystemInfo.h"         // Motherboard, BIOS, system manufacturer
+#include "DisplayInfo.h"        // Monitor resolution, refresh rate, scaling
+#include "ExtraInfo.h"          // Additional misc system data
 
-#include "CompactAudio.h"
-#include "CompactOS.h"
-#include "CompactCPU.h"
-#include "CompactMemory.h"
-#include "CompactScreen.h"
-#include "CompactSystem.h"
-#include "CompactGPU.h"
-#include "CompactPerformance.h"
-#include "CompactUser.h"
-#include "CompactNetwork.h"
-#include "compact_disk_info.h"
 
-#include "AsciiArt.h"
+// ------------------ Compact Mode Output Modules ------------------
+#include "CompactAudio.h"       // Audio device summary for compact mode
+#include "CompactOS.h"          // Lightweight OS summary
+#include "CompactCPU.h"         // Lightweight CPU summary
+#include "CompactMemory.h"      // Lightweight RAM summary
+#include "CompactScreen.h"      // Lightweight screen resolution summary
+#include "CompactSystem.h"      // Lightweight motherboard/system summary
+#include "CompactGPU.h"         // Lightweight GPU summary
+#include "CompactPerformance.h" // Lightweight performance stats
+#include "CompactUser.h"        // Lightweight user info
+#include "CompactNetwork.h"     // Lightweight network info
+#include "compact_disk_info.h"  // Lightweight storage/disk info (compact mode)
+
+
+// ------------------ UI / Visual Components ------------------
+#include "AsciiArt.h"           // Loads and renders ASCII banner/logo
+
 
 using namespace std;
 
