@@ -13,19 +13,20 @@
 
 // ---------------- Helper functions for AsciiArt ----------------
 
-// Strip ANSI escape sequences (like "\x1b[31m") from string
+// Remove ANSI color/format sequences (like "\x1b[31m") from a string
 std::string stripAnsiSequences(const std::string& s) {
     static const std::regex ansi_re("\x1B\\[[0-9;]*[A-Za-z]");
     return std::regex_replace(s, ansi_re, "");
 }
 
-// Convert UTF-8 string to wstring
+// Convert UTF-8 string to wide string (wstring)
 std::wstring utf8_to_wstring(const std::string& s) {
     try {
         std::wstring_convert<std::codecvt_utf8<wchar_t>> conv;
         return conv.from_bytes(s);
     }
     catch (...) {
+        // fallback: naive conversion
         std::wstring w;
         w.reserve(s.size());
         for (unsigned char c : s) w.push_back(static_cast<wchar_t>(c));
@@ -33,12 +34,13 @@ std::wstring utf8_to_wstring(const std::string& s) {
     }
 }
 
-// Return displayed width of a wide character
+// Return visible width of a wide character (for printing aligned ASCII art)
 int char_display_width(wchar_t wc) {
 #if !defined(_WIN32)
     int w = wcwidth(wc);
     return (w < 0) ? 0 : w;
 #else
+    // Basic width heuristics for CJK and fullwidth characters
     if (wc == 0) return 0;
     if (wc < 0x1100) return 1;
     if ((wc >= 0x1100 && wc <= 0x115F) ||
@@ -55,7 +57,7 @@ int char_display_width(wchar_t wc) {
 #endif
 }
 
-// Return visible width of UTF-8 string
+// Return visible width of UTF-8 string (ignoring ANSI sequences)
 size_t visible_width(const std::string& s) {
     const std::string cleaned = stripAnsiSequences(s);
     const std::wstring w = utf8_to_wstring(cleaned);
@@ -87,10 +89,11 @@ void sanitizeLeadingInvisible(std::string& s) {
 
 AsciiArt::AsciiArt() : maxWidth(0), height(0), enabled(true), spacing(2) {
 #ifdef _WIN32
-    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8); // enable UTF-8 output on Windows console
 #endif
 }
 
+// Load ASCII art from file
 bool AsciiArt::loadFromFile(const std::string& filename) {
     artLines.clear();
     artWidths.clear();
@@ -109,7 +112,7 @@ bool AsciiArt::loadFromFile(const std::string& filename) {
     while (std::getline(file, line)) {
         if (!line.empty() && line.back() == '\r') line.pop_back();
 
-        // Only sanitize the first line for BOM / zero-width characters
+        // Sanitize only the first line for BOM / zero-width characters
         if (isFirstLine) {
             sanitizeLeadingInvisible(line);
             isFirstLine = false;
@@ -126,14 +129,17 @@ bool AsciiArt::loadFromFile(const std::string& filename) {
     return enabled;
 }
 
+// Check if ASCII art is enabled
 bool AsciiArt::isEnabled() const {
     return enabled;
 }
 
+// Enable/disable ASCII art display
 void AsciiArt::setEnabled(bool enable) {
     enabled = enable;
 }
 
+// Clear loaded ASCII art
 void AsciiArt::clear() {
     artLines.clear();
     artWidths.clear();
@@ -145,6 +151,7 @@ void AsciiArt::clear() {
 
 LivePrinter::LivePrinter(const AsciiArt& artRef) : art(artRef), index(0) {}
 
+// Print a line with ASCII art padding
 void LivePrinter::push(const std::string& infoLine) {
     printArtAndPad();
     if (!infoLine.empty()) std::cout << infoLine;
@@ -153,6 +160,7 @@ void LivePrinter::push(const std::string& infoLine) {
     ++index;
 }
 
+// Push a blank line
 void LivePrinter::pushBlank() {
     printArtAndPad();
     std::cout << '\n';
@@ -160,6 +168,7 @@ void LivePrinter::pushBlank() {
     ++index;
 }
 
+// Finish printing remaining ASCII art lines
 void LivePrinter::finish() {
     while (index < art.getHeight()) {
         printArtAndPad();
@@ -168,6 +177,7 @@ void LivePrinter::finish() {
     }
 }
 
+// Print ASCII art line and pad to max width
 void LivePrinter::printArtAndPad() {
     int artH = art.getHeight();
     int maxW = art.getMaxWidth();
@@ -180,23 +190,78 @@ void LivePrinter::printArtAndPad() {
         if (curW < maxW) std::cout << std::string(maxW - curW, ' ');
     }
     else {
-        // no art line here, print blank area
         if (maxW > 0) std::cout << std::string(maxW, ' ');
     }
 
     if (spacing > 0) std::cout << std::string(spacing, ' ');
 }
 
-// ---------------- Helper function to push multi-line formatted strings ----------------
+// Push multi-line formatted string to LivePrinter
 void pushFormattedLines(LivePrinter& lp, const std::string& s) {
     std::istringstream iss(s);
     std::string line;
     while (std::getline(iss, line)) {
-        // remove trailing '\r' if present
         if (!line.empty() && line.back() == '\r') line.pop_back();
         lp.push(line);
     }
 }
+
+/*
+------------------------------------------------
+DOCUMENTATION
+------------------------------------------------
+CLASS: AsciiArt
+OBJECT: N/A (used in main.cpp as 'art')
+DESCRIPTION: Handles ASCII art loading, alignment, and padding.
+FUNCTIONS:
+    bool loadFromFile(const std::string& filename) -> bool
+        Load ASCII art from file. Returns true if successful.
+    bool isEnabled() const -> bool
+        Check if ASCII art display is enabled.
+    void setEnabled(bool enable) -> void
+        Enable/disable ASCII art display.
+    void clear() -> void
+        Clear loaded ASCII art lines.
+    int getMaxWidth() const -> int
+        Returns max visible width of loaded ASCII art.
+    int getHeight() const -> int
+        Returns number of ASCII art lines.
+    const std::string& getLine(int index) const -> const std::string&
+        Returns ASCII art line at given index.
+    int getLineWidth(int index) const -> int
+        Returns visible width of line at given index.
+    int getSpacing() const -> int
+        Returns spacing between art and info lines.
+------------------------------------------------
+CLASS: LivePrinter
+OBJECT: N/A (used in main.cpp as 'lp')
+DESCRIPTION: Streams system info lines alongside ASCII art.
+FUNCTIONS:
+    LivePrinter(const AsciiArt& artRef) -> constructor
+        Initialize LivePrinter with a reference to AsciiArt.
+    void push(const std::string& infoLine) -> void
+        Print a line with ASCII art padding.
+    void pushBlank() -> void
+        Print a blank line with ASCII art padding.
+    void finish() -> void
+        Print remaining ASCII art lines if any.
+------------------------------------------------
+HELPER FUNCTIONS:
+    std::string stripAnsiSequences(const std::string& s) -> std::string
+        Remove ANSI escape sequences from string.
+    std::wstring utf8_to_wstring(const std::string& s) -> std::wstring
+        Convert UTF-8 string to wide string.
+    int char_display_width(wchar_t wc) -> int
+        Return display width of wide character.
+    size_t visible_width(const std::string& s) -> size_t
+        Return visible width of UTF-8 string (ignoring ANSI codes).
+    void sanitizeLeadingInvisible(std::string& s) -> void
+        Remove BOM and zero-width spaces from string start.
+    void pushFormattedLines(LivePrinter& lp, const std::string& s) -> void
+        Push multi-line formatted string to LivePrinter.
+------------------------------------------------
+*/
+
 
 /*
 
