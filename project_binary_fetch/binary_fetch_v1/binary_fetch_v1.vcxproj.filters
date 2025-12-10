@@ -159,6 +159,7 @@
     <Text Include="text infos\main-5 copy.txt" />
     <Text Include="text infos\project structure.txt" />
     <Text Include="temp_output.txt" />
+    <Text Include="main-6.txt" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="version_info.rc">
