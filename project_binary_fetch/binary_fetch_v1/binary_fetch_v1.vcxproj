@@ -61,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AsciiArt.cpp" />
-    <ClCompile Include="CentralControl.cpp" />
     <ClCompile Include="CompactAudio.cpp" />
     <ClCompile Include="CompactDisplay.cpp" />
     <ClCompile Include="CompactGPU.cpp" />

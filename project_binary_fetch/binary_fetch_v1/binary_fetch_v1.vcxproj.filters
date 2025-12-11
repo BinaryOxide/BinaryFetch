@@ -219,9 +219,6 @@
     <ClCompile Include="UserInfo.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="CentralControl.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="CompactMemory.cpp">
       <Filter>src</Filter>
     </ClCompile>
