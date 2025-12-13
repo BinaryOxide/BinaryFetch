@@ -113,7 +113,27 @@
 
 
 
+  /////////////////////////style 4//////////////////////////
 
+┌─────────────────────────────┤ SYSTEM STATUS ├─────────────────────────────┐
+│                                                                           │
+│   > SYSTEM                                                                │
+│     ╰─ Windows 11 Pro (23H2) | 8h uptime | User: coffee~                  │
+│                                                                           │
+│   > PERFORMANCE                                                           │
+│     ├─ CPU : ▁▂▃▄▅▆▇█ 3.6%  (AMD Ryzen 5 5600G @ 3.90GHz)                 │
+│     ├─ GPU : ▁▂▃▄▅▆▇██████ 46%  (RTX 4070 SUPER | 12GB)                   │
+│     ╰─ RAM : ▁▂▃▄▅▆▇████ 44%  (14.2 GB / 32.0 GB)                         │
+│                                                                           │
+│   > CONNECTIVITY                                                          │
+│     ├─ Network: Maruf Hasan (WiFi)                                        │
+│     ├─ IP: 192.168.56.1                                                   │
+│     ╰─ Audio: Headphones ✓ | Microphone ✓                                 │
+│                                                                           │
+│   >> DISPLAYS                                                             │
+│     ╰─ Generic PnP Monitor | HP M22f (both 2194×1234 @ 60Hz)              │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
 
 
 
