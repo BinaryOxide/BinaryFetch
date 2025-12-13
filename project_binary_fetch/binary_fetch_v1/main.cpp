@@ -332,7 +332,7 @@ int main() {
 
     // Network (Compact + Extra)
     {
-
+         
         cout << endl;
         lp.push("--- Network Info (Compact + Extra) ---");
         {
