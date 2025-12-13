@@ -328,11 +328,11 @@ int main() {
         else {
             lp.push("No drives detected.");
         }
-    }
+    }  
 
     // Network (Compact + Extra)
     {
-
+         
         cout << endl;
         lp.push("--- Network Info (Compact + Extra) ---");
         {
