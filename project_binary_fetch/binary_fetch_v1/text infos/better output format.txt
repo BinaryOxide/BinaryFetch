@@ -144,7 +144,7 @@
 │   OS    : Windows 11 Pro 23H2 (x64)  BUILD: 22631                    │
 │   UPTIME: 08:31:14                    POWER: Wired                   │
 │                                                                      │
-│   CPU   : AMD Ryzen 5 5600G (6C/12T) | 3.90 GHz | 3.6%               │
+│   CPU   : AMD Ryzen 5 5600G (6C/12T) (3.90 GHz)  (3.6%)              │
 │   GPU   : NVIDIA RTX 4070 SUPER | 11.7 GB VRAM | 46% load            │
 │   RAM   : 32.0 GB DDR4 | 44% utilization                             │
 │                                                                      │
