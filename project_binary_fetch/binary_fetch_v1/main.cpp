@@ -312,15 +312,15 @@ int main() {
             }
 
             lp.push("");
-            lp.push("----------------- DISK PERFORMANCE & DETAILS (Predicted) ---------------");
+            lp.push("---------------- DISK PERFORMANCE & DETAILS (Predicted) ------------");
 
             for (const auto& d : all_disks_captured) {
                 std::ostringstream ss;
-                ss << d.drive_letter << " [ Read: ("
+                ss << d.drive_letter << " [ Read: "
                     << fmt_speed(d.predicted_read_speed)
-                    << " MB/s) | Write: ("
+                    << " MB/s | Write: "
                     << fmt_speed(d.predicted_write_speed)
-                    << " MB/s) | " << d.serial_number
+                    << " MB/s | " << d.serial_number
                     << (d.is_external ? " Ext ]" : " Int ]");
                 lp.push(ss.str());
             }
