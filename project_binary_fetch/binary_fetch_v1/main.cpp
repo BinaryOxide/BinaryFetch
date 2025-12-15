@@ -517,13 +517,13 @@ int main() {
                         label << "GPU " << (i + 1);
                     }
                     else {
-                        label << "#-" << "GPU " << (i + 1) << "-----------------------------------------------------#";
+                        label << "#-" << "GPU " << (i + 1) << "--------------------------------------------------------#";
                     }
                     
                     std::string lbl = label.str();
                     if (lbl.length() < 27) lbl += std::string(27 - lbl.length(), ' ');
                     std::ostringstream ss;
-                    ss << lbl << ":";
+                    ss << lbl ;
                     lp.push(ss.str());
                 }
 
