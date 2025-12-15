@@ -336,17 +336,17 @@ int main() {
         lp.push("#-Network Info------------------------------------------------#");
         {
             std::ostringstream ss;
-            ss << "Network Name              : " << c_net.get_network_name();
+            ss << "Network Name               : " << c_net.get_network_name();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Network Type              : " << c_net.get_network_type();
+            ss << "Network Type               : " << c_net.get_network_type();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "IP (Compact)              : " << c_net.get_network_ip();
+            ss << "IP (Compact)               : " << c_net.get_network_ip();
             lp.push(ss.str());
         }
     }
@@ -395,36 +395,44 @@ int main() {
     // OS Info
     {
         cout << endl;
-        lp.push("#-OS Info ----------------------------------------------------#");
+        lp.push("#-Operating System -------------------------------------------#");
         {
             std::ostringstream ss;
-            ss << "Name: " << os.GetOSName(); lp.push(ss.str());
+            ss << "Name                       : " << os.GetOSName();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Version: " << os.GetOSVersion(); lp.push(ss.str());
+            ss << "Version                    : " << os.GetOSVersion();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Architecture: " << os.GetOSArchitecture(); lp.push(ss.str());
+            ss << "Architecture               : " << os.GetOSArchitecture();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Kernel: " << os.get_os_kernel_info(); lp.push(ss.str());
+            ss << "Kernel                     : " << os.get_os_kernel_info();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Uptime: " << os.get_os_uptime(); lp.push(ss.str());
+            ss << "Uptime                     : " << os.get_os_uptime();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Install Date: " << os.get_os_install_date(); lp.push(ss.str());
+            ss << "Install Date               : " << os.get_os_install_date();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Serial: " << os.get_os_serial_number(); lp.push(ss.str());
+            ss << "Serial                     : " << os.get_os_serial_number();
+            lp.push(ss.str());
         }
     }
+
 
     // CPU Info
     {
@@ -432,49 +440,61 @@ int main() {
         lp.push("#-CPU Info ---------------------------------------------------#");
         {
             std::ostringstream ss;
-            ss << "Brand: " << cpu.get_cpu_info(); lp.push(ss.str());
+            ss << "Brand                      : " << cpu.get_cpu_info();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Utilization: " << cpu.get_cpu_utilization() << "%"; lp.push(ss.str());
+            ss << "Utilization                : " << cpu.get_cpu_utilization() << "%";
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Speed: " << cpu.get_cpu_speed(); lp.push(ss.str());
+            ss << "Speed                      : " << cpu.get_cpu_speed();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Base Speed: " << cpu.get_cpu_base_speed(); lp.push(ss.str());
+            ss << "Base Speed                 : " << cpu.get_cpu_base_speed();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Cores: " << cpu.get_cpu_cores(); lp.push(ss.str());
+            ss << "Cores                      : " << cpu.get_cpu_cores();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Logical Processors: " << cpu.get_cpu_logical_processors(); lp.push(ss.str());
+            ss << "Logical Processors         : " << cpu.get_cpu_logical_processors();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Sockets: " << cpu.get_cpu_sockets(); lp.push(ss.str());
+            ss << "Sockets                    : " << cpu.get_cpu_sockets();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Virtualization: " << cpu.get_cpu_virtualization(); lp.push(ss.str());
+            ss << "Virtualization             : " << cpu.get_cpu_virtualization();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "L1 Cache: " << cpu.get_cpu_l1_cache(); lp.push(ss.str());
+            ss << "L1 Cache                   : " << cpu.get_cpu_l1_cache();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "L2 Cache: " << cpu.get_cpu_l2_cache(); lp.push(ss.str());
+            ss << "L2 Cache                   : " << cpu.get_cpu_l2_cache();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "L3 Cache: " << cpu.get_cpu_l3_cache(); lp.push(ss.str());
+            ss << "L3 Cache                   : " << cpu.get_cpu_l3_cache();
+            lp.push(ss.str());
         }
     }
+
 
     // GPU Info (detailed)
     {
@@ -488,59 +508,79 @@ int main() {
             lp.push("#-GPU Info ---------------------------------------------------#");
             for (size_t i = 0; i < all_gpu_info.size(); ++i) {
                 auto& g = all_gpu_info[i];
+
+                // GPU index line (dynamic length handled to meet 27-char rule)
+                {
+                    std::ostringstream label;
+                    label << "GPU " << (i + 1);
+                    std::string lbl = label.str();
+                    if (lbl.length() < 27) lbl += std::string(27 - lbl.length(), ' ');
+                    std::ostringstream ss;
+                    ss << lbl << ":";
+                    lp.push(ss.str());
+                }
+
                 {
                     std::ostringstream ss;
-                    ss << "GPU " << (i + 1) << ":"; lp.push(ss.str());
+                    ss << "  Name                     : " << g.gpu_name;
+                    lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "  Name: " << g.gpu_name; lp.push(ss.str());
+                    ss << "  Memory                   : " << g.gpu_memory;
+                    lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "  Memory: " << g.gpu_memory; lp.push(ss.str());
+                    ss << "  Usage                    : " << g.gpu_usage << "%";
+                    lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "  Usage: " << g.gpu_usage << "%"; lp.push(ss.str());
+                    ss << "  Vendor                   : " << g.gpu_vendor;
+                    lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "  Vendor: " << g.gpu_vendor; lp.push(ss.str());
+                    ss << "  Driver Version           : " << g.gpu_driver_version;
+                    lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "  Driver Version: " << g.gpu_driver_version; lp.push(ss.str());
+                    ss << "  Temperature              : " << g.gpu_temperature << " C";
+                    lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "  Temperature: " << g.gpu_temperature << " C"; lp.push(ss.str());
-                }
-                {
-                    std::ostringstream ss;
-                    ss << "  Core Count: " << g.gpu_core_count; lp.push(ss.str());
+                    ss << "  Core Count               : " << g.gpu_core_count;
+                    lp.push(ss.str());
                 }
             }
 
             auto primary = detailed_gpu_info.primary_gpu_info();
             {
                 std::ostringstream ss;
-                ss << "Primary GPU Details:"; lp.push(ss.str());
+                ss << "Primary GPU Details       :";
+                lp.push(ss.str());
             }
             {
                 std::ostringstream ss;
-                ss << "  Name: " << primary.name; lp.push(ss.str());
+                ss << "  Name                     : " << primary.name;
+                lp.push(ss.str());
             }
             {
                 std::ostringstream ss;
-                ss << "  VRAM: " << primary.vram_gb << " GiB"; lp.push(ss.str());
+                ss << "  VRAM                     : " << primary.vram_gb << " GiB";
+                lp.push(ss.str());
             }
             {
                 std::ostringstream ss;
-                ss << "  Frequency: " << primary.frequency_ghz << " GHz"; lp.push(ss.str());
+                ss << "  Frequency                : " << primary.frequency_ghz << " GHz";
+                lp.push(ss.str());
             }
         }
     }
+
 
     // Display Info
     {
@@ -555,23 +595,28 @@ int main() {
                 auto& m = monitors[i];
                 {
                     std::ostringstream ss;
-                    ss << "#----Monitor---------->>> " << (i + 1) << ":"; lp.push(ss.str());
+                    ss << "#----Monitor---------->>> " << (i + 1) << ":";
+                    lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "Brand:            " << m.brand_name; lp.push(ss.str());
+                    ss << "Brand                      : " << m.brand_name;
+                    lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "Resolution:       " << m.resolution; lp.push(ss.str());
+                    ss << "Resolution                 : " << m.resolution;
+                    lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "Refresh Rate:     " << m.refresh_rate << " Hz"; lp.push(ss.str());
+                    ss << "Refresh Rate               : " << m.refresh_rate << " Hz";
+                    lp.push(ss.str());
                 }
             }
         }
     }
+
 
     // BIOS & Motherboard Info
     {
@@ -579,25 +624,31 @@ int main() {
         lp.push("#-BIOS & Motherboard Info ------------------------------------#");
         {
             std::ostringstream ss;
-            ss << "Bios Vendor               : " << sys.get_bios_vendor(); lp.push(ss.str());
-        }
-        {
-            std::ostringstream ss; 
-            ss << "Bios Version              : " << sys.get_bios_version(); lp.push(ss.str());
+            ss << "Bios Vendor                : " << sys.get_bios_vendor();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Bios Date                 : " << sys.get_bios_date(); lp.push(ss.str());
+            ss << "Bios Version               : " << sys.get_bios_version();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Motherboard Model         : " << sys.get_motherboard_model(); lp.push(ss.str());
+            ss << "Bios Date                  : " << sys.get_bios_date();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Motherboard Manufacturer  : " << sys.get_motherboard_manufacturer(); lp.push(ss.str());
+            ss << "Motherboard Model          : " << sys.get_motherboard_model();
+            lp.push(ss.str());
+        }
+        {
+            std::ostringstream ss;
+            ss << "Motherboard Manufacturer   : " << sys.get_motherboard_manufacturer();
+            lp.push(ss.str());
         }
     }
+
 
     // User Info
     {
@@ -605,21 +656,26 @@ int main() {
         lp.push("#-User Info --------------------------------------------------#");
         {
             std::ostringstream ss;
-            ss << "Username :             " << user.get_username(); lp.push(ss.str());
+            ss << "Username                   : " << user.get_username();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Computer Name :        " << user.get_computer_name(); lp.push(ss.str());
+            ss << "Computer Name              : " << user.get_computer_name();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Domain :               " << user.get_domain_name(); lp.push(ss.str());
+            ss << "Domain                     : " << user.get_domain_name();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Groups :               " << user.get_user_groups(); lp.push(ss.str());
+            ss << "Groups                     : " << user.get_user_groups();
+            lp.push(ss.str());
         }
     }
+
 
     // Performance Info
     {
@@ -627,25 +683,31 @@ int main() {
         lp.push("#-Performance Info -------------------------------------------#");
         {
             std::ostringstream ss;
-            ss << "System Uptime:     " << perf.get_system_uptime(); lp.push(ss.str());
+            ss << "System Uptime              : " << perf.get_system_uptime();
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "CPU Usage:         " << perf.get_cpu_usage_percent() << "%"; lp.push(ss.str());
+            ss << "CPU Usage                  : " << perf.get_cpu_usage_percent() << "%";
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "RAM Usage:         " << perf.get_ram_usage_percent() << "%"; lp.push(ss.str());
+            ss << "RAM Usage                  : " << perf.get_ram_usage_percent() << "%";
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Disk Usage:        " << perf.get_disk_usage_percent() << "%"; lp.push(ss.str());
+            ss << "Disk Usage                 : " << perf.get_disk_usage_percent() << "%";
+            lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "GPU Usage:         " << perf.get_gpu_usage_percent() << "%"; lp.push(ss.str());
+            ss << "GPU Usage                  : " << perf.get_gpu_usage_percent() << "%";
+            lp.push(ss.str());
         }
     }
+
 
     // ---------------- End of info lines ----------------
 
