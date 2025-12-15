@@ -352,44 +352,6 @@ int main() {
     }
 
 
-    // Audio & Power
-    {
-        cout << endl;
-        lp.push("#-Audio & Power Info -----------------------------------------#");
-
-        // Use full audio (ExtraInfo) - it prints directly
-        ExtraInfo audio;
-
-        // Redirect cout to a stringstream temporarily
-        std::ostringstream oss;
-        std::streambuf* oldCout = std::cout.rdbuf(oss.rdbuf());
-
-        audio.get_audio_devices(); // prints to oss
-
-        // Restore cout
-        std::cout.rdbuf(oldCout);
-
-        // Push captured lines to LivePrinter
-        std::istringstream iss(oss.str());
-        std::string line;
-        while (std::getline(iss, line)) {
-            lp.push(line);
-        }
-
-        // Power info (ExtraInfo already prints directly in your class)
-        std::ostringstream ossPower;
-        oldCout = std::cout.rdbuf(ossPower.rdbuf());
-
-        audio.get_power_status();
-
-        std::cout.rdbuf(oldCout);
-
-        std::istringstream issPower(ossPower.str());
-        while (std::getline(issPower, line)) {
-            lp.push(line);
-        }
-    }
-
 
 
     // OS Info
@@ -712,6 +674,45 @@ int main() {
             std::ostringstream ss;
             ss << "GPU Usage                  : " << perf.get_gpu_usage_percent() << "%";
             lp.push(ss.str());
+        }
+    }
+
+
+    // Audio & Power
+    {
+        cout << endl;
+        lp.push("#-Audio & Power Info -----------------------------------------#");
+
+        // Use full audio (ExtraInfo) - it prints directly
+        ExtraInfo audio;
+
+        // Redirect cout to a stringstream temporarily
+        std::ostringstream oss;
+        std::streambuf* oldCout = std::cout.rdbuf(oss.rdbuf());
+
+        audio.get_audio_devices(); // prints to oss
+
+        // Restore cout
+        std::cout.rdbuf(oldCout);
+
+        // Push captured lines to LivePrinter
+        std::istringstream iss(oss.str());
+        std::string line;
+        while (std::getline(iss, line)) {
+            lp.push(line);
+        }
+
+        // Power info (ExtraInfo already prints directly in your class)
+        std::ostringstream ossPower;
+        oldCout = std::cout.rdbuf(ossPower.rdbuf());
+
+        audio.get_power_status();
+
+        std::cout.rdbuf(oldCout);
+
+        std::istringstream issPower(ossPower.str());
+        while (std::getline(issPower, line)) {
+            lp.push(line);
         }
     }
 
