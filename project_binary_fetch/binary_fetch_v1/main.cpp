@@ -552,7 +552,7 @@ int main() {
                 }
                 {
                     std::ostringstream ss;
-                    ss << "#->Core Count              : " << g.gpu_core_count;
+                    ss << "#-> Core Count             : " << g.gpu_core_count;
                     lp.push(ss.str());
                 }
             }
