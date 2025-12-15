@@ -333,7 +333,7 @@ int main() {
     // Network (Compact + Extra)
     {
         cout << endl;
-        lp.push("#-Network Info------------------------------------------------#");
+        lp.push("#-Network Info----------------------------------------------------#");
         {
             std::ostringstream ss;
             ss << "Network Name               : " << net.get_network_name();
@@ -357,7 +357,7 @@ int main() {
     // OS Info
     {
         cout << endl;
-        lp.push("#-Operating System -------------------------------------------#");
+        lp.push("#-Operating System -----------------------------------------------#");
         {
             std::ostringstream ss;
             ss << "Name                       : " << os.GetOSName();
@@ -399,7 +399,7 @@ int main() {
     // CPU Info
     {
         cout << endl;
-        lp.push("#-CPU Info ---------------------------------------------------#");
+        lp.push("#-CPU Info -------------------------------------------------------#");
         {
             std::ostringstream ss;
             ss << "Brand                      : " << cpu.get_cpu_info();
@@ -463,11 +463,11 @@ int main() {
         cout << endl;
         auto all_gpu_info = obj_gpu.get_all_gpu_info();
         if (all_gpu_info.empty()) {
-            lp.push("#-GPU Info ---------------------------------------------------#");
+            lp.push("#-GPU Info -------------------------------------------------------#");
             lp.push("No GPU detected.");
         }
         else {
-            lp.push("#-GPU Info ---------------------------------------------------#");
+            lp.push("#-GPU Info -------------------------------------------------------#");
             for (size_t i = 0; i < all_gpu_info.size(); ++i) {
                 auto& g = all_gpu_info[i];
 
@@ -479,7 +479,7 @@ int main() {
                         label << "GPU " << (i + 1);
                     }
                     else {
-                        label << "#-" << "GPU " << (i + 1) << "-------------------------------------------------------#";
+                        label << "#-" << "GPU " << (i + 1) << "-----------------------------------------------------------#";
                     }
                     
                     std::string lbl = label.str();
@@ -529,7 +529,7 @@ int main() {
             auto primary = detailed_gpu_info.primary_gpu_info();
             {
                 std::ostringstream ss;
-                ss << "#-Primary GPU Details-----------------------------------------#";
+                ss << "#-Primary GPU Details---------------------------------------------#";
                 lp.push(ss.str());
             }
             {
@@ -554,7 +554,7 @@ int main() {
     // Display Info
     {
         cout << endl;
-        //lp.push("#-Display-----------------------------------------------------#");
+        //lp.push("#-Display---------------------------------------------------------#");
         auto monitors = display.get_all_displays();
         if (monitors.empty()) {
             lp.push("No monitors detected.");
@@ -564,7 +564,7 @@ int main() {
                 auto& m = monitors[i];
                 {
                     std::ostringstream ss;
-                    ss << "#-Monitor " << (i + 1) << "---------------------------------------------------#";
+                    ss << "#-Monitor " << (i + 1) << "-------------------------------------------------------#";
                     lp.push(ss.str());
                 }
                 {
@@ -590,7 +590,7 @@ int main() {
     // BIOS & Motherboard Info
     {
         cout << endl;
-        lp.push("#-BIOS & Motherboard Info ------------------------------------#");
+        lp.push("#-BIOS & Motherboard Info ----------------------------------------#");
         {
             std::ostringstream ss;
             ss << "Bios Vendor                : " << sys.get_bios_vendor();
@@ -622,7 +622,7 @@ int main() {
     // User Info
     {
         cout << endl;
-        lp.push("#-User Info --------------------------------------------------#");
+        lp.push("#-User Info ------------------------------------------------------#");
         {
             std::ostringstream ss;
             ss << "Username                   : " << user.get_username();
@@ -649,7 +649,7 @@ int main() {
     // Performance Info
     {
         cout << endl;
-        lp.push("#-Performance Info -------------------------------------------#");
+        lp.push("#-Performance Info -----------------------------------------------#");
         {
             std::ostringstream ss;
             ss << "System Uptime              : " << perf.get_system_uptime();
@@ -681,7 +681,7 @@ int main() {
     // Audio & Power
     {
         cout << endl;
-        lp.push("#-Audio & Power Info -----------------------------------------#");
+        lp.push("#-Audio & Power Info ---------------------------------------------#");
 
         // Use full audio (ExtraInfo) - it prints directly
         ExtraInfo audio;
