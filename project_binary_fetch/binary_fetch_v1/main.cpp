@@ -696,7 +696,6 @@ int main() {
     // Audio & Power
     {
         cout << endl;
-        lp.push("#-Audio & Power Info ----------------------------------------------#");
 
         // Use full audio (ExtraInfo) - it prints directly
         ExtraInfo audio;
@@ -706,9 +705,11 @@ int main() {
         std::streambuf* oldCout = std::cout.rdbuf(oss.rdbuf());
 
         audio.get_audio_devices(); // prints to oss
+        lp.push("#-Audio & Power Info ----------------------------------------------#");
 
         // Restore cout
         std::cout.rdbuf(oldCout);
+        lp.push("#-Audio & Power Info ----------------------------------------------#");
 
         // Push captured lines to LivePrinter
         std::istringstream iss(oss.str());
@@ -716,6 +717,8 @@ int main() {
         while (std::getline(iss, line)) {
             lp.push(line);
         }
+        lp.push("#-Audio & Power Info ----------------------------------------------#");
+
 
         // Power info (ExtraInfo already prints directly in your class)
         std::ostringstream ossPower;
