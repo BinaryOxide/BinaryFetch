@@ -715,7 +715,7 @@ int main() {
 
         // Get and display INPUT devices
         vector<AudioDevice> inputDevices = audio.get_input_devices();
-        lp.push("#-Audio Input ------------------------------------------------------#");
+        lp.push("#-Audio Input ----------------------------------------------------#");
         for (const auto& device : inputDevices) {
             ostringstream oss;
             oss << "  " << device.name;
@@ -730,7 +730,7 @@ int main() {
         // Get and display POWER status
         PowerStatus power = audio.get_power_status();
         ostringstream ossPower;
-        lp.push("#-Power Status ------------------------------------------------------#");
+        lp.push("#-Power Status ---------------------------------------------------#");
 
         if (!power.hasBattery) {
             ossPower << "[Wired connection]";
