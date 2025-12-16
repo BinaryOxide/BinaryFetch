@@ -654,9 +654,9 @@ int main() {
             lp.push(ss.str());
         }
         {
-            std::ostringstream ss;
-            ss << "Groups                     : " << user.get_user_groups();
-            lp.push(ss.str());
+           //std::ostringstream ss;
+           // ss << "Groups                     : " << user.get_user_groups();
+           // lp.push(ss.str());
         }
     }
 
