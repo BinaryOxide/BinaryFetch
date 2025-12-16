@@ -702,7 +702,7 @@ int main() {
 
         // Get and display OUTPUT devices
         vector<AudioDevice> outputDevices = audio.get_output_devices();
-        lp.push("Output Devices:");
+        lp.push("#-Audio & Power Info ----------------------------------------------#");
         for (const auto& device : outputDevices) {
             ostringstream oss;
             oss << "  " << device.name;
@@ -715,7 +715,7 @@ int main() {
 
         // Get and display INPUT devices
         vector<AudioDevice> inputDevices = audio.get_input_devices();
-        lp.push("Input Devices:");
+        lp.push("#-Audio & Power Info ----------------------------------------------#");
         for (const auto& device : inputDevices) {
             ostringstream oss;
             oss << "  " << device.name;
