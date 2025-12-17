@@ -380,37 +380,37 @@ int main() {
         lp.push("#-Operating System ------------------------------------------------#");
         {
             std::ostringstream ss;
-            ss << "Name                       : " << os.GetOSName();
+            ss << "~ Name                     : " << os.GetOSName();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Version                    : " << os.GetOSVersion();
+            ss << "~ Version                  : " << os.GetOSVersion();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Architecture               : " << os.GetOSArchitecture();
+            ss << "~ Architecture             : " << os.GetOSArchitecture();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Kernel                     : " << os.get_os_kernel_info();
+            ss << "~ Kernel                   : " << os.get_os_kernel_info();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Uptime                     : " << os.get_os_uptime();
+            ss << "~ Uptime                   : " << os.get_os_uptime();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Install Date               : " << os.get_os_install_date();
+            ss << "~ Install Date             : " << os.get_os_install_date();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "Serial                     : " << os.get_os_serial_number();
+            ss << "~ Serial                   : " << os.get_os_serial_number();
             lp.push(ss.str());
         }
     }
