@@ -213,4 +213,102 @@ main.cpp
 
 ---
 
+Alright, let’s break down the **role of `AsciiArtControlEngine.cpp`** in your project, fully detailed for developers. This will clarify what it does, what it **should** do, and how it interacts with `main.cpp` and the files.
+
+---
+
+## Role of `AsciiArtControlEngine.cpp`
+
+The `AsciiArtControlEngine.cpp` is the **dedicated ASCII Art Generator Engine**. Its responsibility is to **ensure that valid ASCII art exists** for BinaryFetch without main needing to handle file creation or default content.
+
+It **does not render** the ASCII art—that’s `LivePrinter`’s job. The engine is purely for **file management, generation, and content provisioning**.
+
+---
+
+### 1. Responsibilities
+
+1. **Load ASCII art file**
+
+   * Checks for the existence of `AsciiArt.txt` in the target folder (e.g., `C:\Users\<USERNAME>\AppData\BinaryFetch\`).
+   * Reads the file line by line and stores it internally for the main program to use.
+
+2. **Report missing file**
+
+   * If the file does not exist or cannot be opened, the engine **informs main.cpp** that ASCII art is unavailable.
+   * It does **not generate the default art automatically**—main triggers generation explicitly.
+
+3. **Generate ASCII art file**
+
+   * On instruction from main.cpp, the engine:
+
+     1. Creates `AsciiArt.txt` in the target folder if it does not exist.
+     2. Copies the content from the **bundled `Default_Ascii_Art.txt`** into the new file.
+   * Ensures that the newly created file is **fully renderable**, **properly aligned**, and **terminal-safe**.
+
+4. **Reload ASCII art**
+
+   * After generation, the engine can reload the file to confirm successful creation.
+   * Provides the loaded lines back to main.cpp or `LivePrinter` for rendering.
+
+5. **Sanitization and validation**
+
+   * Trims invisible characters (BOM, zero-width spaces) for safe rendering.
+   * Precomputes line widths for correct alignment alongside system info.
+
+---
+
+### 2. Interaction with `main.cpp`
+
+1. `main` requests ASCII art load → engine tries to open `AsciiArt.txt`.
+2. Engine reports **success or missing file**.
+3. If missing → main instructs the engine to **generate** the file from `Default_Ascii_Art.txt`.
+4. Engine creates the file, copies default content, and reloads it.
+5. Engine reports success → main proceeds to render the art with system info.
+
+---
+
+### 3. Execution Flow (Engine Perspective)
+
+```text
+ASCII Engine
+   |
+   |-- Attempt to open AsciiArt.txt
+        |
+        |-- Exists? --- yes --> load lines & compute widths
+        |                   no
+        |
+        |-- report missing to main.cpp
+        |
+        |-- wait for main command to generate file
+        |
+        |-- create AsciiArt.txt
+        |-- copy content from Default_Ascii_Art.txt
+        |-- reload & validate
+        |
+        |-- report success to main.cpp
+```
+
+---
+
+### 4. Design Constraints
+
+* Must **not** render art to console.
+* Must **not** access system information.
+* Must **not** apply colors or formatting.
+* Only manages **ASCII file existence, content, and loading**.
+* Must produce **safe, terminal-renderable output**.
+* Can be reused for future **themes or presets** without modifying main.cpp.
+
+---
+
+### 5. Summary
+
+`AsciiArtControlEngine.cpp` is the **file manager and generator** for ASCII art. It ensures:
+
+* ASCII art **always exists**.
+* Default art is **bundled in source code** and used when needed.
+* Main can safely render ASCII art without worrying about missing files or alignment.
+
+---
+
 
