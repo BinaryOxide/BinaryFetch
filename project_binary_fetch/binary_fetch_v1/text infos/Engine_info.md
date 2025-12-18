@@ -150,9 +150,67 @@ AsciiGeneratorStatus ensureUserAsciiExists(
 4. **Permission denied:** engine returns `PermissionDenied`; `main` logs and skips creation.
 5. **Concurrent runs:** temp files should be isolated; rename failures handled gracefully.
 
+
+Perfect! Let’s update the documentation for the **role of `main`** specifically, incorporating your clarification. This will make it crystal clear for developers.
+
 ---
 
-This structure clearly documents the **request/response workflow** between `main` and the ASCII engine and gives developers a complete blueprint for **first-run ASCII asset creation**.
+## Role of `main.cpp` in ASCII Art Workflow
+
+The `main` function acts as the **coordinator** for ASCII art handling. It does **not** generate ASCII content itself but **delegates all file creation and loading tasks to the ASCII Art Generator Engine**. Its responsibilities include:
 
 ---
+
+### 1. Request ASCII art from the engine
+
+* `main` calls the ASCII engine (`AsciiArtControlEngine`) to **load the user ASCII art file**.
+* Engine attempts to open `AsciiArt.txt` in the designated user folder.
+* Engine returns **success** if the file exists and is readable.
+
+---
+
+### 2. Handle missing file
+
+* If the engine reports that the file is missing:
+
+  1. `main` instructs the engine to **generate `AsciiArt.txt`**.
+  2. The engine creates the file in the proper folder.
+  3. The engine copies content from the **bundled `Default_Ascii_Art.txt`** into the newly created user file.
+
+---
+
+### 3. Retry loading
+
+* After generation, `main` requests the engine to **load the ASCII art again**.
+* On success → normal rendering begins.
+* On failure → fallback logic (optional, e.g., console warning or in-memory default).
+
+---
+
+### 4. Workflow diagram (main’s perspective)
+
+```text
+main.cpp
+  |
+  |-- request ASCII Art -> ASCII Engine
+        |
+        |-- file exists? --- yes --> continue normal execution
+        |                   no
+        |
+        |-- instruct engine to generate -> engine creates AsciiArt.txt from Default_Ascii_Art.txt
+        |
+        |-- retry load ASCII Art -> success? ---> continue normal execution
+```
+
+---
+
+### 5. Key Responsibilities
+
+1. **Coordinator**: Detects missing user files and instructs engine to create them.
+2. **Delegate**: Leaves all file creation and default content management to the engine.
+3. **Fallback handling**: Decides what to do if engine cannot generate/load the art.
+4. **Maintains first-run stability**: Ensures BinaryFetch always has valid ASCII content to render.
+
+---
+
 
