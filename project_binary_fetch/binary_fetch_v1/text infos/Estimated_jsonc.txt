@@ -1,0 +1,301 @@
+{
+    // ---------------- General BinaryFetch Header ----------------
+    "BinaryFetchHeader": {
+        "enabled": true,
+        "text": "~>> BinaryFetch_____________________________________________________",
+        "colors": {
+            "~": "#00FF00",
+            ">": "#FF00FF",
+            "BinaryFetch": "#FFFF00",
+            "_": "#FFFFFF"
+        }
+    },
+
+    // ---------------- Compact Mode Modules ----------------
+    "CompactModules": {
+        "OS": {
+            "enabled": true,
+            "label": "[OS]",
+            "colors": {
+                "[": "#00FFFF",
+                "]": "#00FFFF",
+                "->": "#FF00FF",
+                ":": "#FFFFFF",
+                "~": "#FFFFFF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "CPU": {
+            "enabled": true,
+            "label": "[CPU]",
+            "colors": {
+                "[": "#00FFFF",
+                "]": "#00FFFF",
+                "->": "#FF00FF",
+                ":": "#FFFFFF",
+                "~": "#FFFFFF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "Memory": {
+            "enabled": true,
+            "label": "[Memory]",
+            "colors": {
+                "[": "#00FFFF",
+                "]": "#00FFFF",
+                "->": "#FF00FF",
+                ":": "#FFFFFF",
+                "~": "#FFFFFF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "GPU": {
+            "enabled": true,
+            "label": "[GPU]",
+            "colors": {
+                "[": "#00FFFF",
+                "]": "#00FFFF",
+                "->": "#FF00FF",
+                ":": "#FFFFFF",
+                "~": "#FFFFFF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "Display": {
+            "enabled": true,
+            "label": "[Display]",
+            "colors": {
+                "[": "#00FFFF",
+                "]": "#00FFFF",
+                "->": "#FF00FF",
+                ":": "#FFFFFF",
+                "~": "#FFFFFF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "AudioInput": {
+            "enabled": true,
+            "label": "[Audio Input]",
+            "colors": {
+                "[": "#00FFFF",
+                "]": "#00FFFF",
+                "->": "#FF00FF",
+                ":": "#FFFFFF",
+                "~": "#FFFFFF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "AudioOutput": {
+            "enabled": true,
+            "label": "[Audio Output]",
+            "colors": {
+                "[": "#00FFFF",
+                "]": "#00FFFF",
+                "->": "#FF00FF",
+                ":": "#FFFFFF",
+                "~": "#FFFFFF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "User": {
+            "enabled": true,
+            "label": "[User]",
+            "colors": {
+                "[": "#00FFFF",
+                "]": "#00FFFF",
+                "->": "#FF00FF",
+                ":": "#FFFFFF",
+                "~": "#FFFFFF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "Network": {
+            "enabled": true,
+            "label": "[Network]",
+            "colors": {
+                "[": "#00FFFF",
+                "]": "#00FFFF",
+                "->": "#FF00FF",
+                ":": "#FFFFFF",
+                "~": "#FFFFFF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "Disk": {
+            "enabled": true,
+            "label": "[Disk]",
+            "colors": {
+                "[": "#00FFFF",
+                "]": "#00FFFF",
+                "->": "#FF00FF",
+                ":": "#FFFFFF",
+                "(": "#FFAA00",
+                ")": "#FFAA00",
+                "%": "#FF0000",
+                "~": "#FFFFFF",
+                "text": "#FFFF00"
+            }
+        }
+    },
+
+    // ---------------- Full/Detailed Modules ----------------
+    "DetailedModules": {
+        "MemoryInfo": {
+            "enabled": true,
+            "header": "---------------Memory Info--------------",
+            "colors": {
+                "-": "#AAAAAA",
+                "~": "#FFFFFF",
+                ":": "#FF00FF",
+                "text": "#FFFF00",
+                "(": "#FFAA00",
+                ")": "#FFAA00",
+                "%": "#FF0000"
+            }
+        },
+        "StorageInfo": {
+            "enabled": true,
+            "header": "------------------------- STORAGE SUMMARY --------------------------",
+            "colors": {
+                "-": "#AAAAAA",
+                "~": "#FFFFFF",
+                ":": "#FF00FF",
+                "text": "#FFFF00",
+                "(": "#FFAA00",
+                ")": "#FFAA00",
+                "%": "#FF0000"
+            }
+        },
+        "PerformanceInfo": {
+            "enabled": true,
+            "header": "#-Performance Info ------------------------------------------------#",
+            "colors": {
+                "-": "#AAAAAA",
+                "~": "#FFFFFF",
+                ":": "#FF00FF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "NetworkInfo": {
+            "enabled": true,
+            "header": "#-Network Info-----------------------------------------------------#",
+            "colors": {
+                "-": "#AAAAAA",
+                "~": "#FFFFFF",
+                ":": "#FF00FF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "OSInfo": {
+            "enabled": true,
+            "header": "#-Operating System ------------------------------------------------#",
+            "colors": {
+                "-": "#AAAAAA",
+                "~": "#FFFFFF",
+                ":": "#FF00FF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "CPUInfo": {
+            "enabled": true,
+            "header": "#-CPU Info --------------------------------------------------------#",
+            "colors": {
+                "-": "#AAAAAA",
+                "~": "#FFFFFF",
+                ":": "#FF00FF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "GPUInfo": {
+            "enabled": true,
+            "header": "#-GPU Info --------------------------------------------------------#",
+            "colors": {
+                "-": "#AAAAAA",
+                "~": "#FFFFFF",
+                ":": "#FF00FF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "DisplayInfo": {
+            "enabled": true,
+            "header": "#-Display----------------------------------------------------------#",
+            "colors": {
+                "-": "#AAAAAA",
+                "~": "#FFFFFF",
+                ":": "#FF00FF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "UserInfo": {
+            "enabled": true,
+            "header": "#-User Info -------------------------------------------------------#",
+            "colors": {
+                "-": "#AAAAAA",
+                "~": "#FFFFFF",
+                ":": "#FF00FF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "BIOS_Motherboard": {
+            "enabled": true,
+            "header": "#-BIOS & Motherboard Info -----------------------------------------#",
+            "colors": {
+                "-": "#AAAAAA",
+                "~": "#FFFFFF",
+                ":": "#FF00FF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "AudioInfo": {
+            "enabled": true,
+            "header": "#-Audio Output ----------------------------------------------------#",
+            "colors": {
+                "-": "#AAAAAA",
+                "~": "#FFFFFF",
+                ":": "#FF00FF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        },
+        "PowerInfo": {
+            "enabled": true,
+            "header": "#-Power Status ---------------------------------------------------#",
+            "colors": {
+                "-": "#AAAAAA",
+                "~": "#FFFFFF",
+                ":": "#FF00FF",
+                "%": "#FF0000",
+                "text": "#FFFF00"
+            }
+        }
+    },
+
+    // ---------------- Symbols Customization ----------------
+    "Symbols": {
+        "->": "#FF00FF",
+        "~": "#FFFFFF",
+        "[": "#00FFFF",
+        "]": "#00FFFF",
+        ":": "#FF00FF",
+        "(": "#FFAA00",
+        ")": "#FFAA00",
+        "%": "#FF0000"
+    }
+}
