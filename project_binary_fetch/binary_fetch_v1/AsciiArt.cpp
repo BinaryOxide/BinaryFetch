@@ -176,36 +176,36 @@ bool AsciiArt::copyDefaultArt(const std::string& destPath) const {
     std::ifstream src;
     std::string foundPath;
 
-    std::cout << "Searching for default ASCII art file..." << std::endl;
+    //std::cout << "Searching for default ASCII art file..." << std::endl;
     for (const auto& path : searchPaths) {
-        std::cout << "  Trying: " << path << "... ";
+      //  std::cout << "  Trying: " << path << "... ";
         src.open(path, std::ios::binary);
         if (src.is_open()) {
             foundPath = path;
-            std::cout << "FOUND!" << std::endl;
+           // std::cout << "FOUND!" << std::endl;
             break;
         }
-        std::cout << "not found" << std::endl;
+       // std::cout << "not found" << std::endl;
     }
 
     if (!src.is_open()) {
-        std::cerr << "\nError: Could not find Default_Ascii_Art.txt in any location." << std::endl;
-        std::cerr << "Please ensure Default_Ascii_Art.txt is in the same folder as the executable." << std::endl;
+       // std::cerr << "\nError: Could not find Default_Ascii_Art.txt in any location." << std::endl;
+        //std::cerr << "Please ensure Default_Ascii_Art.txt is in the same folder as the executable." << std::endl;
         return false;
     }
 
-    std::cout << "Using default art from: " << foundPath << std::endl;
+   // std::cout << "Using default art from: " << foundPath << std::endl;
 
     // Ensure destination directory exists
     if (!ensureDirectoryExists(destPath)) {
-        std::cerr << "Warning: Could not create directory for " << destPath << std::endl;
+        //std::cerr << "Warning: Could not create directory for " << destPath << std::endl;
         return false;
     }
 
     // Open destination file
     std::ofstream dest(destPath, std::ios::binary);
     if (!dest.is_open()) {
-        std::cerr << "Warning: Could not create " << destPath << std::endl;
+        //std::cerr << "Warning: Could not create " << destPath << std::endl;
         return false;
     }
 
@@ -215,7 +215,7 @@ bool AsciiArt::copyDefaultArt(const std::string& destPath) const {
     src.close();
     dest.close();
 
-    std::cout << "Created ASCII art file at: " << destPath << std::endl;
+   // std::cout << "Created ASCII art file at: " << destPath << std::endl;
     return true;
 }
 
@@ -269,11 +269,11 @@ bool AsciiArt::loadFromFile() {
 
     if (!fileExists) {
         // File doesn't exist - copy from default
-        std::cout << "ASCII art not found at: " << userArtPath << std::endl;
-        std::cout << "Copying from Default_Ascii_Art.txt..." << std::endl;
+        //std::cout << "ASCII art not found at: " << userArtPath << std::endl;
+       // std::cout << "Copying from Default_Ascii_Art.txt..." << std::endl;
 
         if (!copyDefaultArt(userArtPath)) {
-            std::cerr << "Failed to copy default art. Using fallback." << std::endl;
+           // std::cerr << "Failed to copy default art. Using fallback." << std::endl;
             // Try to load from project folder as last resort
             return loadArtFromPath("Default_Ascii_Art.txt");
         }
@@ -283,10 +283,10 @@ bool AsciiArt::loadFromFile() {
     bool success = loadArtFromPath(userArtPath);
 
     if (success) {
-        std::cout << "ASCII art loaded from: " << userArtPath << std::endl;
+       // std::cout << "ASCII art loaded from: " << userArtPath << std::endl;
     }
     else {
-        std::cerr << "Failed to load ASCII art from: " << userArtPath << std::endl;
+       // std::cerr << "Failed to load ASCII art from: " << userArtPath << std::endl;
     }
 
     return success;
