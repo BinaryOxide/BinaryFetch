@@ -615,17 +615,17 @@ int main() {
             }
             {
                 std::ostringstream ss;
-                ss << "|-> " << "Name                   : " << primary.name;
+                ss << "|-> " << "Name                   " << ": " << primary.name;
                 lp.push(ss.str());
             }
             {
                 std::ostringstream ss;
-                ss << "|-> " << "VRAM                   : " << primary.vram_gb << " GiB";
+                ss << "|-> " << "VRAM                   " << ": " << primary.vram_gb << " GiB";
                 lp.push(ss.str());
             }
             {
                 std::ostringstream ss;
-                ss << "#-> " << "Frequency              : " << primary.frequency_ghz << " GHz";
+                ss << "#-> " << "Frequency              " << ": " << primary.frequency_ghz << " GHz";
                 lp.push(ss.str());
             }
         }
