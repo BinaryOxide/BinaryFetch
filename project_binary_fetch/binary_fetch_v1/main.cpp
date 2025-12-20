@@ -713,22 +713,22 @@ int main() {
 
         {
             std::ostringstream ss;
-            ss << "~ "<<" Username                 : " << user.get_username();
+            ss << "~ "<<" Username                 " << ": " << user.get_username();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Computer Name            : " << user.get_computer_name();
+            ss << "~ " << "Computer Name            " << ": " << user.get_computer_name();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Domain                   : " << user.get_domain_name();
+            ss << "~ " << "Domain                   " << ": " << user.get_domain_name();
             lp.push(ss.str());
         }
         {
            //std::ostringstream ss;
-           // ss << "Groups                     : " << user.get_user_groups();
+           // ss << "Groups                     "<<": " << user.get_user_groups();
            // lp.push(ss.str());
         }
     }
@@ -745,27 +745,27 @@ int main() {
 
         {
             std::ostringstream ss;
-            ss << "~ " << "System Uptime            : " << perf.get_system_uptime();
+            ss << "~ " << "System Uptime            " << ": " << perf.get_system_uptime();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "CPU Usage                : " << perf.get_cpu_usage_percent() << "%";
+            ss << "~ " << "CPU Usage                " << ": " << perf.get_cpu_usage_percent() << "%";
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "RAM Usage                : " << perf.get_ram_usage_percent() << "%";
+            ss << "~ " << "RAM Usage                " << ": " << perf.get_ram_usage_percent() << "%";
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Disk Usage               : " << perf.get_disk_usage_percent() << "%";
+            ss << "~ " << "Disk Usage               " << ": " << perf.get_disk_usage_percent() << "%";
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "GPU Usage                : " << perf.get_gpu_usage_percent() << "%";
+            ss << "~ " << "GPU Usage                " << ": " << perf.get_gpu_usage_percent() << "%";
             lp.push(ss.str());
         }
     }
