@@ -90,6 +90,13 @@ int main() {
     lp.push(""); // keep art line 
     lp.push("~>> BinaryFetch_____________________________________________________");
 
+    //BinaryFetch Header-----------------------------------------------#
+    {
+        std::ostringstream ss;
+        ss << "~>> " << "BinaryFetch" << "_____________________________________________________";
+        lp.push(ss.str());
+    }
+
     // Minimal OS
     {
         std::ostringstream ss;
