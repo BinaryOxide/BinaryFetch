@@ -378,7 +378,7 @@ int main() {
     {
         
         std::ostringstream ss;
-        ss << "#- " << "Network Info" << "-----------------------------------------------------#";
+        ss << "#- " << "Network Info" << "----------------------------------------------------#";
         lp.push(ss.str());
 
         {
@@ -425,7 +425,7 @@ int main() {
     {
         cout << endl;
         std::ostringstream ss;
-        ss << "#- " << "Operating System " << "------------------------------------------------#";
+        ss << "#- " << "Operating System " << "-----------------------------------------------#";
         lp.push(ss.str());
 
         {
@@ -470,7 +470,7 @@ int main() {
     {
         cout << endl;
         std::ostringstream ss;
-        ss << "#- " << "CPU Info " << "--------------------------------------------------------#";
+        ss << "#- " << "CPU Info " << "-------------------------------------------------------#";
         lp.push(ss.str());
 
         {
@@ -609,7 +609,7 @@ int main() {
             {
                 
                 std::ostringstream ss;
-                ss << "#- " << "Primary GPU Details" << "----------------------------------------------#";
+                ss << "#- " << "Primary GPU Details" << "---------------------------------------------#";
                 lp.push(ss.str());
                 
             }
@@ -672,7 +672,7 @@ int main() {
     {
         cout << endl;
         std::ostringstream ss;
-        ss << "#- " << "BIOS & Motherboard Info " << "-----------------------------------------#";
+        ss << "#- " << "BIOS & Motherboard Info " << "----------------------------------------#";
         lp.push(ss.str());
 
         {
@@ -708,7 +708,7 @@ int main() {
         cout << endl;
 
         std::ostringstream ss;
-        ss << "#- " << "User Info " << "-------------------------------------------------------#";
+        ss << "#- " << "User Info " << "------------------------------------------------------#";
         lp.push(ss.str());
 
         {
@@ -739,7 +739,7 @@ int main() {
         cout << endl;
 
         std::ostringstream ss;
-        ss << "#- " << "Performance Info " << "------------------------------------------------#";
+        ss << "#- " << "Performance Info " << "-----------------------------------------------#";
         lp.push(ss.str());
 
 
@@ -782,7 +782,7 @@ int main() {
         vector<AudioDevice> outputDevices = audio.get_output_devices();
         
         std::ostringstream ss;
-        ss << "#- " << "Audio Output " << "----------------------------------------------------#";
+        ss << "#- " << "Audio Output " << "---------------------------------------------------#";
         lp.push(ss.str());
 
         int audio_output_device_count = 0;
@@ -799,7 +799,7 @@ int main() {
 
         // Get and display INPUT devices
         vector<AudioDevice> inputDevices = audio.get_input_devices();
-        lp.push("#-Audio Input ----------------------------------------------------#");
+        lp.push("#-Audio Input ---------------------------------------------------#");
         int audio_input_device_count = 0;
         for (const auto& device : inputDevices) {
             audio_input_device_count++;
@@ -818,7 +818,7 @@ int main() {
         ostringstream ossPower;
         {
             std::ostringstream ss;
-            ss << "#- " << "Audio Input " << "----------------------------------------------------#";
+            ss << "#- " << "Audio Input " << "---------------------------------------------------#";
             lp.push(ss.str());
         }
 
