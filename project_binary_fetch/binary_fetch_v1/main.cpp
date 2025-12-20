@@ -240,9 +240,13 @@ int main() {
     {
         lp.push(""); // blank line
         {
-            std::ostringstream ss;
-            ss << "---------------" << "Memory Info" << "--------------";
-            lp.push(ss.str());
+            {
+                std::ostringstream ss;
+                ss << "---------------" << "Memory Info" << "--------------";
+                lp.push(ss.str());
+
+            }
+            
 
 
             std::ostringstream ss;
@@ -275,10 +279,12 @@ int main() {
     // Storage Info (detailed) - STREAMING VERSION
     {
         lp.push("");
-
-        std::ostringstream ss;
-        ss << "------------------------- " << "STORAGE SUMMARY" << " --------------------------";
-        lp.push(ss.str());
+        {
+            std::ostringstream ss;
+            ss << "------------------------- " << "STORAGE SUMMARY" << " --------------------------";
+            lp.push(ss.str());
+        }
+        
 
         auto fmt_storage = [](const std::string& s) -> std::string {
             std::ostringstream oss;
@@ -325,7 +331,13 @@ int main() {
         // Now print performance sections using captured data
         if (!all_disks_captured.empty()) {
             lp.push("");
-            lp.push("-------------------- DISK PERFORMANCE & DETAILS --------------------");
+
+            {
+                std::ostringstream ss;
+                ss << "-------------------- " << "DISK PERFORMANCE & DETAILS" << " --------------------";
+                lp.push(ss.str());
+            }
+            
 
             for (const auto& d : all_disks_captured) {
                 std::ostringstream ss;
@@ -339,7 +351,12 @@ int main() {
             }
 
             lp.push("");
-            lp.push("---------------- DISK PERFORMANCE & DETAILS (Predicted) ------------");
+            {
+                std::ostringstream ss;
+                ss << "---------------- " << "DISK PERFORMANCE & DETAILS (Predicted)" << " ------------";
+                lp.push(ss.str());
+            }
+            
 
             for (const auto& d : all_disks_captured) {
                 std::ostringstream ss;
@@ -360,7 +377,10 @@ int main() {
     // Network (Compact + Extra)
     {
         
-        lp.push("#-Network Info-----------------------------------------------------#");
+        std::ostringstream ss;
+        ss << "#- " << "Network Info" << "-----------------------------------------------------#";
+        lp.push(ss.str());
+
         {
             std::ostringstream ss;
             ss << "~ Network Name             : " << net.get_network_name();
@@ -404,7 +424,10 @@ int main() {
     // OS Info
     {
         cout << endl;
-        lp.push("#-Operating System ------------------------------------------------#");
+        std::ostringstream ss;
+        ss << "#- " << "Operating System " << "------------------------------------------------#";
+        lp.push(ss.str());
+
         {
             std::ostringstream ss;
             ss << "~ Name                     : " << os.GetOSName();
@@ -446,7 +469,10 @@ int main() {
     // CPU Info
     {
         cout << endl;
-        lp.push("#-CPU Info --------------------------------------------------------#");
+        std::ostringstream ss;
+        ss << "#- " << "CPU Info " << "--------------------------------------------------------#";
+        lp.push(ss.str());
+
         {
             std::ostringstream ss;
             ss << "~ Brand                    : " << cpu.get_cpu_info();
@@ -510,11 +536,17 @@ int main() {
         cout << endl;
         auto all_gpu_info = obj_gpu.get_all_gpu_info();
         if (all_gpu_info.empty()) {
-            lp.push("#-GPU Info --------------------------------------------------------#");
+
+            std::ostringstream ss;
+            ss << "#- " << "GPU Info " << "--------------------------------------------------------#";
+            lp.push(ss.str());
+
             lp.push("No GPU detected.");
         }
         else {
-            lp.push("#-GPU Info --------------------------------------------------------#");
+            std::ostringstream ss;
+            ss << "#- " << "GPU Info " << "--------------------------------------------------------#";
+            lp.push(ss.str());
             for (size_t i = 0; i < all_gpu_info.size(); ++i) {
                 auto& g = all_gpu_info[i];
 
@@ -575,9 +607,11 @@ int main() {
 
             auto primary = detailed_gpu_info.primary_gpu_info();
             {
+                
                 std::ostringstream ss;
-                ss << "#-Primary GPU Details----------------------------------------------#";
+                ss << "#- " << "Primary GPU Details" << "----------------------------------------------#";
                 lp.push(ss.str());
+                
             }
             {
                 std::ostringstream ss;
@@ -637,7 +671,10 @@ int main() {
     // BIOS & Motherboard Info
     {
         cout << endl;
-        lp.push("#-BIOS & Motherboard Info -----------------------------------------#");
+        std::ostringstream ss;
+        ss << "#- " << "BIOS & Motherboard Info " << "-----------------------------------------#";
+        lp.push(ss.str());
+
         {
             std::ostringstream ss;
             ss << "Bios Vendor              : " << sys.get_bios_vendor();
@@ -669,7 +706,11 @@ int main() {
     // User Info
     {
         cout << endl;
-        lp.push("#-User Info -------------------------------------------------------#");
+
+        std::ostringstream ss;
+        ss << "#- " << "User Info " << "-------------------------------------------------------#";
+        lp.push(ss.str());
+
         {
             std::ostringstream ss;
             ss << "~ Username                 : " << user.get_username();
@@ -696,7 +737,12 @@ int main() {
     // Performance Info
     {
         cout << endl;
-        lp.push("#-Performance Info ------------------------------------------------#");
+
+        std::ostringstream ss;
+        ss << "#- " << "Performance Info " << "------------------------------------------------#";
+        lp.push(ss.str());
+
+
         {
             std::ostringstream ss;
             ss << "~ System Uptime            : " << perf.get_system_uptime();
@@ -734,7 +780,11 @@ int main() {
 
         // Get and display OUTPUT devices
         vector<AudioDevice> outputDevices = audio.get_output_devices();
-        lp.push("#-Audio Output ----------------------------------------------------#");
+        
+        std::ostringstream ss;
+        ss << "#- " << "Audio Output " << "----------------------------------------------------#";
+        lp.push(ss.str());
+
         int audio_output_device_count = 0;
         for (const auto& device : outputDevices) {
             audio_output_device_count++;
@@ -766,7 +816,12 @@ int main() {
         // Get and display POWER status
         PowerStatus power = audio.get_power_status();
         ostringstream ossPower;
-        lp.push("#-Power Status ---------------------------------------------------#");
+        {
+            std::ostringstream ss;
+            ss << "#- " << "Audio Input " << "----------------------------------------------------#";
+            lp.push(ss.str());
+        }
+
 
         if (!power.hasBattery) {
             ossPower << "[Wired connection]";
