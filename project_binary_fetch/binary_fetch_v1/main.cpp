@@ -202,8 +202,8 @@ int main() {
     {
         std::ostringstream ss;
         ss << "[User] -> @" << c_user.getUsername()
-            << " -> (Domain: " << c_user.getDomain() << ")"
-            << " -> (Type: " << c_user.isAdmin() << ")";
+            << " -> "<<"(Domain: " << c_user.getDomain() << ")"
+            << " -> " << "(Type: " << c_user.isAdmin() << ")";
         lp.push(ss.str());
     }
 
@@ -211,8 +211,8 @@ int main() {
     {
         std::ostringstream ss;
         ss << "[network] -> " << "(Name: " << c_net.get_network_name()
-            << ") (Type: " << c_net.get_network_type()
-            << ") (ip: " << c_net.get_network_ip() << ") ";
+            << ")" << " (Type: " << c_net.get_network_type()
+            << ")" << " (ip: " << c_net.get_network_ip() << ") ";
         lp.push(ss.str());
     }
 
@@ -383,37 +383,37 @@ int main() {
 
         {
             std::ostringstream ss;
-            ss << "~ Network Name             : " << net.get_network_name();
+            ss << "~ " << "Network Name             : " << net.get_network_name();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Network Type             : " << c_net.get_network_type();
+            ss << "~ " << "Network Type             : " << c_net.get_network_type();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ IP                       : " << net.get_public_ip();
+            ss << "~ " << "IP                       : " << net.get_public_ip();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Locale                   : " << net.get_locale();
+            ss << "~ " << "Locale                   : " << net.get_locale();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Mac address              : " << net.get_mac_address();
+            ss << "~ " << "Mac address              : " << net.get_mac_address();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ avg upload speed         : " << net.get_network_upload_speed();
+            ss << "~ " << "avg upload speed         : " << net.get_network_upload_speed();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ avg download speed       : " << net.get_network_download_speed();
+            ss << "~ " << "avg download speed       : " << net.get_network_download_speed();
             lp.push(ss.str());
         }
     }
@@ -430,37 +430,37 @@ int main() {
 
         {
             std::ostringstream ss;
-            ss << "~ Name                     : " << os.GetOSName();
+            ss << "~ " << "Name                     " << ": " << os.GetOSName();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Version                  : " << os.GetOSVersion();
+            ss << "~ " << "Build                    " << ": " << os.GetOSVersion();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Architecture             : " << os.GetOSArchitecture();
+            ss << "~ " << "Architecture             " << ": " << os.GetOSArchitecture();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Kernel                   : " << os.get_os_kernel_info();
+            ss << "~ " << "Kernel                   " << ": " << os.get_os_kernel_info();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Uptime                   : " << os.get_os_uptime();
+            ss << "~ " << "Uptime                   " << ": " << os.get_os_uptime();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Install Date             : " << os.get_os_install_date();
+            ss << "~ " << "Install Date             " << ": " << os.get_os_install_date();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Serial                   : " << os.get_os_serial_number();
+            ss << "~ " << "Serial                   " << ": " << os.get_os_serial_number();
             lp.push(ss.str());
         }
     }
@@ -475,57 +475,57 @@ int main() {
 
         {
             std::ostringstream ss;
-            ss << "~ Brand                    : " << cpu.get_cpu_info();
+            ss << "~ " << "Brand                    : " << cpu.get_cpu_info();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Utilization              : " << cpu.get_cpu_utilization() << "%";
+            ss << "~ " << "Utilization              : " << cpu.get_cpu_utilization() << "%";
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Speed                    : " << cpu.get_cpu_speed();
+            ss << "~ " << "Speed                    : " << cpu.get_cpu_speed();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Base Speed               : " << cpu.get_cpu_base_speed();
+            ss << "~ " << "Base Speed               : " << cpu.get_cpu_base_speed();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Cores                    : " << cpu.get_cpu_cores();
+            ss << "~ " << "Cores                    : " << cpu.get_cpu_cores();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Logical Processors       : " << cpu.get_cpu_logical_processors();
+            ss << "~ " << "Logical Processors       : " << cpu.get_cpu_logical_processors();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Sockets                  : " << cpu.get_cpu_sockets();
+            ss << "~ " << "Sockets                  : " << cpu.get_cpu_sockets();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Virtualization           : " << cpu.get_cpu_virtualization();
+            ss << "~ " << "Virtualization           : " << cpu.get_cpu_virtualization();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ L1 Cache                 : " << cpu.get_cpu_l1_cache();
+            ss << "~ " << "L1 Cache                 : " << cpu.get_cpu_l1_cache();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ L2 Cache                 : " << cpu.get_cpu_l2_cache();
+            ss << "~ " << "L2 Cache                 : " << cpu.get_cpu_l2_cache();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ L3 Cache                 : " << cpu.get_cpu_l3_cache();
+            ss << "~ " << "L3 Cache                 : " << cpu.get_cpu_l3_cache();
             lp.push(ss.str());
         }
     }
@@ -570,37 +570,37 @@ int main() {
 
                 {
                     std::ostringstream ss;
-                    ss << "|-> Name                   : " << g.gpu_name;
+                    ss << "|-> " << "Name                   : " << g.gpu_name;
                     lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "|-> Memory                 : " << g.gpu_memory;
+                    ss << "|-> " << "Memory                 : " << g.gpu_memory;
                     lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "|-> Usage                  : " << g.gpu_usage << "%";
+                    ss << "|-> " << "Usage                  : " << g.gpu_usage << "%";
                     lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "|-> Vendor                 : " << g.gpu_vendor;
+                    ss << "|-> " << "Vendor                 : " << g.gpu_vendor;
                     lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "|-> Driver Version         : " << g.gpu_driver_version;
+                    ss << "|-> " << "Driver Version         : " << g.gpu_driver_version;
                     lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "|-> Temperature            : " << g.gpu_temperature << " C";
+                    ss << "|-> " << "Temperature            : " << g.gpu_temperature << " C";
                     lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "#-> Core Count             : " << g.gpu_core_count;
+                    ss << "#-> " << "Core Count             : " << g.gpu_core_count;
                     lp.push(ss.str());
                 }
             }
@@ -615,17 +615,17 @@ int main() {
             }
             {
                 std::ostringstream ss;
-                ss << "|-> Name                   : " << primary.name;
+                ss << "|-> " << "Name                   : " << primary.name;
                 lp.push(ss.str());
             }
             {
                 std::ostringstream ss;
-                ss << "|-> VRAM                   : " << primary.vram_gb << " GiB";
+                ss << "|-> " << "VRAM                   : " << primary.vram_gb << " GiB";
                 lp.push(ss.str());
             }
             {
                 std::ostringstream ss;
-                ss << "#-> Frequency              : " << primary.frequency_ghz << " GHz";
+                ss << "#-> " << "Frequency              : " << primary.frequency_ghz << " GHz";
                 lp.push(ss.str());
             }
         }
@@ -650,17 +650,17 @@ int main() {
                 }
                 {
                     std::ostringstream ss;
-                    ss << "~ Brand                    : " << m.brand_name;
+                    ss << "~ " << "Brand                    : " << m.brand_name;
                     lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "~ Resolution               : " << m.resolution;
+                    ss << "~ " << "Resolution               : " << m.resolution;
                     lp.push(ss.str());
                 }
                 {
                     std::ostringstream ss;
-                    ss << "~ Refresh Rate             : " << m.refresh_rate << " Hz";
+                    ss << "~ " << "Refresh Rate             : " << m.refresh_rate << " Hz";
                     lp.push(ss.str());
                 }
             }
@@ -677,7 +677,7 @@ int main() {
 
         {
             std::ostringstream ss;
-            ss << "Bios Vendor              : " << sys.get_bios_vendor();
+            ss << "~ " << "Bios Vendor              : " << sys.get_bios_vendor();
             lp.push(ss.str());
         }
         {
@@ -713,17 +713,17 @@ int main() {
 
         {
             std::ostringstream ss;
-            ss << "~ Username                 : " << user.get_username();
+            ss << "~ "<<" Username                 : " << user.get_username();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Computer Name            : " << user.get_computer_name();
+            ss << "~ " << "Computer Name            : " << user.get_computer_name();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Domain                   : " << user.get_domain_name();
+            ss << "~ " << "Domain                   : " << user.get_domain_name();
             lp.push(ss.str());
         }
         {
@@ -745,27 +745,27 @@ int main() {
 
         {
             std::ostringstream ss;
-            ss << "~ System Uptime            : " << perf.get_system_uptime();
+            ss << "~ " << "System Uptime            : " << perf.get_system_uptime();
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ CPU Usage                : " << perf.get_cpu_usage_percent() << "%";
+            ss << "~ " << "CPU Usage                : " << perf.get_cpu_usage_percent() << "%";
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ RAM Usage                : " << perf.get_ram_usage_percent() << "%";
+            ss << "~ " << "RAM Usage                : " << perf.get_ram_usage_percent() << "%";
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ Disk Usage               : " << perf.get_disk_usage_percent() << "%";
+            ss << "~ " << "Disk Usage               : " << perf.get_disk_usage_percent() << "%";
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ GPU Usage                : " << perf.get_gpu_usage_percent() << "%";
+            ss << "~ " << "GPU Usage                : " << perf.get_gpu_usage_percent() << "%";
             lp.push(ss.str());
         }
     }
@@ -799,7 +799,7 @@ int main() {
 
         // Get and display INPUT devices
         vector<AudioDevice> inputDevices = audio.get_input_devices();
-        lp.push("#-Audio Input ---------------------------------------------------#");
+        lp.push("#-Audio Input -----------------------------------------------------#");
         int audio_input_device_count = 0;
         for (const auto& device : inputDevices) {
             audio_input_device_count++;
