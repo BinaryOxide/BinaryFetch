@@ -545,7 +545,7 @@ int main() {
         }
         else {
             std::ostringstream ss;
-            ss << "#- " << "GPU Info " << "--------------------------------------------------------#";
+            ss << "#- " << "GPU Info " << "-------------------------------------------------------#";
             lp.push(ss.str());
             for (size_t i = 0; i < all_gpu_info.size(); ++i) {
                 auto& g = all_gpu_info[i];
@@ -818,7 +818,7 @@ int main() {
         ostringstream ossPower;
         {
             std::ostringstream ss;
-            ss << "#- " << "Audio Input " << "---------------------------------------------------#";
+            ss << "#- " << "Power  " << "---------------------------------------------------------#";
             lp.push(ss.str());
         }
 
