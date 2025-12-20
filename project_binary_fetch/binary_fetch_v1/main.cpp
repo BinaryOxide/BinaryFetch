@@ -85,6 +85,16 @@ int main() {
     DiskInfo disk;
 
     // ---------------- Now stream info line-by-line ----------------
+    // please don't use "cout" directly - use lp.push() instead!
+    // "cout" could break the ascii art alignment.
+	// Each lp.push() call prints the next art line + info line.
+	// Don't use: cout << "some info" << endl;
+    // Instead use: (example)
+    // {
+    //    std::ostringstream ss;
+    //    ss << "~>> " << "BinaryFetch" << "_____________________________________________________";
+    //    lp.push(ss.str());
+    // }
 
     // Header
     lp.push(""); // keep art line 
