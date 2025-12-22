@@ -391,11 +391,15 @@ int main() {
             ss << "~ " << "Network Type             " << ": " << c_net.get_network_type();
             lp.push(ss.str());
         }
+
+        /* temporary hide public ip due to privacy concerns
         {
             std::ostringstream ss;
             ss << "~ " << "IP                       " << ": " << net.get_public_ip();
             lp.push(ss.str());
         }
+        */
+        
         {
             std::ostringstream ss;
             ss << "~ " << "Locale                   " << ": " << net.get_locale();
