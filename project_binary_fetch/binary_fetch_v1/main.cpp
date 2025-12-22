@@ -207,6 +207,8 @@ int main() {
         lp.push(ss.str());
     }
 
+    //------------------------------------------------------------------------------------
+    /* temporary minimal network's ip hiding due to privacy concerns
     // Network minimal
     {
         std::ostringstream ss;
@@ -215,6 +217,19 @@ int main() {
             << ")" << " (ip: " << c_net.get_network_ip() << ") ";
         lp.push(ss.str());
     }
+    
+    */
+
+	// Network minimal (with dummy IP for privacy)
+    {
+        std::ostringstream ss;
+        ss << "[network] -> " << "(Name: " << "Interblink"
+            << ")" << " (Type: " << c_net.get_network_type()
+            << ")" << " (ip: " << "123.23.423.1" << ") ";
+        lp.push(ss.str());
+    }
+    //------------------------------------------------------------------------------------
+    
 
     // Disk usage (compact)
     {
@@ -399,6 +414,10 @@ int main() {
             lp.push(ss.str());
         }
         */
+        {   
+            // dummy public ip for testing and privacy
+            lp.push("~ IP                       : 12.23.34.5.345"); 
+        }
         
         {
             std::ostringstream ss;
