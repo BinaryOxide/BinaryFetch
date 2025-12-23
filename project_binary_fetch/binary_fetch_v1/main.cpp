@@ -148,7 +148,7 @@ const std::string reset = "\033[0m";
     // }
 
     // Header
-    lp.push(""); // keep art line 
+    lp.push(""); // keep art line similar as cout << endl; 
 
 
     //comment the previous header of binaryfetch
