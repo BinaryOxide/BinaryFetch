@@ -315,9 +315,10 @@ int main() {
         {
             {
                 std::ostringstream ss;
-                ss << "---------------" << "Memory Info" << "--------------";
+                ss << blue << "---------------" << reset
+                    << red << "Memory Info" << reset
+                    << blue << "--------------" << reset;
                 lp.push(ss.str());
-
             }
 
 
@@ -486,13 +487,13 @@ int main() {
 
         {
             std::ostringstream ss;
-            ss << blue << "~ " << reset << green << "Network Name             " << reset
+            ss << blue << "~ " << reset << green << "Network Name              " << reset
                 << blue << ": " << reset << yellow << net.get_network_name() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << blue << "~ " << reset << green << "Network Type             " << reset
+            ss << blue << "~ " << reset << green << "Network Type              " << reset
                 << blue << ": " << reset << yellow << c_net.get_network_type() << reset;
             lp.push(ss.str());
         }
@@ -834,172 +835,189 @@ int main() {
     // BIOS & Motherboard Info
     {
         lp.push("");
-        std::ostringstream ss;
-        ss << "#- " << "BIOS & Motherboard Info " << "----------------------------------------#";
-        lp.push(ss.str());
+        {
+            std::ostringstream ss;
+            ss << blue << "#- " << reset << green << "BIOS & Motherboard Info " << reset
+                << blue << "----------------------------------------#" << reset;
+            lp.push(ss.str());
+        }
 
         {
             std::ostringstream ss;
-            ss << "~ " << "Bios Vendor              " << ": " << sys.get_bios_vendor();
+            ss << blue << "~ " << reset << green << "Bios Vendor              " << reset
+                << blue << ": " << reset << yellow << sys.get_bios_vendor() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Bios Version             " << ": " << sys.get_bios_version();
+            ss << blue << "~ " << reset << green << "Bios Version             " << reset
+                << blue << ": " << reset << cyan << sys.get_bios_version() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Bios Date                " << ": " << sys.get_bios_date();
+            ss << blue << "~ " << reset << green << "Bios Date                " << reset
+                << blue << ": " << reset << magenta << sys.get_bios_date() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Motherboard Model        " << ": " << sys.get_motherboard_model();
+            ss << blue << "~ " << reset << green << "Motherboard Model        " << reset
+                << blue << ": " << reset << yellow << sys.get_motherboard_model() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Motherboard Manufacturer " << ": " << sys.get_motherboard_manufacturer();
+            ss << blue << "~ " << reset << green << "Motherboard Manufacturer " << reset
+                << blue << ": " << reset << yellow << sys.get_motherboard_manufacturer() << reset;
             lp.push(ss.str());
         }
     }
-
 
     // User Info
     {
         lp.push("");
-        std::ostringstream ss;
-        ss << "#- " << "User Info " << "------------------------------------------------------#";
-        lp.push(ss.str());
+        {
+            std::ostringstream ss;
+            ss << blue << "#- " << reset << green << "User Info " << reset
+                << blue << "------------------------------------------------------#" << reset;
+            lp.push(ss.str());
+        }
 
         {
             std::ostringstream ss;
-            ss << "~ " << " Username                 " << ": " << user.get_username();
+            ss << blue << "~ " << reset << green << "Username                 " << reset
+                << blue << ": " << reset << yellow << user.get_username() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Computer Name            " << ": " << user.get_computer_name();
+            ss << blue << "~ " << reset << green << "Computer Name            " << reset
+                << blue << ": " << reset << yellow << user.get_computer_name() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Domain                   " << ": " << user.get_domain_name();
+            ss << blue << "~ " << reset << green << "Domain                   " << reset
+                << blue << ": " << reset << cyan << user.get_domain_name() << reset;
             lp.push(ss.str());
-        }
-        {
-            //std::ostringstream ss;
-            // ss << "Groups                     "<<": " << user.get_user_groups();
-            // lp.push(ss.str());
         }
     }
-
 
     // Performance Info
     {
         lp.push("");
+        {
+            std::ostringstream ss;
+            ss << blue << "#- " << reset << green << "Performance Info " << reset
+                << blue << "-----------------------------------------------#" << reset;
+            lp.push(ss.str());
+        }
 
-        std::ostringstream ss;
-        ss << "#- " << "Performance Info " << "-----------------------------------------------#";
-        lp.push(ss.str());
-
-
         {
             std::ostringstream ss;
-            ss << "~ " << "System Uptime            " << ": " << perf.get_system_uptime();
+            ss << blue << "~ " << reset << green << "System Uptime            " << reset
+                << blue << ": " << reset << magenta << perf.get_system_uptime() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "CPU Usage                " << ": " << perf.get_cpu_usage_percent() << "%";
+            ss << blue << "~ " << reset << green << "CPU Usage                " << reset
+                << blue << ": " << reset << red << perf.get_cpu_usage_percent() << reset << green << "%" << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "RAM Usage                " << ": " << perf.get_ram_usage_percent() << "%";
+            ss << blue << "~ " << reset << green << "RAM Usage                " << reset
+                << blue << ": " << reset << red << perf.get_ram_usage_percent() << reset << green << "%" << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Disk Usage               " << ": " << perf.get_disk_usage_percent() << "%";
+            ss << blue << "~ " << reset << green << "Disk Usage               " << reset
+                << blue << ": " << reset << red << perf.get_disk_usage_percent() << reset << green << "%" << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "GPU Usage                " << ": " << perf.get_gpu_usage_percent() << "%";
+            ss << blue << "~ " << reset << green << "GPU Usage                " << reset
+                << blue << ": " << reset << red << perf.get_gpu_usage_percent() << reset << green << "%" << reset;
             lp.push(ss.str());
         }
     }
-
 
     // Audio & Power
     {
         lp.push("");
         ExtraInfo audio;
 
-
-
-        // Get and display OUTPUT devices
+        // Output devices
         vector<AudioDevice> outputDevices = audio.get_output_devices();
-
-        std::ostringstream ss;
-        ss << "#- " << "Audio Output " << "---------------------------------------------------#";
-        lp.push(ss.str());
+        {
+            std::ostringstream ss;
+            ss << blue << "#- " << reset << green << "Audio Output " << reset
+                << blue << "---------------------------------------------------#" << reset;
+            lp.push(ss.str());
+        }
 
         int audio_output_device_count = 0;
         for (const auto& device : outputDevices) {
             audio_output_device_count++;
             ostringstream oss;
-            oss << "~ " << audio_output_device_count << " " << device.name;
+            oss << blue << "~ " << reset << yellow << audio_output_device_count << reset << " " << cyan << device.name << reset;
             if (device.isActive) {
-                // You can add color codes here if LivePrinter supports it
-                oss << " (active)";
+                oss << " " << green << "(active)" << reset;
             }
             lp.push(oss.str());
         }
 
-        // Get and display INPUT devices
+        // Input devices
         vector<AudioDevice> inputDevices = audio.get_input_devices();
-        lp.push("#-Audio Input -----------------------------------------------------#");
+        {
+            std::ostringstream ss;
+            ss << blue << "#- " << reset << green << "Audio Input " << reset
+                << blue << "-----------------------------------------------------#" << reset;
+            lp.push(ss.str());
+        }
+
         int audio_input_device_count = 0;
         for (const auto& device : inputDevices) {
             audio_input_device_count++;
             ostringstream oss;
-            oss << "~ " << audio_input_device_count << " " << device.name;
+            oss << blue << "~ " << reset << yellow << audio_input_device_count << reset << " " << cyan << device.name << reset;
             if (device.isActive) {
-                oss << " (active)";
+                oss << " " << green << "(active)" << reset;
             }
             lp.push(oss.str());
         }
 
-        lp.push("");  // Empty line for spacing
+        lp.push("");
 
-        // Get and display POWER status
+        // Power Status
         PowerStatus power = audio.get_power_status();
-        ostringstream ossPower;
         {
             std::ostringstream ss;
-            ss << "#- " << "Power  " << "---------------------------------------------------------#";
+            ss << blue << "#- " << reset << green << "Power  " << reset
+                << blue << "---------------------------------------------------------#" << reset;
             lp.push(ss.str());
         }
 
-
+        ostringstream ossPower;
         if (!power.hasBattery) {
-            ossPower << "[Wired connection]";
+            ossPower << blue << "[" << reset << yellow << "Wired connection" << reset << blue << "]" << reset;
         }
         else {
-            ossPower << "Battery powered (" << power.batteryPercent << "%)";
+            ossPower << blue << "~ " << reset << green << "Battery powered " << reset
+                << blue << "(" << reset << red << power.batteryPercent << reset << green << "%)" << reset;
+
             if (power.isCharging) {
-                ossPower << " (Charging)";
+                ossPower << " " << yellow << "(Charging)" << reset;
             }
             else {
-                ossPower << " (Not Charging)";
+                ossPower << " " << white << "(Not Charging)" << reset;
             }
         }
         lp.push(ossPower.str());
-
-
     }
 
 
