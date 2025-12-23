@@ -600,67 +600,80 @@ int main() {
     // CPU Info
     {
         cout << endl;
-        std::ostringstream ss;
-        ss << "#- " << "CPU Info " << "-------------------------------------------------------#";
-        lp.push(ss.str());
+        {
+            std::ostringstream ss;
+            ss << blue << "#- " << reset << green << "CPU Info " << reset
+                << blue << "-------------------------------------------------------#" << reset;
+            lp.push(ss.str());
+        }
 
         {
             std::ostringstream ss;
-            ss << "~ " << "Brand                    " << ": " << cpu.get_cpu_info();
+            ss << blue << "~ " << reset << green << "Brand                    " << reset
+                << blue << ": " << reset << yellow << cpu.get_cpu_info() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Utilization              " << ": " << cpu.get_cpu_utilization() << "%";
+            ss << blue << "~ " << reset << green << "Utilization              " << reset
+                << blue << ": " << reset << red << cpu.get_cpu_utilization() << reset << green << "%" << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Speed                    " << ": " << cpu.get_cpu_speed();
+            ss << blue << "~ " << reset << green << "Speed                    " << reset
+                << blue << ": " << reset << cyan << cpu.get_cpu_speed() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Base Speed               " << ": " << cpu.get_cpu_base_speed();
+            ss << blue << "~ " << reset << green << "Base Speed               " << reset
+                << blue << ": " << reset << cyan << cpu.get_cpu_base_speed() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Cores                    " << ": " << cpu.get_cpu_cores();
+            ss << blue << "~ " << reset << green << "Cores                    " << reset
+                << blue << ": " << reset << yellow << cpu.get_cpu_cores() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Logical Processors       " << ": " << cpu.get_cpu_logical_processors();
+            ss << blue << "~ " << reset << green << "Logical Processors       " << reset
+                << blue << ": " << reset << yellow << cpu.get_cpu_logical_processors() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Sockets                  " << ": " << cpu.get_cpu_sockets();
+            ss << blue << "~ " << reset << green << "Sockets                  " << reset
+                << blue << ": " << reset << yellow << cpu.get_cpu_sockets() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "Virtualization           " << ": " << cpu.get_cpu_virtualization();
+            ss << blue << "~ " << reset << green << "Virtualization           " << reset
+                << blue << ": " << reset << cyan << cpu.get_cpu_virtualization() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "L1 Cache                 " << ": " << cpu.get_cpu_l1_cache();
+            ss << blue << "~ " << reset << green << "L1 Cache                 " << reset
+                << blue << ": " << reset << magenta << cpu.get_cpu_l1_cache() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "L2 Cache                 " << ": " << cpu.get_cpu_l2_cache();
+            ss << blue << "~ " << reset << green << "L2 Cache                 " << reset
+                << blue << ": " << reset << magenta << cpu.get_cpu_l2_cache() << reset;
             lp.push(ss.str());
         }
         {
             std::ostringstream ss;
-            ss << "~ " << "L3 Cache                 " << ": " << cpu.get_cpu_l3_cache();
+            ss << blue << "~ " << reset << green << "L3 Cache                 " << reset
+                << blue << ": " << reset << magenta << cpu.get_cpu_l3_cache() << reset;
             lp.push(ss.str());
         }
     }
-
 
     // GPU Info (detailed)-------------------------------------------------------------
     {
