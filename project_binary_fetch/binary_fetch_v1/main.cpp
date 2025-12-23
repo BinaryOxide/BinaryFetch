@@ -77,8 +77,21 @@ int main() {
     }
 
 
-    // ANSI color definitions
-        const std::string reset = "\033[0m";
+// ANSI color definitions---------------------------------------------------
+
+const std::string reset = "\033[0m";
+// -----------------------------
+// ANSI RESET CODE
+// -----------------------------
+// The 'reset' string holds the ANSI escape sequence to reset
+// all terminal text formatting, including colors, bold, underline, etc.
+// Usage:
+//     std::cout << "\033[31mRed Text" << reset << " Normal Text\n";
+// This ensures that after printing colored text, subsequent output
+// returns to the terminal's default style.
+// ---------------------------------------------------------------------------
+    const std::string reset = "\033[0m";
+
     const std::string red = "\033[31m";
     const std::string green = "\033[32m";
     const std::string yellow = "\033[33m";
