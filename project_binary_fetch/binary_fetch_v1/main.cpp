@@ -129,7 +129,7 @@ int main() {
         ss << "~>> " << "BinaryFetch" << "_____________________________________________________";
         lp.push(ss.str());
     }
-
+    //---------------------beginning of compact section-----------------------
     // Minimal OS
     {
         std::ostringstream ss;
@@ -310,7 +310,13 @@ int main() {
             lp.push(ss.str());
         }
     }
-     
+    //-------------------------------------end of compact section---------------------------------
+
+
+
+
+
+
     // Storage Info (detailed) - STREAMING VERSION
     {
         lp.push("");
