@@ -158,9 +158,9 @@ int main() {
 
     std::string r = colors["reset"];
 
-    //----------------- REPLACE  HARDCODED SECTIONS WITH THESE -----------------//
+    //----------------- REPLACE HARDCODED SECTIONS WITH THESE -----------------//
 
-    // BinaryFetch Header
+// BinaryFetch Header
     if (isEnabled("header")) {
         std::ostringstream ss;
         ss << getColor("header", "prefix_color", "bright_red") << "~>> " << r
@@ -311,69 +311,69 @@ int main() {
     }
 
     // Compact User
-    if (isEnabled("user")) {
+    if (isEnabled("compact_user")) {
         std::ostringstream ss;
-        ss << getColor("user", "bracket_color", "red") << "[User]" << r
-            << getColor("user", "arrow_color", "blue") << " -> " << r
-            << getColor("user", "username_color", "green") << "@" << c_user.getUsername() << r
-            << getColor("user", "arrow_color", "blue") << " -> " << r
-            << getColor("user", "bracket_color", "red") << "(" << r
-            << getColor("user", "label_color", "green") << "Domain: " << r
-            << getColor("user", "domain_color", "yellow") << c_user.getDomain() << r
-            << getColor("user", "bracket_color", "red") << ")" << r
-            << getColor("user", "arrow_color", "blue") << " -> " << r
-            << getColor("user", "bracket_color", "red") << "(" << r
-            << getColor("user", "label_color", "green") << "Type: " << r
-            << getColor("user", "type_color", "cyan") << c_user.isAdmin() << r
-            << getColor("user", "bracket_color", "red") << ")" << r;
+        ss << getColor("compact_user", "bracket_color", "red") << "[User]" << r
+            << getColor("compact_user", "arrow_color", "blue") << " -> " << r
+            << getColor("compact_user", "username_color", "green") << "@" << c_user.getUsername() << r
+            << getColor("compact_user", "arrow_color", "blue") << " -> " << r
+            << getColor("compact_user", "bracket_color", "red") << "(" << r
+            << getColor("compact_user", "label_color", "green") << "Domain: " << r
+            << getColor("compact_user", "domain_color", "yellow") << c_user.getDomain() << r
+            << getColor("compact_user", "bracket_color", "red") << ")" << r
+            << getColor("compact_user", "arrow_color", "blue") << " -> " << r
+            << getColor("compact_user", "bracket_color", "red") << "(" << r
+            << getColor("compact_user", "label_color", "green") << "Type: " << r
+            << getColor("compact_user", "type_color", "cyan") << c_user.isAdmin() << r
+            << getColor("compact_user", "bracket_color", "red") << ")" << r;
         lp.push(ss.str());
     }
 
     // Compact Network
-    if (isEnabled("network")) {
+    if (isEnabled("compact_network")) {
         std::ostringstream ss;
-        ss << getColor("network", "bracket_color", "red") << "[network]" << r
-            << getColor("network", "arrow_color", "blue") << " -> " << r
-            << getColor("network", "bracket_color", "red") << "(" << r
-            << getColor("network", "label_color", "green") << "Name: " << r
-            << getColor("network", "name_color", "green") << "Interblink" << r
-            << getColor("network", "bracket_color", "red") << ") " << r
-            << getColor("network", "bracket_color", "red") << "(" << r
-            << getColor("network", "label_color", "green") << "Type: " << r
-            << getColor("network", "type_color", "yellow") << c_net.get_network_type() << r
-            << getColor("network", "bracket_color", "red") << ") " << r
-            << getColor("network", "bracket_color", "red") << "(" << r
-            << getColor("network", "label_color", "green") << "ip: " << r
-            << getColor("network", "ip_color", "magenta") << "123.23.423.1" << r
-            << getColor("network", "bracket_color", "red") << ")" << r;
+        ss << getColor("compact_network", "bracket_color", "red") << "[network]" << r
+            << getColor("compact_network", "arrow_color", "blue") << " -> " << r
+            << getColor("compact_network", "bracket_color", "red") << "(" << r
+            << getColor("compact_network", "label_color", "green") << "Name: " << r
+            << getColor("compact_network", "name_color", "green") << "Interblink" << r
+            << getColor("compact_network", "bracket_color", "red") << ") " << r
+            << getColor("compact_network", "bracket_color", "red") << "(" << r
+            << getColor("compact_network", "label_color", "green") << "Type: " << r
+            << getColor("compact_network", "type_color", "yellow") << c_net.get_network_type() << r
+            << getColor("compact_network", "bracket_color", "red") << ") " << r
+            << getColor("compact_network", "bracket_color", "red") << "(" << r
+            << getColor("compact_network", "label_color", "green") << "ip: " << r
+            << getColor("compact_network", "ip_color", "magenta") << "123.23.423.1" << r
+            << getColor("compact_network", "bracket_color", "red") << ")" << r;
         lp.push(ss.str());
     }
 
     // Compact Disk
-    if (isEnabled("disk")) {
+    if (isEnabled("compact_disk")) {
         auto disks = disk.getAllDiskUsage();
         std::ostringstream ss;
-        ss << getColor("disk", "bracket_color", "red") << "[Disk]" << r
-            << getColor("disk", "arrow_color", "blue") << " -> " << r;
+        ss << getColor("compact_disk", "bracket_color", "red") << "[Disk]" << r
+            << getColor("compact_disk", "arrow_color", "blue") << " -> " << r;
         for (const auto& d : disks) {
-            ss << getColor("disk", "bracket_color", "red") << "(" << r
-                << getColor("disk", "letter_color", "green") << d.first[0] << ":" << r
-                << " " << getColor("disk", "percent_color", "yellow")
+            ss << getColor("compact_disk", "bracket_color", "red") << "(" << r
+                << getColor("compact_disk", "letter_color", "green") << d.first[0] << ":" << r
+                << " " << getColor("compact_disk", "percent_color", "yellow")
                 << std::fixed << std::setprecision(1) << d.second << "%" << r
-                << getColor("disk", "bracket_color", "red") << ") " << r;
+                << getColor("compact_disk", "bracket_color", "red") << ") " << r;
         }
         lp.push(ss.str());
 
         auto caps = disk.getDiskCapacity();
         std::ostringstream sc;
-        sc << getColor("disk", "bracket_color", "red") << "[Disk Cap]" << r
-            << getColor("disk", "arrow_color", "blue") << " -> " << r;
+        sc << getColor("compact_disk", "bracket_color", "red") << "[Disk Cap]" << r
+            << getColor("compact_disk", "arrow_color", "blue") << " -> " << r;
         for (const auto& c : caps) {
-            sc << getColor("disk", "bracket_color", "red") << "(" << r
-                << getColor("disk", "letter_color", "green") << c.first[0] << r
-                << getColor("disk", "separator_color", "blue") << "-" << r
-                << getColor("disk", "capacity_color", "yellow") << c.second << "GB" << r
-                << getColor("disk", "bracket_color", "red") << ")" << r;
+            sc << getColor("compact_disk", "bracket_color", "red") << "(" << r
+                << getColor("compact_disk", "letter_color", "green") << c.first[0] << r
+                << getColor("compact_disk", "separator_color", "blue") << "-" << r
+                << getColor("compact_disk", "capacity_color", "yellow") << c.second << "GB" << r
+                << getColor("compact_disk", "bracket_color", "red") << ")" << r;
         }
         lp.push(sc.str());
     }

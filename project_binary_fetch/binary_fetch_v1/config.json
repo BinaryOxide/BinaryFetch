@@ -54,49 +54,49 @@
   },
   "compact_gpu": {
     "enabled": true,
-    "bracket_color": "green",
-    "arrow_color": "green",
-    "name_color": "green",
-    "usage_color": "green",
-    "vram_color": "green",
-    "at_symbol_color": "green",
-    "freq_color": "green"
+    "bracket_color": "magenta",
+    "arrow_color": "magenta",
+    "name_color": "magenta",
+    "usage_color": "magenta",
+    "vram_color": "magenta",
+    "at_symbol_color": "magenta",
+    "freq_color": "magenta"
   },
   "compact_performance": {
     "enabled": true,
-    "bracket_color": "red",
-    "arrow_color": "red",
-    "label_color": "red",
-    "cpu_color": "red",
-    "gpu_color": "red",
-    "ram_color": "red",
-    "disk_color": "red"
+    "bracket_color": "bright_white",
+    "arrow_color": "bright_white",
+    "label_color": "bright_white",
+    "cpu_color": "bright_white",
+    "gpu_color": "bright_white",
+    "ram_color": "bright_white",
+    "disk_color": "bright_white"
   },
-  "user": {
+  "compact_user": {
     "enabled": true,
-    "bracket_color": "bright_red",
-    "arrow_color": "bright_blue",
-    "username_color": "bright_white",
-    "label_color": "cyan",
-    "domain_color": "white",
-    "type_color": "bright_red"
+    "bracket_color": "bright_magenta",
+    "arrow_color": "bright_magenta",
+    "username_color": "bright_magenta",
+    "label_color": "bright_magenta",
+    "domain_color": "bright_magenta",
+    "type_color": "bright_magenta"
   },
-  "network": {
+  "compact_network": {
     "enabled": true,
-    "bracket_color": "bright_blue",
-    "arrow_color": "bright_red",
-    "label_color": "red",
-    "name_color": "bright_white",
-    "type_color": "white",
-    "ip_color": "cyan"
+    "bracket_color": "bright_cyan",
+    "arrow_color": "bright_cyan",
+    "label_color": "bright_cyan",
+    "name_color": "bright_cyan",
+    "type_color": "bright_cyan",
+    "ip_color": "bright_cyan"
   },
-  "disk": {
+  "compact_disk": {
     "enabled": true,
-    "bracket_color": "bright_red",
-    "arrow_color": "bright_blue",
-    "letter_color": "bright_white",
-    "percent_color": "cyan",
-    "separator_color": "bright_blue",
-    "capacity_color": "bright_red"
+    "bracket_color": "bright_yellow",
+    "arrow_color": "bright_yellow",
+    "letter_color": "bright_yellow",
+    "percent_color": "bright_yellow",
+    "separator_color": "bright_yellow",
+    "capacity_color": "bright_yellow"
   }
 }
