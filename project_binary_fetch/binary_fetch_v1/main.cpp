@@ -158,7 +158,7 @@ int main() {
 
     std::string r = colors["reset"];
 
-    //----------------- REPLACE YOUR HARDCODED SECTIONS WITH THESE -----------------//
+    //----------------- REPLACE  HARDCODED SECTIONS WITH THESE -----------------//
 
     // BinaryFetch Header
     if (isEnabled("header")) {
