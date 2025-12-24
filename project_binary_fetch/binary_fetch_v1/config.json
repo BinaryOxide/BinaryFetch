@@ -27,23 +27,23 @@
     "at_symbol_color": "red",
     "clock_color": "red"
   },
-  "display": {
+  "compact_display": {
     "enabled": true,
-    "bracket_color": "bright_blue",
-    "arrow_color": "bright_red",
-    "name_color": "bright_white",
-    "resolution_color": "cyan",
-    "at_symbol_color": "bright_red",
-    "refresh_color": "bright_blue"
+    "bracket_color": "green",
+    "arrow_color": "green",
+    "name_color": "green",
+    "resolution_color": "green",
+    "at_symbol_color": "green",
+    "refresh_color": "green"
   },
-  "memory": {
+  "compact_memory": {
     "enabled": true,
-    "bracket_color": "bright_red",
-    "arrow_color": "bright_blue",
-    "label_color": "bright_red",
-    "total_color": "bright_white",
+    "bracket_color": "cyan",
+    "arrow_color": "cyan",
+    "label_color": "cyan",
+    "total_color": "cyan",
     "free_color": "cyan",
-    "percent_color": "bright_blue"
+    "percent_color": "cyan"
   },
   "audio": {
     "enabled": true,

@@ -206,45 +206,45 @@ int main() {
     }
 
     // Compact Display
-    if (isEnabled("display")) {
+    if (isEnabled("compact_display")) {
         auto screens = c_screen.get_screens();
         int idx = 1;
         if (screens.empty()) {
-            lp.push(getColor("display", "bracket_color", "red") + "[Display]" + r +
-                getColor("display", "arrow_color", "blue") + " -> " + r + "No displays detected");
+            lp.push(getColor("compact_display", "bracket_color", "red") + "[Display]" + r +
+                getColor("compact_display", "arrow_color", "blue") + " -> " + r + "No displays detected");
         }
         else {
             for (const auto& s : screens) {
                 std::ostringstream ss;
-                ss << getColor("display", "bracket_color", "red") << "[Display " << idx++ << "]" << r
-                    << getColor("display", "arrow_color", "blue") << " -> " << r
-                    << getColor("display", "name_color", "green") << s.brand_name << r
-                    << getColor("display", "bracket_color", "red") << " (" << r
-                    << getColor("display", "resolution_color", "yellow") << s.resolution << r
-                    << getColor("display", "bracket_color", "red") << ") " << r
-                    << getColor("display", "at_symbol_color", "green") << "@" << r
-                    << getColor("display", "refresh_color", "cyan") << s.refresh_rate << "Hz" << r;
+                ss << getColor("compact_display", "bracket_color", "red") << "[Display " << idx++ << "]" << r
+                    << getColor("compact_display", "arrow_color", "blue") << " -> " << r
+                    << getColor("compact_display", "name_color", "green") << s.brand_name << r
+                    << getColor("compact_display", "bracket_color", "red") << " (" << r
+                    << getColor("compact_display", "resolution_color", "yellow") << s.resolution << r
+                    << getColor("compact_display", "bracket_color", "red") << ") " << r
+                    << getColor("compact_display", "at_symbol_color", "green") << "@" << r
+                    << getColor("compact_display", "refresh_color", "cyan") << s.refresh_rate << "Hz" << r;
                 lp.push(ss.str());
             }
         }
     }
 
     // Compact Memory
-    if (isEnabled("memory")) {
+    if (isEnabled("compact_memory")) {
         std::ostringstream ss;
-        ss << getColor("memory", "bracket_color", "red") << "[Memory]" << r
-            << getColor("memory", "arrow_color", "blue") << " -> " << r
-            << getColor("memory", "bracket_color", "red") << "(" << r
-            << getColor("memory", "label_color", "green") << "total: " << r
-            << getColor("memory", "total_color", "green") << c_memory.get_total_memory() << " GB" << r
-            << getColor("memory", "bracket_color", "red") << ")" << r
-            << getColor("memory", "bracket_color", "red") << " (" << r
-            << getColor("memory", "label_color", "green") << "free: " << r
-            << getColor("memory", "free_color", "yellow") << c_memory.get_free_memory() << " GB" << r
-            << getColor("memory", "bracket_color", "red") << ")" << r
-            << getColor("memory", "bracket_color", "red") << " (" << r
-            << getColor("memory", "percent_color", "magenta") << c_memory.get_used_memory_percent() << "%" << r
-            << getColor("memory", "bracket_color", "red") << ")" << r;
+        ss << getColor("compact_memory", "bracket_color", "red") << "[Memory]" << r
+            << getColor("compact_memory", "arrow_color", "blue") << " -> " << r
+            << getColor("compact_memory", "bracket_color", "red") << "(" << r
+            << getColor("compact_memory", "label_color", "green") << "total: " << r
+            << getColor("compact_memory", "total_color", "green") << c_memory.get_total_memory() << " GB" << r
+            << getColor("compact_memory", "bracket_color", "red") << ")" << r
+            << getColor("compact_memory", "bracket_color", "red") << " (" << r
+            << getColor("compact_memory", "label_color", "green") << "free: " << r
+            << getColor("compact_memory", "free_color", "yellow") << c_memory.get_free_memory() << " GB" << r
+            << getColor("compact_memory", "bracket_color", "red") << ")" << r
+            << getColor("compact_memory", "bracket_color", "red") << " (" << r
+            << getColor("compact_memory", "percent_color", "magenta") << c_memory.get_used_memory_percent() << "%" << r
+            << getColor("compact_memory", "bracket_color", "red") << ")" << r;
         lp.push(ss.str());
     }
 
