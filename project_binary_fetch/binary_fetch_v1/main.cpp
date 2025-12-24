@@ -170,38 +170,38 @@ int main() {
     }
 
     // Compact OS
-    if (isEnabled("os")) {
+    if (isEnabled("compact_os")) {
         std::ostringstream ss;
-        ss << getColor("os", "bracket_color", "red") << "[OS]" << r
-            << getColor("os", "arrow_color", "blue") << "  -> " << r
-            << getColor("os", "name_color", "green") << c_os.getOSName() << r << " "
-            << getColor("os", "build_color", "yellow") << c_os.getOSBuild() << r
-            << getColor("os", "bracket_color", "red") << " (" << r
-            << getColor("os", "arch_color", "cyan") << c_os.getArchitecture() << r
-            << getColor("os", "bracket_color", "red") << ")" << r
-            << getColor("os", "bracket_color", "red") << " (" << r
-            << getColor("os", "uptime_label_color", "green") << "uptime: " << r
-            << getColor("os", "uptime_value_color", "magenta") << c_os.getUptime() << r
-            << getColor("os", "bracket_color", "red") << ")" << r;
+        ss << getColor("compact_os", "bracket_color", "red") << "[OS]" << r
+            << getColor("compact_os", "arrow_color", "blue") << "  -> " << r
+            << getColor("compact_os", "name_color", "green") << c_os.getOSName() << r << " "
+            << getColor("compact_os", "build_color", "yellow") << c_os.getOSBuild() << r
+            << getColor("compact_os", "bracket_color", "red") << " (" << r
+            << getColor("compact_os", "arch_color", "cyan") << c_os.getArchitecture() << r
+            << getColor("compact_os", "bracket_color", "red") << ")" << r
+            << getColor("compact_os", "bracket_color", "red") << " (" << r
+            << getColor("compact_os", "uptime_label_color", "green") << "uptime: " << r
+            << getColor("compact_os", "uptime_value_color", "magenta") << c_os.getUptime() << r
+            << getColor("compact_os", "bracket_color", "red") << ")" << r;
         lp.push(ss.str());
     }
 
     // Compact CPU
-    if (isEnabled("cpu")) {
+    if (isEnabled("compact_cpu")) {
         std::ostringstream ss;
-        ss << getColor("cpu", "bracket_color", "red") << "[CPU]" << r
-            << getColor("cpu", "arrow_color", "blue") << " -> " << r
-            << getColor("cpu", "name_color", "green") << c_cpu.getCPUName() << r
-            << getColor("cpu", "bracket_color", "red") << " (" << r
-            << getColor("cpu", "core_color", "yellow") << c_cpu.getCPUCores() << r
-            << getColor("cpu", "text_color", "green") << "C" << r
-            << getColor("cpu", "separator_color", "blue") << "/" << r
-            << getColor("cpu", "thread_color", "yellow") << c_cpu.getCPUThreads() << r
-            << getColor("cpu", "text_color", "green") << "T" << r
-            << getColor("cpu", "bracket_color", "red") << ")" << r
+        ss << getColor("compact_cpu", "bracket_color", "red") << "[CPU]" << r
+            << getColor("compact_cpu", "arrow_color", "blue") << " -> " << r
+            << getColor("compact_cpu", "name_color", "green") << c_cpu.getCPUName() << r
+            << getColor("compact_cpu", "bracket_color", "red") << " (" << r
+            << getColor("compact_cpu", "core_color", "yellow") << c_cpu.getCPUCores() << r
+            << getColor("compact_cpu", "text_color", "green") << "C" << r
+            << getColor("compact_cpu", "separator_color", "blue") << "/" << r
+            << getColor("compact_cpu", "thread_color", "yellow") << c_cpu.getCPUThreads() << r
+            << getColor("compact_cpu", "text_color", "green") << "T" << r
+            << getColor("compact_cpu", "bracket_color", "red") << ")" << r
             << std::fixed << std::setprecision(2)
-            << getColor("cpu", "at_symbol_color", "green") << " @" << r
-            << getColor("cpu", "clock_color", "cyan") << " " << c_cpu.getClockSpeed() << " GHz" << r;
+            << getColor("compact_cpu", "at_symbol_color", "green") << " @" << r
+            << getColor("compact_cpu", "clock_color", "cyan") << " " << c_cpu.getClockSpeed() << " GHz" << r;
         lp.push(ss.str());
     }
 

@@ -5,27 +5,27 @@
     "title_color": "bright_white",
     "line_color": "bright_blue"
   },
-  "os": {
+  "compact_os": {
     "enabled": true,
-    "bracket_color": "bright_blue",
-    "arrow_color": "bright_red",
-    "name_color": "bright_white",
-    "build_color": "cyan",
-    "arch_color": "bright_blue",
-    "uptime_label_color": "red",
-    "uptime_value_color": "white"
+    "bracket_color": "blue",
+    "arrow_color": "blue",
+    "name_color": "blue",
+    "build_color": "blue",
+    "arch_color": "blue",
+    "uptime_label_color": "blue",
+    "uptime_value_color": "blue"
   },
-  "cpu": {
+  "compact_cpu": {
     "enabled": true,
-    "bracket_color": "bright_red",
-    "arrow_color": "bright_blue",
-    "name_color": "bright_white",
-    "core_color": "bright_blue",
-    "thread_color": "bright_blue",
-    "text_color": "white",
+    "bracket_color": "red",
+    "arrow_color": "red",
+    "name_color": "red",
+    "core_color": "red",
+    "thread_color": "red",
+    "text_color": "red",
     "separator_color": "red",
-    "at_symbol_color": "cyan",
-    "clock_color": "bright_cyan"
+    "at_symbol_color": "red",
+    "clock_color": "red"
   },
   "display": {
     "enabled": true,
