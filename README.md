@@ -7,7 +7,7 @@ Below is a **complete GitHub-ready README** you can paste directly into your Bin
 
 # 🧬 BinaryFetch
 
-> **A next-generation, modular system information fetcher for Windows — engineered for reliability, customization, and community-driven profiles.**
+> **A modular system information fetcher for Windows — engineered for reliability, customization, and community-driven profiles.**
 
 BinaryFetch is not “another neofetch clone.”
 It is a **systems engineering project** focused on **clean architecture**, **self-healing configuration**, and **extreme customization with minimal user effort**.
