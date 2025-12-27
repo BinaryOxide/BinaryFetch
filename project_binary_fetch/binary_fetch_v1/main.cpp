@@ -507,6 +507,192 @@ int main() {
     }
     // ----------------- END DETAILED MEMORY ----------------- //
 
+    // ----------------- DETAILED STORAGE (JSON-CONTROLLED, SYMBOLS) ----------------- //
+    if (isEnabled("detailed_storage")) {
+
+        lp.push("");
+        std::string r = colors["reset"];
+
+        // helper: read symbol string from config
+        auto getSym = [&](const std::string& section, const std::string& key, const std::string& defaultSym) -> std::string {
+            if (!config_loaded || !config.contains(section)) return defaultSym;
+            try {
+                return config[section].value(key, defaultSym);
+            }
+            catch (...) {
+                return defaultSym;
+            }
+            };
+
+        // ---------- HEADER : STORAGE SUMMARY ----------
+        if (isSubEnabled("detailed_storage", "show_summary")) {
+            std::ostringstream ss;
+            ss << getColor("detailed_storage", "header_line_color", "red")
+                << "------------------------- " << r
+                << getColor("detailed_storage", "header_title_color", "blue")
+                << "STORAGE SUMMARY" << r
+                << getColor("detailed_storage", "header_line_color", "red")
+                << " --------------------------" << r;
+            lp.push(ss.str());
+        }
+
+        // format helpers (unchanged)
+        auto fmt_storage = [](const std::string& s) -> std::string {
+            std::ostringstream oss;
+            double v = 0.0;
+            try { v = stod(s); }
+            catch (...) { v = 0.0; }
+            oss << std::fixed << std::setprecision(2)
+                << std::setw(7) << std::right << std::setfill(' ')
+                << v;
+            return oss.str();
+            };
+
+        auto fmt_speed = [](const std::string& s) -> std::string {
+            std::ostringstream tmp;
+            double v = 0.0;
+            try { v = stod(s); }
+            catch (...) { v = 0.0; }
+            tmp << std::fixed << std::setprecision(2) << v;
+            std::string val = tmp.str();
+            int pad = 7 - (int)val.size();
+            if (pad < 0) pad = 0;
+            return std::string(pad, ' ') + val;
+            };
+
+        std::vector<storage_data> all_disks;
+
+        // ---------- STREAMING SUMMARY (called per-disk) ----------
+        storage.process_storage_info([&](const storage_data& d) {
+
+            all_disks.push_back(d);
+
+            if (!isSubEnabled("detailed_storage", "show_summary"))
+                return;
+
+            // read symbol strings (defaults included)
+            std::string LBR = getSym("detailed_storage", "sym_left_bracket", "[");
+            std::string RBR = getSym("detailed_storage", "sym_right_bracket", "]");
+            std::string PL = getSym("detailed_storage", "sym_paren_left", "(");
+            std::string PR = getSym("detailed_storage", "sym_paren_right", ")");
+            std::string SEP = getSym("detailed_storage", "sym_sep", "|");
+            std::string DASH = getSym("detailed_storage", "sym_dash", "-");
+            std::string USED = getSym("detailed_storage", "sym_used_label", "Used");
+            std::string EXT = getSym("detailed_storage", "sym_ext", "Ext");
+            std::string INT = getSym("detailed_storage", "sym_int", "Int");
+
+            std::ostringstream ss;
+
+            ss << getColor("detailed_storage", "type_color", "yellow") << d.storage_type << r << " "
+                << getColor("detailed_storage", "drive_color", "cyan") << d.drive_letter << r << " "
+                // left bracket
+                << getColor("detailed_storage", "bracket_color", "green") << LBR << r << " "
+                // (Used)
+                << getColor("detailed_storage", "paren_color", "green") << PL << r
+                << getColor("detailed_storage", "label_color", "green") << USED << r
+                << getColor("detailed_storage", "paren_color", "green") << PR << r << " "
+                // used / total
+                << getColor("detailed_storage", "used_color", "green") << fmt_storage(d.used_space) << " GiB" << r
+                << getColor("detailed_storage", "label_color", "green") << " /" << r
+                << getColor("detailed_storage", "used_color", "green") << fmt_storage(d.total_space) << " GiB" << r << "  "
+                // percent
+                << getColor("detailed_storage", "percent_color", "red") << d.used_percentage  << r << " "
+                // dash / fs
+                << getColor("detailed_storage", "dash_color", "bright_white") << DASH << r << " "
+                << getColor("detailed_storage", "fs_color", "magenta") << d.file_system << r << " "
+                // Ext/Int with their color
+                << getColor("detailed_storage", d.is_external ? "external_color" : "internal_color", d.is_external ? "blue" : "white")
+                << (d.is_external ? EXT : INT) << r << " "
+                // right bracket
+                << getColor("detailed_storage", "bracket_color", "green") << RBR << r;
+
+            lp.push(ss.str());
+            });
+
+        // ---------- PERFORMANCE ----------
+        if (!all_disks.empty() && isSubEnabled("detailed_storage", "show_performance")) {
+
+            lp.push("");
+            {
+                std::ostringstream ss;
+                ss << getColor("detailed_storage", "header_line_color", "red")
+                    << "-------------------- " << r
+                    << getColor("detailed_storage", "header_title_color", "blue")
+                    << "DISK PERFORMANCE & DETAILS" << r
+                    << getColor("detailed_storage", "header_line_color", "red")
+                    << " --------------------" << r;
+                lp.push(ss.str());
+            }
+
+            // symbols again (for consistent styling)
+            std::string LBR = getSym("detailed_storage", "sym_left_bracket", "[");
+            std::string RBR = getSym("detailed_storage", "sym_right_bracket", "]");
+            std::string SEP = getSym("detailed_storage", "sym_sep", "|");
+            std::string EXT = getSym("detailed_storage", "sym_ext", "Ext");
+            std::string INT = getSym("detailed_storage", "sym_int", "Int");
+
+            for (const auto& d : all_disks) {
+                std::ostringstream ss;
+                ss << getColor("detailed_storage", "drive_color", "cyan") << d.drive_letter << r << " "
+                    << getColor("detailed_storage", "bracket_color", "green") << LBR << r << " "
+                    << getColor("detailed_storage", "read_label_color", "green") << getSym("detailed_storage", "sym_read_label", "Read") << ":" << r << " "
+                    << getColor("detailed_storage", "speed_color", "yellow") << fmt_speed(d.read_speed) << " MB/s" << r << " "
+                    << getColor("detailed_storage", "sep_color", "bright_white") << SEP << r << " "
+                    << getColor("detailed_storage", "write_label_color", "green") << getSym("detailed_storage", "sym_write_label", "Write") << ":" << r << " "
+                    << getColor("detailed_storage", "speed_color", "yellow") << fmt_speed(d.write_speed) << " MB/s" << r << " "
+                    << getColor("detailed_storage", "sep_color", "bright_white") << SEP << r << " "
+                    << getColor("detailed_storage", "serial_color", "magenta") << d.serial_number << r << " "
+                    << getColor("detailed_storage", d.is_external ? "external_color" : "internal_color", d.is_external ? "blue" : "white")
+                    << (d.is_external ? EXT : INT) << r << " "
+                    << getColor("detailed_storage", "bracket_color", "green") << RBR << r;
+                lp.push(ss.str());
+            }
+        }
+
+        // ---------- PREDICTED ----------
+        if (!all_disks.empty() && isSubEnabled("detailed_storage", "show_predicted")) {
+
+            lp.push("");
+            {
+                std::ostringstream ss;
+                ss << getColor("detailed_storage", "header_line_color", "red")
+                    << "---------------- " << r
+                    << getColor("detailed_storage", "header_title_color", "blue")
+                    << "DISK PERFORMANCE & DETAILS (Predicted)" << r
+                    << getColor("detailed_storage", "header_line_color", "red")
+                    << " ------------" << r;
+                lp.push(ss.str());
+            }
+
+            std::string LBR = getSym("detailed_storage", "sym_left_bracket", "[");
+            std::string RBR = getSym("detailed_storage", "sym_right_bracket", "]");
+            std::string SEP = getSym("detailed_storage", "sym_sep", "|");
+            std::string EXT = getSym("detailed_storage", "sym_ext", "Ext");
+            std::string INT = getSym("detailed_storage", "sym_int", "Int");
+
+            for (const auto& d : all_disks) {
+                std::ostringstream ss;
+                ss << getColor("detailed_storage", "drive_color", "cyan") << d.drive_letter << r << " "
+                    << getColor("detailed_storage", "bracket_color", "green") << LBR << r << " "
+                    << getColor("detailed_storage", "read_label_color", "green") << getSym("detailed_storage", "sym_read_label", "Read") << ":" << r << " "
+                    << getColor("detailed_storage", "speed_color", "yellow") << fmt_speed(d.predicted_read_speed) << " MB/s" << r << " "
+                    << getColor("detailed_storage", "sep_color", "bright_white") << SEP << r << " "
+                    << getColor("detailed_storage", "write_label_color", "green") << getSym("detailed_storage", "sym_write_label", "Write") << ":" << r << " "
+                    << getColor("detailed_storage", "speed_color", "yellow") << fmt_speed(d.predicted_write_speed) << " MB/s" << r << " "
+                    << getColor("detailed_storage", "sep_color", "bright_white") << SEP << r << " "
+                    << getColor("detailed_storage", "serial_color", "magenta") << d.serial_number << r << " "
+                    << getColor("detailed_storage", d.is_external ? "external_color" : "internal_color", d.is_external ? "blue" : "white")
+                    << (d.is_external ? EXT : INT) << r << " "
+                    << getColor("detailed_storage", "bracket_color", "green") << RBR << r;
+                lp.push(ss.str());
+            }
+        }
+
+        if (all_disks.empty()) {
+            lp.push("No drives detected.");
+        }
+    }
+    // ----------------- END DETAILED STORAGE ----------------- //
 
 
     //----------------- END OF JSON-CONTROLLED COMPACT SECTIONS -----------------//
