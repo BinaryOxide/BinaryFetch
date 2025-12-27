@@ -164,63 +164,8 @@
     "capacity_color": "green",
     "type_color": "cyan",
     "speed_color": "yellow"
-  },
-  "detailed_storage": {
-    "enabled": true,
-
-    // toggles
-    "show_summary": true,
-    "show_performance": true,
-    "show_predicted": true,
-
-    // --- symbols (strings you want displayed; set them to ":" or ">" or "Used" etc) ---
-    "sym_left_bracket": "[",
-    "sym_right_bracket": "]",
-    "sym_paren_left": "(",
-    "sym_paren_right": ")",
-    "sym_colon": ":",
-    "sym_arrow": "->",
-    "sym_sep": "|",
-    "sym_dash": "-",
-    "sym_used_label": "Used",
-    "sym_read_label": "Read",
-    "sym_write_label": "Write",
-    "sym_ext": "Ext",
-    "sym_int": "Int",
-
-    // --- symbol colors (fine-grained) ---
-    "bracket_color": "green",
-    "paren_color": "green",
-    "colon_color": "bright_white",
-    "arrow_color": "bright_white",
-    "sep_color": "bright_white",
-    "dash_color": "bright_white",
-
-    // --- header / title colors ---
-    "header_line_color": "red",
-    "header_title_color": "blue",
-
-    // --- semantic colors (data) ---
-    "type_color": "yellow",
-    "drive_color": "cyan",
-    "label_color": "green",
-    "used_color": "green",
-    "percent_color": "red",
-    "fs_color": "magenta",
-
-    // --- internal/external indicator colors ---
-    "external_color": "blue",
-    "internal_color": "white",
-
-    // --- IO / perf colors ---
-    "read_label_color": "green",
-    "write_label_color": "green",
-    "speed_color": "yellow",
-    "serial_color": "magenta",
-
-    // fallback symbol color (used when you'd like one color for simple symbols)
-    "symbol_color": "bright_white"
   }
+
 
 
 }
