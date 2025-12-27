@@ -141,31 +141,33 @@
     "separator_color": "bright_yellow",
     "capacity_color": "bright_yellow"
   },
-  "detailed_memory": {
-    "enabled": true,
-
-    "show_header": true,
-    "show_summary": true,
-    "show_modules": true,
-
-    "(": "blue",
-    ")": "blue",
-    "~": "blue",
-    ":": "blue",
-    "header_line_color": "blue",
-    "header_title_color": "yellow",
-
-    "label_color": "green",
-    "total_color": "yellow",
-    "free_color": "cyan",
-    "used_color": "red",
-
-    "module_label_color": "magenta",
-    "capacity_color": "green",
-    "type_color": "cyan",
-    "speed_color": "yellow"
-  }
-
+    "detailed_memory": {
+      "enabled": true,
+      "sections": {
+        "header": true,
+        "total": true,
+        "free": true,
+        "used_percentage": true,
+        "modules": true
+      },
+      "colors": {
+        ">>~": "red",
+        "header_title": "red",
+        "-------------------------<": "red",
+        "label": "red",
+        "total_value": "red",
+        "free_value": "red",
+        "used_value": "red",
+        "brackets": "red",
+        "~": "red",
+        "module_label": "red",
+        " : ": "red",
+        "capacity": "red",
+        "type": "red",
+        "speed": "red"
+      }
+    }
+  
 
 
 }

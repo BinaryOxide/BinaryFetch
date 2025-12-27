@@ -115,9 +115,8 @@ int main() {
 
 //----------------- JSON CONFIG SYSTEM - INSERT AFTER OBJECT INITIALIZATION -----------------//
 
-    //----------------- JSON CONFIG SYSTEM - INSERT AFTER OBJECT INITIALIZATION -----------------//
-
-    // 1. Color Map
+ //----------------- JSON CONFIG SYSTEM - INSERT AFTER OBJECT INITIALIZATION -----------------//
+// 1. Color Map
     std::map<std::string, std::string> colors = {
         {"red", "\033[31m"}, {"green", "\033[32m"}, {"yellow", "\033[33m"},
         {"blue", "\033[34m"}, {"magenta", "\033[35m"}, {"cyan", "\033[36m"},
@@ -131,7 +130,6 @@ int main() {
     std::ifstream config_file("Config.json");
     json config;
     bool config_loaded = false;
-
     if (config_file.is_open()) {
         try {
             config = json::parse(config_file);
@@ -144,8 +142,9 @@ int main() {
     // 3. Helper functions
     auto getColor = [&](const std::string& section, const std::string& key, const std::string& defaultColor = "white") -> std::string {
         if (!config_loaded || !config.contains(section)) return colors[defaultColor];
-        if (!config[section].contains(key)) return colors[defaultColor];
-        std::string colorName = config[section][key].get<std::string>();
+        if (!config[section].contains("colors")) return colors[defaultColor];
+        if (!config[section]["colors"].contains(key)) return colors[defaultColor];
+        std::string colorName = config[section]["colors"][key].get<std::string>();
         return colors.count(colorName) ? colors[colorName] : colors[defaultColor];
         };
 
@@ -154,10 +153,17 @@ int main() {
         return config[section].value("enabled", true);
         };
 
-    // Helper for sub-module toggles
+    // Helper for sub-module toggles (OLD - for backward compatibility)
     auto isSubEnabled = [&](const std::string& section, const std::string& key) -> bool {
         if (!config_loaded || !config.contains(section)) return true;
         return config[section].value(key, true);
+        };
+
+    // NEW: Helper for sections toggles
+    auto isSectionEnabled = [&](const std::string& module, const std::string& section) -> bool {
+        if (!config_loaded || !config.contains(module)) return true;
+        if (!config[module].contains("sections")) return true;
+        return config[module]["sections"].value(section, true);
         };
 
     std::string r = colors["reset"];
@@ -427,87 +433,86 @@ int main() {
     }
     //-----------------------------start of detailed modules----------------------//
 
-    // ----------------- DETAILED MEMORY SECTION ----------------- //
+// ----------------- DETAILED MEMORY SECTION ----------------- //
     if (isEnabled("detailed_memory")) {
-
         lp.push(""); // blank line
 
-        std::string r = colors["reset"];
-
         // ---------- HEADER ----------
-        if (isSubEnabled("detailed_memory", "show_header")) {
+        if (isSectionEnabled("detailed_memory", "header")) {
             std::ostringstream ss;
-            ss << getColor("detailed_memory", "header_line_color", "blue")
-                << "----------------"
-                << r
-                << getColor("detailed_memory", "header_title_color", "red")
-                << "Memory Info"
-                << r
-                << getColor("detailed_memory", "header_line_color", "blue")
-                << "---------------"
-                << r;
+            ss << getColor("detailed_memory", ">>~", "blue") << ">>~ " << r
+                << getColor("detailed_memory", "header_title", "red") << "Memory Info" << r
+                << getColor("detailed_memory", "-------------------------<", "blue") << " -------------------------<" << r;
             lp.push(ss.str());
         }
 
-        // ---------- SUMMARY ----------
-        if (isSubEnabled("detailed_memory", "show_summary")) {
+        // ---------- SUMMARY (TOTAL, FREE, USED) ----------
+        if (isSectionEnabled("detailed_memory", "total") ||
+            isSectionEnabled("detailed_memory", "free") ||
+            isSectionEnabled("detailed_memory", "used_percentage")) {
             std::ostringstream ss;
 
-            ss << getColor("detailed_memory", "(", "blue") << "(" << r
-                << getColor("detailed_memory", "label_color", "green") << "Total: " << r
-                << getColor("detailed_memory", "total_color", "yellow") << ram.getTotal() << " GB" << r
-                << getColor("detailed_memory", ")", "blue") << ") " << r;
+            // ---------- TOTAL ----------
+            if (isSectionEnabled("detailed_memory", "total")) {
+                ss << getColor("detailed_memory", "brackets", "blue") << "(" << r
+                    << getColor("detailed_memory", "label", "green") << "Total: " << r
+                    << getColor("detailed_memory", "total_value", "yellow") << ram.getTotal() << " GB" << r
+                    << getColor("detailed_memory", "brackets", "blue") << ") " << r;
+            }
 
-            ss << getColor("detailed_memory", "(", "blue") << "(" << r
-                << getColor("detailed_memory", "label_color", "green") << "Free: " << r
-                << getColor("detailed_memory", "free_color", "cyan") << ram.getFree() << " GB" << r
-                << getColor("detailed_memory", ")", "blue") << ") " << r;
+            // ---------- FREE ----------
+            if (isSectionEnabled("detailed_memory", "free")) {
+                ss << getColor("detailed_memory", "brackets", "blue") << "(" << r
+                    << getColor("detailed_memory", "label", "green") << "Free: " << r
+                    << getColor("detailed_memory", "free_value", "cyan") << ram.getFree() << " GB" << r
+                    << getColor("detailed_memory", "brackets", "blue") << ") " << r;
+            }
 
-            ss << getColor("detailed_memory", "(", "blue") << "(" << r
-                << getColor("detailed_memory", "label_color", "green") << "Used: " << r
-                << getColor("detailed_memory", "used_color", "red") << ram.getUsedPercentage() << "%" << r
-                << getColor("detailed_memory", ")", "blue") << ")" << r;
+            // ---------- USED PERCENTAGE ----------
+            if (isSectionEnabled("detailed_memory", "used_percentage")) {
+                ss << getColor("detailed_memory", "brackets", "blue") << "(" << r
+                    << getColor("detailed_memory", "label", "green") << "Used: " << r
+                    << getColor("detailed_memory", "used_value", "red") << ram.getUsedPercentage() << "%" << r
+                    << getColor("detailed_memory", "brackets", "blue") << ")" << r;
+            }
 
             lp.push(ss.str());
         }
 
         // ---------- MODULES ----------
-        if (isSubEnabled("detailed_memory", "show_modules")) {
+        if (isSectionEnabled("detailed_memory", "modules")) {
             const auto& modules = ram.getModules();
-
             for (size_t i = 0; i < modules.size(); ++i) {
-
-                // zero-pad capacity
+                // --- Zero-pad capacity ---
+                std::string cap = modules[i].capacity;
                 int num = 0;
-                try { num = std::stoi(modules[i].capacity); }
+                try { num = std::stoi(cap); }
                 catch (...) { num = 0; }
-
                 std::ostringstream capOut;
                 capOut << std::setw(2) << std::setfill('0') << num << "GB";
 
                 std::ostringstream ss;
-
+                // Structural Marker and Label
                 ss << getColor("detailed_memory", "~", "blue") << "~ " << r
-                    << getColor("detailed_memory", "module_label_color", "magenta")
-                    << "Memory " << i << r
-                    << getColor("detailed_memory", ":", "blue") << ": " << r;
+                    << getColor("detailed_memory", "module_label", "magenta") << "Memory " << i << r
+                    << getColor("detailed_memory", " : ", "blue") << ": " << r;
 
-                ss << getColor("detailed_memory", "(", "blue") << "(" << r
-                    << getColor("detailed_memory", "label_color", "green") << "Used: " << r
-                    << getColor("detailed_memory", "used_color", "red") << ram.getUsedPercentage() << "%" << r
-                    << getColor("detailed_memory", ")", "blue") << ") " << r;
+                // Used Percentage in parentheses
+                ss << getColor("detailed_memory", "brackets", "blue") << "(" << r
+                    << getColor("detailed_memory", "label", "green") << "Used: " << r
+                    << getColor("detailed_memory", "used_value", "red") << ram.getUsedPercentage() << "%" << r
+                    << getColor("detailed_memory", "brackets", "blue") << ") " << r;
 
-                ss << getColor("detailed_memory", "capacity_color", "green") << capOut.str() << r << " "
-                    << getColor("detailed_memory", "type_color", "cyan") << modules[i].type << r << " "
-                    << getColor("detailed_memory", "speed_color", "yellow") << modules[i].speed << r;
+                // Capacity, Type, and Speed
+                ss << getColor("detailed_memory", "capacity", "green") << capOut.str() << r << " "
+                    << getColor("detailed_memory", "type", "cyan") << modules[i].type << r << " "
+                    << getColor("detailed_memory", "speed", "yellow") << modules[i].speed << r;
 
                 lp.push(ss.str());
             }
         }
     }
     // ----------------- END DETAILED MEMORY ----------------- //
-
-    
 
 
 	lp.push(""); // blank line
@@ -545,7 +550,7 @@ int main() {
 
     //----------------- END OF JSON-CONTROLLED COMPACT SECTIONS -----------------//
 
-
+    
 
 
 
