@@ -7,11 +7,11 @@
       "disk_performance": true,
       "disk_performance_predicted": true
     },
+    "storage_summary": 
     "header": {
       "line_color": "red",
       "title_color": "blue"
     },
-    "storage_summary": {
       "show_storage_type": true,
       "storage_type_color": "yellow",
       "show_drive_letter": true,
@@ -33,7 +33,11 @@
       "separator_color": "green",
       "unit_color": "green"
     },
-    "disk_performance": {
+    "disk_performance": 
+    "header": {
+      "line_color": "red",
+      "title_color": "blue"
+    },
       "show_drive_letter": true,
       "drive_letter_color": "cyan",
       "show_read_speed": true,
@@ -49,6 +53,10 @@
       "pipe_color": "green"
     },
     "disk_performance_predicted": {
+    "header": {
+      "line_color": "red",
+      "title_color": "blue"
+    },
       "show_drive_letter": true,
       "drive_letter_color": "cyan",
       "show_read_speed": true,
