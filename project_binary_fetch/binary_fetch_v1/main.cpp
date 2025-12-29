@@ -525,773 +525,307 @@ int main() {
         }
 
 
-        // Storage Info (detailed) - STREAMING VERSION WITH JSON CONFIG
-        {
-            // Check if detailed_storage is enabled
-            if (isEnabled("detailed_storage")) {
+        // ----------------- DETAILED STORAGE SECTION (FIXED) ----------------- //
+        if (isEnabled("detailed_storage")) {
+            lp.push("");
 
-                auto fmt_storage = [](const std::string& s) -> std::string {
-                    std::ostringstream oss;
-                    double v = 0.0;
-                    try { v = stod(s); }
-                    catch (...) { v = 0.0; }
-                    oss << std::fixed << std::setprecision(2)
-                        << std::setw(7) << std::right << std::setfill(' ')
-                        << v;
-                    return oss.str();
-                    };
+           // DEBUG: Check if config is loaded
+           // std::cout << "[DEBUG] Config loaded: " << (config_loaded ? "YES" : "NO") << std::endl;
+           //  if (config_loaded && config.contains("detailed_storage")) {
+           //std::cout << "[DEBUG] detailed_storage section found!" << std::endl;
+           //}
 
-                auto fmt_speed = [](const std::string& s) -> std::string {
-                    std::ostringstream tmp;
-                    double v = 0.0;
-                    try { v = stod(s); }
-                    catch (...) { v = 0.0; }
-                    tmp << std::fixed << std::setprecision(2) << v;
-                    std::string val = tmp.str();
-                    int padding = 7 - (int)val.size();
-                    if (padding < 0) padding = 0;
-                    return std::string(padding, ' ') + val;
-                    };
+            // Helper function to get nested color values
+            auto getNestedColor = [&](const std::string& path, const std::string& defaultColor = "white") -> std::string {
+                if (!config_loaded || !config.contains("detailed_storage")) return colors[defaultColor];
 
-                // Track disks for later sections
-                std::vector<storage_data> all_disks_captured;
-
-                // ============ STORAGE SUMMARY SECTION ============
-                if (isSectionEnabled("detailed_storage", "storage_summary")) {
-                    lp.push("");
-
-                    // Header
-                    if (isSubEnabled("detailed_storage", "storage_summary.header.show_header")) {
-                        std::ostringstream ss;
-                        ss << getColor("detailed_storage", "storage_summary.header.line_color", "red")
-                            << "------------------------- " << r
-                            << getColor("detailed_storage", "storage_summary.header.title_color", "blue")
-                            << "STORAGE SUMMARY" << r
-                            << getColor("detailed_storage", "storage_summary.header.line_color", "red")
-                            << " --------------------------" << r;
-                        lp.push(ss.str());
-                    }
-
-                    // Process each disk
-                    storage.process_storage_info([&](const storage_data& d) {
-                        all_disks_captured.push_back(d);
-
-                        std::ostringstream ss;
-
-                        // Storage Type
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_storage_type")) {
-                            ss << getColor("detailed_storage", "storage_summary.storage_type_color", "yellow")
-                                << d.storage_type << r << " ";
-                        }
-
-                        // Drive Letter
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_drive_letter")) {
-                            ss << getColor("detailed_storage", "storage_summary.drive_letter_color", "cyan")
-                                << d.drive_letter << r;
-                        }
-
-                        // Opening bracket
-                        ss << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                            << " [" << r;
-
-                        // Used label and space
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_used_label")) {
-                            ss << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                                << " (" << r
-                                << getColor("detailed_storage", "storage_summary.used_label_color", "green")
-                                << "Used" << r
-                                << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                                << ") " << r;
-                        }
-
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_used_space")) {
-                            ss << getColor("detailed_storage", "storage_summary.used_space_color", "green")
-                                << fmt_storage(d.used_space) << r
-                                << getColor("detailed_storage", "storage_summary.unit_color", "green")
-                                << " GiB " << r;
-                        }
-
-                        // Separator
-                        ss << getColor("detailed_storage", "storage_summary.separator_color", "green")
-                            << "/" << r;
-
-                        // Total space
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_total_space")) {
-                            ss << getColor("detailed_storage", "storage_summary.total_space_color", "green")
-                                << fmt_storage(d.total_space) << r
-                                << getColor("detailed_storage", "storage_summary.unit_color", "green")
-                                << " GiB  " << r;
-                        }
-
-                        // Used percentage
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_used_percentage")) {
-                            ss << getColor("detailed_storage", "storage_summary.used_percentage_color", "red")
-                                << d.used_percentage << r;
-                        }
-
-                        // Dash separator
-                        ss << getColor("detailed_storage", "storage_summary.separator_color", "green")
-                            << " - " << r;
-
-                        // File system
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_file_system")) {
-                            ss << getColor("detailed_storage", "storage_summary.file_system_color", "magenta")
-                                << d.file_system << r << " ";
-                        }
-
-                        // External/Internal status
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_external_status")) {
-                            if (d.is_external) {
-                                ss << getColor("detailed_storage", "storage_summary.external_text_color", "blue")
-                                    << "Ext" << r;
-                            }
-                            else {
-                                ss << getColor("detailed_storage", "storage_summary.internal_text_color", "white")
-                                    << "Int" << r;
-                            }
-                        }
-
-                        // Closing bracket
-                        ss << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                            << " ]" << r;
-
-                        lp.push(ss.str());
-                        });
+                std::vector<std::string> keys;
+                std::stringstream ss(path);
+                std::string key;
+                while (std::getline(ss, key, '.')) {
+                    keys.push_back(key);
                 }
 
-                // ============ DISK PERFORMANCE SECTION ============
-                if (!all_disks_captured.empty() && isSectionEnabled("detailed_storage", "disk_performance")) {
-                    lp.push("");
-
-                    // Header
-                    if (isSubEnabled("detailed_storage", "disk_performance.header.show_header")) {
-                        std::ostringstream ss;
-                        ss << getColor("detailed_storage", "disk_performance.header.line_color", "red")
-                            << "-------------------- " << r
-                            << getColor("detailed_storage", "disk_performance.header.title_color", "blue")
-                            << "DISK PERFORMANCE & DETAILS" << r
-                            << getColor("detailed_storage", "disk_performance.header.line_color", "red")
-                            << " --------------------" << r;
-                        lp.push(ss.str());
-                    }
-
-                    for (const auto& d : all_disks_captured) {
-                        std::ostringstream ss;
-
-                        // Drive Letter
-                        if (isSubEnabled("detailed_storage", "disk_performance.show_drive_letter")) {
-                            ss << getColor("detailed_storage", "disk_performance.drive_letter_color", "cyan")
-                                << d.drive_letter << r;
-                        }
-
-                        // Opening bracket
-                        ss << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                            << " [" << r << " ";
-
-                        // Read Speed
-                        if (isSubEnabled("detailed_storage", "disk_performance.show_read_speed")) {
-                            ss << getColor("detailed_storage", "disk_performance.read_label_color", "green")
-                                << "Read:" << r << " "
-                                << getColor("detailed_storage", "disk_performance.read_speed_color", "yellow")
-                                << fmt_speed(d.read_speed) << r
-                                << getColor("detailed_storage", "disk_performance.speed_unit_color", "green")
-                                << " MB/s " << r
-                                << getColor("detailed_storage", "disk_performance.pipe_color", "green")
-                                << "|" << r << " ";
-                        }
-
-                        // Write Speed
-                        if (isSubEnabled("detailed_storage", "disk_performance.show_write_speed")) {
-                            ss << getColor("detailed_storage", "disk_performance.write_label_color", "green")
-                                << "Write:" << r << " "
-                                << getColor("detailed_storage", "disk_performance.write_speed_color", "yellow")
-                                << fmt_speed(d.write_speed) << r
-                                << getColor("detailed_storage", "disk_performance.speed_unit_color", "green")
-                                << " MB/s " << r
-                                << getColor("detailed_storage", "disk_performance.pipe_color", "green")
-                                << "|" << r << " ";
-                        }
-
-                        // Serial Number
-                        if (isSubEnabled("detailed_storage", "disk_performance.show_serial_number")) {
-                            ss << getColor("detailed_storage", "disk_performance.serial_number_color", "magenta")
-                                << d.serial_number << r;
-                        }
-
-                        // External/Internal status
-                        if (isSubEnabled("detailed_storage", "disk_performance.show_external_status")) {
-                            if (d.is_external) {
-                                ss << getColor("detailed_storage", "storage_summary.external_text_color", "blue")
-                                    << " Ext" << r;
-                            }
-                            else {
-                                ss << getColor("detailed_storage", "storage_summary.internal_text_color", "white")
-                                    << " Int" << r;
-                            }
-                        }
-
-                        // Closing bracket
-                        ss << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                            << " ]" << r;
-
-                        lp.push(ss.str());
-                    }
+                json current = config["detailed_storage"];
+                for (const auto& k : keys) {
+                    if (!current.contains(k)) return colors[defaultColor];
+                    current = current[k];
                 }
 
-                // ============ DISK PERFORMANCE PREDICTED SECTION ============
-                if (!all_disks_captured.empty() && isSectionEnabled("detailed_storage", "disk_performance_predicted")) {
-                    lp.push("");
+                if (current.is_string()) {
+                    std::string colorName = current.get<std::string>();
+                    return colors.count(colorName) ? colors[colorName] : colors[defaultColor];
+                }
+                return colors[defaultColor];
+                };
 
-                    // Header
-                    if (isSubEnabled("detailed_storage", "disk_performance_predicted.header.show_header")) {
-                        std::ostringstream ss;
-                        ss << getColor("detailed_storage", "disk_performance_predicted.header.line_color", "red")
-                            << "---------------- " << r
-                            << getColor("detailed_storage", "disk_performance_predicted.header.title_color", "blue")
-                            << "DISK PERFORMANCE & DETAILS (Predicted)" << r
-                            << getColor("detailed_storage", "disk_performance_predicted.header.line_color", "red")
-                            << " ------------" << r;
-                        lp.push(ss.str());
-                    }
+            // Helper to check nested boolean values
+            auto getNestedBool = [&](const std::string& path, bool defaultValue = true) -> bool {
+                if (!config_loaded || !config.contains("detailed_storage")) return defaultValue;
 
-                    for (const auto& d : all_disks_captured) {
-                        std::ostringstream ss;
-
-                        // Drive Letter
-                        if (isSubEnabled("detailed_storage", "disk_performance_predicted.show_drive_letter")) {
-                            ss << getColor("detailed_storage", "disk_performance_predicted.drive_letter_color", "cyan")
-                                << d.drive_letter << r;
-                        }
-
-                        // Opening bracket
-                        ss << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                            << " [" << r << " ";
-
-                        // Read Speed
-                        if (isSubEnabled("detailed_storage", "disk_performance_predicted.show_read_speed")) {
-                            ss << getColor("detailed_storage", "disk_performance_predicted.read_label_color", "green")
-                                << "Read: " << r
-                                << getColor("detailed_storage", "disk_performance_predicted.read_speed_color", "yellow")
-                                << fmt_speed(d.predicted_read_speed) << r
-                                << getColor("detailed_storage", "disk_performance_predicted.speed_unit_color", "green")
-                                << " MB/s " << r
-                                << getColor("detailed_storage", "disk_performance_predicted.pipe_color", "green")
-                                << "|" << r << " ";
-                        }
-
-                        // Write Speed
-                        if (isSubEnabled("detailed_storage", "disk_performance_predicted.show_write_speed")) {
-                            ss << getColor("detailed_storage", "disk_performance_predicted.write_label_color", "green")
-                                << "Write: " << r
-                                << getColor("detailed_storage", "disk_performance_predicted.write_speed_color", "yellow")
-                                << fmt_speed(d.predicted_write_speed) << r
-                                << getColor("detailed_storage", "disk_performance_predicted.speed_unit_color", "green")
-                                << " MB/s " << r
-                                << getColor("detailed_storage", "disk_performance_predicted.pipe_color", "green")
-                                << "|" << r << " ";
-                        }
-
-                        // Serial Number
-                        if (isSubEnabled("detailed_storage", "disk_performance_predicted.show_serial_number")) {
-                            ss << getColor("detailed_storage", "disk_performance_predicted.serial_number_color", "magenta")
-                                << d.serial_number << r;
-                        }
-
-                        // External/Internal status
-                        if (isSubEnabled("detailed_storage", "disk_performance_predicted.show_external_status")) {
-                            if (d.is_external) {
-                                ss << getColor("detailed_storage", "storage_summary.external_text_color", "blue")
-                                    << " Ext" << r;
-                            }
-                            else {
-                                ss << getColor("detailed_storage", "storage_summary.internal_text_color", "white")
-                                    << " Int" << r;
-                            }
-                        }
-
-                        // Closing bracket
-                        ss << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                            << " ]" << r;
-
-                        lp.push(ss.str());
-                    }
+                std::vector<std::string> keys;
+                std::stringstream ss(path);
+                std::string key;
+                while (std::getline(ss, key, '.')) {
+                    keys.push_back(key);
                 }
 
-                // No drives message
-                if (all_disks_captured.empty()) {
-                    lp.push("No drives detected.");
+                json current = config["detailed_storage"];
+                for (const auto& k : keys) {
+                    if (!current.contains(k)) return defaultValue;
+                    current = current[k];
                 }
-            }
-        }
 
-        // Network (Compact + Extra) - WITH JSON CONFIG
-        {
-            if (isEnabled("network_info")) {
+                if (current.is_boolean()) {
+                    return current.get<bool>();
+                }
+                return defaultValue;
+                };
+
+            auto fmt_storage = [](const std::string& s) -> std::string {
+                std::ostringstream oss;
+                double v = 0.0;
+                try { v = stod(s); }
+                catch (...) { v = 0.0; }
+                oss << std::fixed << std::setprecision(2)
+                    << std::setw(7) << std::right << std::setfill(' ')
+                    << v;
+                return oss.str();
+                };
+
+            auto fmt_speed = [](const std::string& s) -> std::string {
+                std::ostringstream tmp;
+                double v = 0.0;
+                try { v = stod(s); }
+                catch (...) { v = 0.0; }
+                tmp << std::fixed << std::setprecision(2) << v;
+                std::string val = tmp.str();
+                int padding = 7 - (int)val.size();
+                if (padding < 0) padding = 0;
+                return std::string(padding, ' ') + val;
+                };
+
+            std::vector<storage_data> all_disks_captured;
+
+            // STORAGE SUMMARY SECTION
+            if (getNestedBool("sections.storage_summary", true)) {
+
                 // Header
-                if (isSubEnabled("network_info", "show_header")) {
+                if (getNestedBool("storage_summary.header.show_header", true)) {
                     std::ostringstream ss;
-                    ss << getColor("network_info", "header_prefix_color", "blue") << "#- " << r
-                        << getColor("network_info", "header_title_color", "green") << "Network Info " << r
-                        << getColor("network_info", "header_line_color", "blue")
-                        << "----------------------------------------------------#" << r;
+                    ss << getNestedColor("storage_summary.header.line_color", "red") << "------------------------- " << r
+                        << getNestedColor("storage_summary.header.title_color", "blue") << "STORAGE SUMMARY" << r
+                        << getNestedColor("storage_summary.header.line_color", "red") << " --------------------------" << r;
                     lp.push(ss.str());
                 }
 
-                // Network Name
-                if (isSubEnabled("network_info", "show_network_name")) {
-                    std::ostringstream ss;
-                    ss << getColor("network_info", "prefix_color", "blue") << "~ " << r
-                        << getColor("network_info", "label_color", "green") << "Network Name              " << r
-                        << getColor("network_info", "colon_color", "blue") << ": " << r
-                        << getColor("network_info", "network_name_color", "yellow") << net.get_network_name() << r;
-                    lp.push(ss.str());
-                }
+                // Process each disk
+                storage.process_storage_info([&](const storage_data& d) {
+                    all_disks_captured.push_back(d);
 
-                // Network Type
-                if (isSubEnabled("network_info", "show_network_type")) {
                     std::ostringstream ss;
-                    ss << getColor("network_info", "prefix_color", "blue") << "~ " << r
-                        << getColor("network_info", "label_color", "green") << "Network Type              " << r
-                        << getColor("network_info", "colon_color", "blue") << ": " << r
-                        << getColor("network_info", "network_type_color", "yellow") << c_net.get_network_type() << r;
-                    lp.push(ss.str());
-                }
 
-                // IP Address
-                if (isSubEnabled("network_info", "show_ip")) {
-                    std::ostringstream ss;
-                    ss << getColor("network_info", "prefix_color", "blue") << "~ " << r
-                        << getColor("network_info", "label_color", "green") << "IP                        " << r
-                        << getColor("network_info", "colon_color", "blue") << ": " << r
-                        << getColor("network_info", "ip_color", "magenta") << "12.23.34.5.345" << r;
-                    lp.push(ss.str());
-                }
+                    // Storage type
+                    if (getNestedBool("storage_summary.show_storage_type", true)) {
+                        ss << getNestedColor("storage_summary.storage_type_color", "yellow") << d.storage_type << r << " ";
+                    }
 
-                // Locale
-                if (isSubEnabled("network_info", "show_locale")) {
-                    std::ostringstream ss;
-                    ss << getColor("network_info", "prefix_color", "blue") << "~ " << r
-                        << getColor("network_info", "label_color", "green") << "Locale                    " << r
-                        << getColor("network_info", "colon_color", "blue") << ": " << r
-                        << getColor("network_info", "locale_color", "cyan") << net.get_locale() << r;
-                    lp.push(ss.str());
-                }
+                    // Drive letter
+                    if (getNestedBool("storage_summary.show_drive_letter", true)) {
+                        ss << getNestedColor("storage_summary.drive_letter_color", "cyan") << d.drive_letter << r;
+                    }
 
-                // MAC Address
-                if (isSubEnabled("network_info", "show_mac_address")) {
-                    std::ostringstream ss;
-                    ss << getColor("network_info", "prefix_color", "blue") << "~ " << r
-                        << getColor("network_info", "label_color", "green") << "Mac address               " << r
-                        << getColor("network_info", "colon_color", "blue") << ": " << r
-                        << getColor("network_info", "mac_color", "cyan") << net.get_mac_address() << r;
-                    lp.push(ss.str());
-                }
+                    // Opening bracket
+                    ss << getNestedColor("storage_summary.brackets_color", "green") << " [" << r;
 
-                // Upload Speed
-                if (isSubEnabled("network_info", "show_upload_speed")) {
-                    std::ostringstream ss;
-                    ss << getColor("network_info", "prefix_color", "blue") << "~ " << r
-                        << getColor("network_info", "label_color", "green") << "avg upload speed          " << r
-                        << getColor("network_info", "colon_color", "blue") << ": " << r
-                        << getColor("network_info", "upload_speed_color", "yellow") << net.get_network_upload_speed() << r;
-                    lp.push(ss.str());
-                }
+                    // (Used) label
+                    if (getNestedBool("storage_summary.show_used_label", true)) {
+                        ss << getNestedColor("storage_summary.brackets_color", "green") << " (" << r
+                            << getNestedColor("storage_summary.used_label_color", "green") << "Used" << r
+                            << getNestedColor("storage_summary.brackets_color", "green") << ") " << r;
+                    }
 
-                // Download Speed
-                if (isSubEnabled("network_info", "show_download_speed")) {
-                    std::ostringstream ss;
-                    ss << getColor("network_info", "prefix_color", "blue") << "~ " << r
-                        << getColor("network_info", "label_color", "green") << "avg download speed        " << r
-                        << getColor("network_info", "colon_color", "blue") << ": " << r
-                        << getColor("network_info", "download_speed_color", "yellow") << net.get_network_download_speed() << r;
+                    // Used space
+                    if (getNestedBool("storage_summary.show_used_space", true)) {
+                        ss << getNestedColor("storage_summary.used_space_color", "green") << fmt_storage(d.used_space) << r;
+                    }
+
+                    ss << getNestedColor("storage_summary.unit_color", "green") << " GiB " << r;
+
+                    // Separator
+                    ss << getNestedColor("storage_summary.separator_color", "green") << "/" << r;
+
+                    // Total space
+                    if (getNestedBool("storage_summary.show_total_space", true)) {
+                        ss << getNestedColor("storage_summary.total_space_color", "green") << fmt_storage(d.total_space) << r;
+                    }
+
+                    ss << getNestedColor("storage_summary.unit_color", "green") << " GiB  " << r;
+
+                    // Percentage
+                    if (getNestedBool("storage_summary.show_used_percentage", true)) {
+                        ss << getNestedColor("storage_summary.used_percentage_color", "red") << d.used_percentage << r;
+                    }
+
+                    // Separator
+                    ss << getNestedColor("storage_summary.separator_color", "green") << " - " << r;
+
+                    // File system
+                    if (getNestedBool("storage_summary.show_file_system", true)) {
+                        ss << getNestedColor("storage_summary.file_system_color", "magenta") << d.file_system << r << " ";
+                    }
+
+                    // External/Internal status
+                    if (getNestedBool("storage_summary.show_external_status", true)) {
+                        if (d.is_external) {
+                            ss << getNestedColor("storage_summary.external_text_color", "blue") << "Ext" << r;
+                        }
+                        else {
+                            ss << getNestedColor("storage_summary.internal_text_color", "white") << "Int" << r;
+                        }
+                    }
+
+                    // Closing bracket
+                    ss << getNestedColor("storage_summary.brackets_color", "green") << " ]" << r;
+
                     lp.push(ss.str());
-                }
+                    });
             }
-        }
 
-        // Storage Info (detailed) - STREAMING VERSION WITH JSON CONFIG
-        {
-            // Check if detailed_storage is enabled
-            if (isEnabled("detailed_storage")) {
+            // DISK PERFORMANCE SECTION
+            if (!all_disks_captured.empty() && getNestedBool("sections.disk_performance", true)) {
 
-                auto fmt_storage = [](const std::string& s) -> std::string {
-                    std::ostringstream oss;
-                    double v = 0.0;
-                    try { v = stod(s); }
-                    catch (...) { v = 0.0; }
-                    oss << std::fixed << std::setprecision(2)
-                        << std::setw(7) << std::right << std::setfill(' ')
-                        << v;
-                    return oss.str();
-                    };
+                lp.push("");
 
-                auto fmt_speed = [](const std::string& s) -> std::string {
-                    std::ostringstream tmp;
-                    double v = 0.0;
-                    try { v = stod(s); }
-                    catch (...) { v = 0.0; }
-                    tmp << std::fixed << std::setprecision(2) << v;
-                    std::string val = tmp.str();
-                    int padding = 7 - (int)val.size();
-                    if (padding < 0) padding = 0;
-                    return std::string(padding, ' ') + val;
-                    };
-
-                // Track disks for later sections
-                std::vector<storage_data> all_disks_captured;
-
-                // ============ STORAGE SUMMARY SECTION ============
-                if (isSectionEnabled("detailed_storage", "storage_summary")) {
-                    lp.push("");
-
-                    // Header
-                    if (isSubEnabled("detailed_storage", "storage_summary.header.show_header")) {
-                        std::ostringstream ss;
-                        ss << getColor("detailed_storage", "storage_summary.header.line_color", "red")
-                            << "------------------------- " << r
-                            << getColor("detailed_storage", "storage_summary.header.title_color", "blue")
-                            << "STORAGE SUMMARY" << r
-                            << getColor("detailed_storage", "storage_summary.header.line_color", "red")
-                            << " --------------------------" << r;
-                        lp.push(ss.str());
-                    }
-
-                    // Process each disk
-                    storage.process_storage_info([&](const storage_data& d) {
-                        all_disks_captured.push_back(d);
-
-                        std::ostringstream ss;
-
-                        // Storage Type
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_storage_type")) {
-                            ss << getColor("detailed_storage", "storage_summary.storage_type_color", "yellow")
-                                << d.storage_type << r << " ";
-                        }
-
-                        // Drive Letter
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_drive_letter")) {
-                            ss << getColor("detailed_storage", "storage_summary.drive_letter_color", "cyan")
-                                << d.drive_letter << r;
-                        }
-
-                        // Opening bracket
-                        ss << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                            << " [" << r;
-
-                        // Used label and space
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_used_label")) {
-                            ss << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                                << " (" << r
-                                << getColor("detailed_storage", "storage_summary.used_label_color", "green")
-                                << "Used" << r
-                                << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                                << ") " << r;
-                        }
-
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_used_space")) {
-                            ss << getColor("detailed_storage", "storage_summary.used_space_color", "green")
-                                << fmt_storage(d.used_space) << r
-                                << getColor("detailed_storage", "storage_summary.unit_color", "green")
-                                << " GiB " << r;
-                        }
-
-                        // Separator
-                        ss << getColor("detailed_storage", "storage_summary.separator_color", "green")
-                            << "/" << r;
-
-                        // Total space
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_total_space")) {
-                            ss << getColor("detailed_storage", "storage_summary.total_space_color", "green")
-                                << fmt_storage(d.total_space) << r
-                                << getColor("detailed_storage", "storage_summary.unit_color", "green")
-                                << " GiB  " << r;
-                        }
-
-                        // Used percentage
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_used_percentage")) {
-                            ss << getColor("detailed_storage", "storage_summary.used_percentage_color", "red")
-                                << d.used_percentage << r;
-                        }
-
-                        // Dash separator
-                        ss << getColor("detailed_storage", "storage_summary.separator_color", "green")
-                            << " - " << r;
-
-                        // File system
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_file_system")) {
-                            ss << getColor("detailed_storage", "storage_summary.file_system_color", "magenta")
-                                << d.file_system << r << " ";
-                        }
-
-                        // External/Internal status
-                        if (isSubEnabled("detailed_storage", "storage_summary.show_external_status")) {
-                            if (d.is_external) {
-                                ss << getColor("detailed_storage", "storage_summary.external_text_color", "blue")
-                                    << "Ext" << r;
-                            }
-                            else {
-                                ss << getColor("detailed_storage", "storage_summary.internal_text_color", "white")
-                                    << "Int" << r;
-                            }
-                        }
-
-                        // Closing bracket
-                        ss << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                            << " ]" << r;
-
-                        lp.push(ss.str());
-                        });
-                }
-
-                // ============ DISK PERFORMANCE SECTION ============
-                if (!all_disks_captured.empty() && isSectionEnabled("detailed_storage", "disk_performance")) {
-                    lp.push("");
-
-                    // Header
-                    if (isSubEnabled("detailed_storage", "disk_performance.header.show_header")) {
-                        std::ostringstream ss;
-                        ss << getColor("detailed_storage", "disk_performance.header.line_color", "red")
-                            << "-------------------- " << r
-                            << getColor("detailed_storage", "disk_performance.header.title_color", "blue")
-                            << "DISK PERFORMANCE & DETAILS" << r
-                            << getColor("detailed_storage", "disk_performance.header.line_color", "red")
-                            << " --------------------" << r;
-                        lp.push(ss.str());
-                    }
-
-                    for (const auto& d : all_disks_captured) {
-                        std::ostringstream ss;
-
-                        // Drive Letter
-                        if (isSubEnabled("detailed_storage", "disk_performance.show_drive_letter")) {
-                            ss << getColor("detailed_storage", "disk_performance.drive_letter_color", "cyan")
-                                << d.drive_letter << r;
-                        }
-
-                        // Opening bracket
-                        ss << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                            << " [" << r << " ";
-
-                        // Read Speed
-                        if (isSubEnabled("detailed_storage", "disk_performance.show_read_speed")) {
-                            ss << getColor("detailed_storage", "disk_performance.read_label_color", "green")
-                                << "Read:" << r << " "
-                                << getColor("detailed_storage", "disk_performance.read_speed_color", "yellow")
-                                << fmt_speed(d.read_speed) << r
-                                << getColor("detailed_storage", "disk_performance.speed_unit_color", "green")
-                                << " MB/s " << r
-                                << getColor("detailed_storage", "disk_performance.pipe_color", "green")
-                                << "|" << r << " ";
-                        }
-
-                        // Write Speed
-                        if (isSubEnabled("detailed_storage", "disk_performance.show_write_speed")) {
-                            ss << getColor("detailed_storage", "disk_performance.write_label_color", "green")
-                                << "Write:" << r << " "
-                                << getColor("detailed_storage", "disk_performance.write_speed_color", "yellow")
-                                << fmt_speed(d.write_speed) << r
-                                << getColor("detailed_storage", "disk_performance.speed_unit_color", "green")
-                                << " MB/s " << r
-                                << getColor("detailed_storage", "disk_performance.pipe_color", "green")
-                                << "|" << r << " ";
-                        }
-
-                        // Serial Number
-                        if (isSubEnabled("detailed_storage", "disk_performance.show_serial_number")) {
-                            ss << getColor("detailed_storage", "disk_performance.serial_number_color", "magenta")
-                                << d.serial_number << r;
-                        }
-
-                        // External/Internal status
-                        if (isSubEnabled("detailed_storage", "disk_performance.show_external_status")) {
-                            if (d.is_external) {
-                                ss << getColor("detailed_storage", "storage_summary.external_text_color", "blue")
-                                    << " Ext" << r;
-                            }
-                            else {
-                                ss << getColor("detailed_storage", "storage_summary.internal_text_color", "white")
-                                    << " Int" << r;
-                            }
-                        }
-
-                        // Closing bracket
-                        ss << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                            << " ]" << r;
-
-                        lp.push(ss.str());
-                    }
-                }
-
-                // ============ DISK PERFORMANCE PREDICTED SECTION ============
-                if (!all_disks_captured.empty() && isSectionEnabled("detailed_storage", "disk_performance_predicted")) {
-                    lp.push("");
-
-                    // Header
-                    if (isSubEnabled("detailed_storage", "disk_performance_predicted.header.show_header")) {
-                        std::ostringstream ss;
-                        ss << getColor("detailed_storage", "disk_performance_predicted.header.line_color", "red")
-                            << "---------------- " << r
-                            << getColor("detailed_storage", "disk_performance_predicted.header.title_color", "blue")
-                            << "DISK PERFORMANCE & DETAILS (Predicted)" << r
-                            << getColor("detailed_storage", "disk_performance_predicted.header.line_color", "red")
-                            << " ------------" << r;
-                        lp.push(ss.str());
-                    }
-
-                    for (const auto& d : all_disks_captured) {
-                        std::ostringstream ss;
-
-                        // Drive Letter
-                        if (isSubEnabled("detailed_storage", "disk_performance_predicted.show_drive_letter")) {
-                            ss << getColor("detailed_storage", "disk_performance_predicted.drive_letter_color", "cyan")
-                                << d.drive_letter << r;
-                        }
-
-                        // Opening bracket
-                        ss << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                            << " [" << r << " ";
-
-                        // Read Speed
-                        if (isSubEnabled("detailed_storage", "disk_performance_predicted.show_read_speed")) {
-                            ss << getColor("detailed_storage", "disk_performance_predicted.read_label_color", "green")
-                                << "Read: " << r
-                                << getColor("detailed_storage", "disk_performance_predicted.read_speed_color", "yellow")
-                                << fmt_speed(d.predicted_read_speed) << r
-                                << getColor("detailed_storage", "disk_performance_predicted.speed_unit_color", "green")
-                                << " MB/s " << r
-                                << getColor("detailed_storage", "disk_performance_predicted.pipe_color", "green")
-                                << "|" << r << " ";
-                        }
-
-                        // Write Speed
-                        if (isSubEnabled("detailed_storage", "disk_performance_predicted.show_write_speed")) {
-                            ss << getColor("detailed_storage", "disk_performance_predicted.write_label_color", "green")
-                                << "Write: " << r
-                                << getColor("detailed_storage", "disk_performance_predicted.write_speed_color", "yellow")
-                                << fmt_speed(d.predicted_write_speed) << r
-                                << getColor("detailed_storage", "disk_performance_predicted.speed_unit_color", "green")
-                                << " MB/s " << r
-                                << getColor("detailed_storage", "disk_performance_predicted.pipe_color", "green")
-                                << "|" << r << " ";
-                        }
-
-                        // Serial Number
-                        if (isSubEnabled("detailed_storage", "disk_performance_predicted.show_serial_number")) {
-                            ss << getColor("detailed_storage", "disk_performance_predicted.serial_number_color", "magenta")
-                                << d.serial_number << r;
-                        }
-
-                        // External/Internal status
-                        if (isSubEnabled("detailed_storage", "disk_performance_predicted.show_external_status")) {
-                            if (d.is_external) {
-                                ss << getColor("detailed_storage", "storage_summary.external_text_color", "blue")
-                                    << " Ext" << r;
-                            }
-                            else {
-                                ss << getColor("detailed_storage", "storage_summary.internal_text_color", "white")
-                                    << " Int" << r;
-                            }
-                        }
-
-                        // Closing bracket
-                        ss << getColor("detailed_storage", "storage_summary.brackets_color", "green")
-                            << " ]" << r;
-
-                        lp.push(ss.str());
-                    }
-                }
-
-                // No drives message
-                if (all_disks_captured.empty()) {
-                    lp.push("No drives detected.");
-                }
-            }
-        }
-
-        // Network (Compact + Extra) - WITH JSON CONFIG
-        {
-            if (isEnabled("network_info")) {
                 // Header
-                if (isSubEnabled("network_info", "show_header")) {
+                if (getNestedBool("disk_performance.header.show_header", true)) {
                     std::ostringstream ss;
-                    ss << getColor("network_info", "header_prefix_color", "blue") << "#- " << r
-                        << getColor("network_info", "header_title_color", "green") << "Network Info " << r
-                        << getColor("network_info", "header_line_color", "blue")
-                        << "----------------------------------------------------#" << r;
+                    ss << getNestedColor("disk_performance.header.line_color", "red") << "-------------------- " << r
+                        << getNestedColor("disk_performance.header.title_color", "blue") << "DISK PERFORMANCE & DETAILS" << r
+                        << getNestedColor("disk_performance.header.line_color", "red") << " --------------------" << r;
                     lp.push(ss.str());
                 }
 
-                // Network Name
-                if (isSubEnabled("network_info", "show_network_name")) {
+                for (const auto& d : all_disks_captured) {
                     std::ostringstream ss;
-                    ss << getColor("network_info", "prefix_color", "blue") << "~ " << r
-                        << getColor("network_info", "label_color", "green") << "Network Name              " << r
-                        << getColor("network_info", "colon_color", "blue") << ": " << r
-                        << getColor("network_info", "network_name_color", "yellow") << net.get_network_name() << r;
-                    lp.push(ss.str());
-                }
 
-                // Network Type
-                if (isSubEnabled("network_info", "show_network_type")) {
-                    std::ostringstream ss;
-                    ss << getColor("network_info", "prefix_color", "blue") << "~ " << r
-                        << getColor("network_info", "label_color", "green") << "Network Type              " << r
-                        << getColor("network_info", "colon_color", "blue") << ": " << r
-                        << getColor("network_info", "network_type_color", "yellow") << c_net.get_network_type() << r;
-                    lp.push(ss.str());
-                }
+                    // Drive letter
+                    if (getNestedBool("disk_performance.show_drive_letter", true)) {
+                        ss << getNestedColor("disk_performance.drive_letter_color", "cyan") << d.drive_letter << r;
+                    }
 
-                // IP Address
-                if (isSubEnabled("network_info", "show_ip")) {
-                    std::ostringstream ss;
-                    ss << getColor("network_info", "prefix_color", "blue") << "~ " << r
-                        << getColor("network_info", "label_color", "green") << "IP                        " << r
-                        << getColor("network_info", "colon_color", "blue") << ": " << r
-                        << getColor("network_info", "ip_color", "magenta") << "12.23.34.5.345" << r;
-                    lp.push(ss.str());
-                }
+                    ss << getNestedColor("storage_summary.brackets_color", "green") << " [" << r << " ";
 
-                // Locale
-                if (isSubEnabled("network_info", "show_locale")) {
-                    std::ostringstream ss;
-                    ss << getColor("network_info", "prefix_color", "blue") << "~ " << r
-                        << getColor("network_info", "label_color", "green") << "Locale                    " << r
-                        << getColor("network_info", "colon_color", "blue") << ": " << r
-                        << getColor("network_info", "locale_color", "cyan") << net.get_locale() << r;
-                    lp.push(ss.str());
-                }
+                    // Read speed
+                    if (getNestedBool("disk_performance.show_read_speed", true)) {
+                        ss << getNestedColor("disk_performance.read_label_color", "green") << "Read:" << r << " "
+                            << getNestedColor("disk_performance.read_speed_color", "yellow") << fmt_speed(d.read_speed) << r;
+                    }
 
-                // MAC Address
-                if (isSubEnabled("network_info", "show_mac_address")) {
-                    std::ostringstream ss;
-                    ss << getColor("network_info", "prefix_color", "blue") << "~ " << r
-                        << getColor("network_info", "label_color", "green") << "Mac address               " << r
-                        << getColor("network_info", "colon_color", "blue") << ": " << r
-                        << getColor("network_info", "mac_color", "cyan") << net.get_mac_address() << r;
-                    lp.push(ss.str());
-                }
+                    ss << getNestedColor("disk_performance.speed_unit_color", "green") << " MB/s " << r
+                        << getNestedColor("disk_performance.pipe_color", "green") << "|" << r << " ";
 
-                // Upload Speed
-                if (isSubEnabled("network_info", "show_upload_speed")) {
-                    std::ostringstream ss;
-                    ss << getColor("network_info", "prefix_color", "blue") << "~ " << r
-                        << getColor("network_info", "label_color", "green") << "avg upload speed          " << r
-                        << getColor("network_info", "colon_color", "blue") << ": " << r
-                        << getColor("network_info", "upload_speed_color", "yellow") << net.get_network_upload_speed() << r;
-                    lp.push(ss.str());
-                }
+                    // Write speed
+                    if (getNestedBool("disk_performance.show_write_speed", true)) {
+                        ss << getNestedColor("disk_performance.write_label_color", "green") << "Write:" << r << " "
+                            << getNestedColor("disk_performance.write_speed_color", "yellow") << fmt_speed(d.write_speed) << r;
+                    }
 
-                // Download Speed
-                if (isSubEnabled("network_info", "show_download_speed")) {
-                    std::ostringstream ss;
-                    ss << getColor("network_info", "prefix_color", "blue") << "~ " << r
-                        << getColor("network_info", "label_color", "green") << "avg download speed        " << r
-                        << getColor("network_info", "colon_color", "blue") << ": " << r
-                        << getColor("network_info", "download_speed_color", "yellow") << net.get_network_download_speed() << r;
+                    ss << getNestedColor("disk_performance.speed_unit_color", "green") << " MB/s " << r
+                        << getNestedColor("disk_performance.pipe_color", "green") << "|" << r << " ";
+
+                    // Serial number
+                    if (getNestedBool("disk_performance.show_serial_number", true)) {
+                        ss << getNestedColor("disk_performance.serial_number_color", "magenta") << d.serial_number << r;
+                    }
+
+                    // External/Internal status
+                    if (getNestedBool("disk_performance.show_external_status", true)) {
+                        if (d.is_external) {
+                            ss << getNestedColor("storage_summary.external_text_color", "blue") << " Ext" << r;
+                        }
+                        else {
+                            ss << getNestedColor("storage_summary.internal_text_color", "white") << " Int" << r;
+                        }
+                    }
+
+                    ss << getNestedColor("storage_summary.brackets_color", "green") << " ]" << r;
+
                     lp.push(ss.str());
                 }
             }
+
+            // DISK PERFORMANCE PREDICTED SECTION
+            if (!all_disks_captured.empty() && getNestedBool("sections.disk_performance_predicted", true)) {
+
+                lp.push("");
+
+                // Header
+                if (getNestedBool("disk_performance_predicted.header.show_header", true)) {
+                    std::ostringstream ss;
+                    ss << getNestedColor("disk_performance_predicted.header.line_color", "red") << "---------------- " << r
+                        << getNestedColor("disk_performance_predicted.header.title_color", "blue") << "DISK PERFORMANCE & DETAILS (Predicted)" << r
+                        << getNestedColor("disk_performance_predicted.header.line_color", "red") << " ------------" << r;
+                    lp.push(ss.str());
+                }
+
+                for (const auto& d : all_disks_captured) {
+                    std::ostringstream ss;
+
+                    // Drive letter
+                    if (getNestedBool("disk_performance_predicted.show_drive_letter", true)) {
+                        ss << getNestedColor("disk_performance_predicted.drive_letter_color", "cyan") << d.drive_letter << r;
+                    }
+
+                    ss << getNestedColor("storage_summary.brackets_color", "green") << " [" << r << " ";
+
+                    // Read speed
+                    if (getNestedBool("disk_performance_predicted.show_read_speed", true)) {
+                        ss << getNestedColor("disk_performance_predicted.read_label_color", "green") << "Read: " << r
+                            << getNestedColor("disk_performance_predicted.read_speed_color", "yellow") << fmt_speed(d.predicted_read_speed) << r;
+                    }
+
+                    ss << getNestedColor("disk_performance_predicted.speed_unit_color", "green") << " MB/s " << r
+                        << getNestedColor("disk_performance_predicted.pipe_color", "green") << "|" << r << " ";
+
+                    // Write speed
+                    if (getNestedBool("disk_performance_predicted.show_write_speed", true)) {
+                        ss << getNestedColor("disk_performance_predicted.write_label_color", "green") << "Write: " << r
+                            << getNestedColor("disk_performance_predicted.write_speed_color", "yellow") << fmt_speed(d.predicted_write_speed) << r;
+                    }
+
+                    ss << getNestedColor("disk_performance_predicted.speed_unit_color", "green") << " MB/s " << r
+                        << getNestedColor("disk_performance_predicted.pipe_color", "green") << "|" << r << " ";
+
+                    // Serial number
+                    if (getNestedBool("disk_performance_predicted.show_serial_number", true)) {
+                        ss << getNestedColor("disk_performance_predicted.serial_number_color", "magenta") << d.serial_number << r;
+                    }
+
+                    // External/Internal status
+                    if (getNestedBool("disk_performance_predicted.show_external_status", true)) {
+                        if (d.is_external) {
+                            ss << getNestedColor("storage_summary.external_text_color", "blue") << " Ext" << r;
+                        }
+                        else {
+                            ss << getNestedColor("storage_summary.internal_text_color", "white") << " Int" << r;
+                        }
+                    }
+
+                    ss << getNestedColor("storage_summary.brackets_color", "green") << " ]" << r;
+
+                    lp.push(ss.str());
+                }
+            }
+
+            // No drives detected
+            if (all_disks_captured.empty()) {
+                lp.push("No drives detected.");
+            }
         }
+        // ----------------- END DETAILED STORAGE ----------------- //
+
+ 
 
 	lp.push(""); // blank line
     lp.push(""); // blank line
