@@ -692,7 +692,7 @@ int main() {
                     });
             }
 
-            // DISK PERFORMANCE SECTION
+            // DISK PERFORMANCE SECTION ////////////////////////////////////////////////////////////////////////////////////////
             if (!all_disks_captured.empty() && getNestedBool("sections.disk_performance", true)) {
 
                 lp.push("");
@@ -723,7 +723,7 @@ int main() {
                     }
 
                     ss << getNestedColor("disk_performance.speed_unit_color", "green") << " MB/s " << r
-                        << getNestedColor("disk_performance.pipe_color", "green") << "|" << r << " ";
+                        << getNestedColor("disk_performance.|", "green") << "|" << r << " ";
 
                     // Write speed
                     if (getNestedBool("disk_performance.show_write_speed", true)) {
