@@ -732,7 +732,7 @@ int main() {
                     }
 
                     ss << getNestedColor("disk_performance.speed_unit_color", "green") << " MB/s " << r
-                        << getNestedColor("disk_performance.pipe_color", "green") << "|" << r << " ";
+                        << getNestedColor("disk_performance.|", "green") << "|" << r << " ";
 
                     // Serial number
                     if (getNestedBool("disk_performance.show_serial_number", true)) {
@@ -749,7 +749,7 @@ int main() {
                         }
                     }
 
-                    ss << getNestedColor("storage_summary.brackets_color", "green") << " ]" << r;
+                    ss << getNestedColor("storage_summary.]", "green") << " ]" << r;
 
                     lp.push(ss.str());
                 }

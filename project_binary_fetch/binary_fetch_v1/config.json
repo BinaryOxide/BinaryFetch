@@ -222,7 +222,12 @@
       "serial_number_color": "blue",
       "show_external_status": true,
       "speed_unit_color": "blue",
-      "pipe_color": "blue"
+      "]": "red",
+      "[": "red",
+      "(": "green",
+      "/": "red",
+      "-": "green",
+      "|": "green"
     },
     "disk_performance_predicted": {
       "header": {
