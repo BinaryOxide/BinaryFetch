@@ -204,7 +204,6 @@
       "-": "green",
       "used_GIB": "blue",
       "total_GIB": "blue" 
-
     },
     "disk_performance": {
       "header": {
