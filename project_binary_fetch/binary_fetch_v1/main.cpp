@@ -465,7 +465,7 @@ int main() {
 
                 // ---------- TOTAL ----------
                 if (isSectionEnabled("detailed_memory", "total")) {
-                    ss << getColor("detailed_memory", "brackets", "blue") << "(" << r
+                    ss << getColor("detailed_memory", "brackets", "blue") << "~ (" << r
                         << getColor("detailed_memory", "label", "green") << "Total: " << r
                         << getColor("detailed_memory", "total_value", "yellow") << ram.getTotal() << " GB" << r
                         << getColor("detailed_memory", "brackets", "blue") << ") " << r;

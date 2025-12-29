@@ -153,7 +153,7 @@
     "colors": {
       ">>~": "red",
       "header_title": "red",
-      "-------------------------<": "red",
+      "-------------------------#": "red",
       "label": "red",
       "total_value": "red",
       "free_value": "red",
@@ -202,7 +202,7 @@
       "(": "green",
       "/": "red",
       "-": "green",
-      "unit_color": "blue"
+      "GIB": "green"
     },
     "disk_performance": {
       "header": {
@@ -247,7 +247,13 @@
       "serial_number_color": "blue",
       "show_external_status": true,
       "speed_unit_color": "blue",
-      "pipe_color": "blue"
+      "]": "red",
+      "[": "red",
+      "(": "green",
+      "/": "red",
+      "-": "green",
+      "GIB": "green",
+      "|": "green"
     }
   }
 }
