@@ -11,17 +11,18 @@
     "show_build": true,
     "show_arch": true,
     "show_uptime": true,
-    "[OS]": "white",
-    "(": "bright_black",
-    ")": "bright_black",
-    "->": "bright_black",
 
-    "name_color": "white",
-    "build_color": "bright_black",
-    "arch_color": "bright_black",
+    "[OS]": "red",
+    "(": "blue",
+    ")": "blue",
+    "->": "blue",
 
-    "uptime_label_color": "bright_black",
-    "uptime_value_color": "white"
+    "name_color": "red",
+    "build_color": "blue",
+    "arch_color": "blue",
+
+    "uptime_label_color": "blue",
+    "uptime_value_color": "blue"
   },
   "compact_cpu": {
     "enabled": true,
