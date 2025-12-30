@@ -188,8 +188,8 @@
       "show_used_percentage": true,
       "show_file_system": true,
       "show_external_status": true,
-      "storage_type_color": "green",
-      "drive_letter_color": "bright_green",
+      "storage_type_color": "cyan",
+      "drive_letter_color": "blue",
       "used_label_color": "green",
       "used_space_color": "bright_green",
       "total_space_color": "white",
@@ -197,13 +197,13 @@
       "file_system_color": "green",
       "external_text_color": "bright_green",
       "internal_text_color": "green",
-      "[": "bright_black",
-      "]": "bright_black",
+      "[": "red",
+      "]": "red",
       "(": "green",
-      "/": "bright_black",
-      "-": "green",
-      "used_GIB": "blue",
-      "total_GIB":"blue"
+      "/": "red",
+      "-": "cyan",
+      "used_GIB":"blue",
+      "total_GIB": "blue" 
     },
     "disk_performance": {
       "header": {
