@@ -216,7 +216,7 @@ int main() {
         // Compact CPU
         if (isEnabled("compact_cpu")) {
             std::ostringstream ss;
-            ss << getColor("compact_cpu", "(", "red") << "[CPU]" << r
+            ss << getColor("compact_cpu", "[CPU]", "red") << "[CPU]" << r
                 << getColor("compact_cpu", "->", "blue") << " -> " << r;
 
             if (isSubEnabled("compact_cpu", "show_name")) ss << getColor("compact_cpu", "name_color", "green") << c_cpu.getCPUName() << r;
@@ -242,7 +242,7 @@ int main() {
             auto screens = c_screen.get_screens();
             int idx = 1;
             if (screens.empty()) {
-                lp.push(getColor("compact_display", "(", "red") + "[Display]" + r +
+                lp.push(getColor("compact_display", "[Display]", "red") + "[Display]" + r +
                     getColor("compact_display", "->", "blue") + " -> " + r + "No displays detected");
             }
             else {
@@ -269,7 +269,7 @@ int main() {
         // Compact Memory
         if (isEnabled("compact_memory")) {
             std::ostringstream ss;
-            ss << getColor("compact_memory", "(", "red") << "[Memory]" << r
+            ss << getColor("compact_memory", "[memory]", "red") << "[Memory]" << r
                 << getColor("compact_memory", "->", "blue") << " -> " << r;
 
             if (isSubEnabled("compact_memory", "show_total")) {
@@ -296,7 +296,7 @@ int main() {
         if (isEnabled("compact_audio")) {
             if (isSubEnabled("compact_audio", "show_input")) {
                 std::ostringstream ss1;
-                ss1 << getColor("compact_audio", "(", "red") << "[Audio Input]" << r
+                ss1 << getColor("compact_audio", "[Audio Input]", "red") << "[Audio Input]" << r
                     << getColor("compact_audio", "->", "blue") << " -> " << r
                     << getColor("compact_audio", "device_color", "green") << c_audio.active_audio_input() << r << " "
                     << getColor("compact_audio", "(", "red") << "[" << r
@@ -306,7 +306,7 @@ int main() {
             }
             if (isSubEnabled("compact_audio", "show_output")) {
                 std::ostringstream ss2;
-                ss2 << getColor("compact_audio", "(", "red") << "[Audio Output]" << r
+                ss2 << getColor("compact_audio", "[Audio Output]", "red") << "[Audio Output]" << r
                     << getColor("compact_audio", "->", "blue") << " -> " << r
                     << getColor("compact_audio", "device_color", "green") << c_audio.active_audio_output() << r << " "
                     << getColor("compact_audio", "(", "red") << "[" << r
@@ -319,7 +319,7 @@ int main() {
         // Compact GPU
         if (isEnabled("compact_gpu")) {
             std::ostringstream ss;
-            ss << getColor("compact_gpu", "(", "red") << "[GPU]" << r
+            ss << getColor("compact_gpu", "[GPU]", "red") << "[GPU]" << r
                 << getColor("compact_gpu", "->", "blue") << " -> " << r;
 
             if (isSubEnabled("compact_gpu", "show_name")) ss << getColor("compact_gpu", "name_color", "blue") << c_gpu.getGPUName() << r;
@@ -348,7 +348,7 @@ int main() {
         // Compact Performance
         if (isEnabled("compact_performance")) {
             std::ostringstream ss;
-            ss << getColor("compact_performance", "(", "red") << "[Performance]" << r
+            ss << getColor("compact_performance", "[Performancece", "red") << "[Performance]" << r
                 << getColor("compact_performance", "->", "blue") << " -> " << r;
 
             auto addP = [&](const std::string& subKey, const std::string& label, const std::string& colorKey, auto val) {
@@ -369,7 +369,7 @@ int main() {
         // Compact User
         if (isEnabled("compact_user")) {
             std::ostringstream ss;
-            ss << getColor("compact_user", "(", "red") << "[User]" << r
+            ss << getColor("compact_user", "[User]", "red") << "[User]" << r
                 << getColor("compact_user", "->", "blue") << " -> " << r;
 
             if (isSubEnabled("compact_user", "show_username")) ss << getColor("compact_user", "username_color", "green") << "@" << c_user.getUsername() << r;
@@ -391,7 +391,7 @@ int main() {
         // Compact Network
         if (isEnabled("compact_network")) {
             std::ostringstream ss;
-            ss << getColor("compact_network", "(", "red") << "[network]" << r
+            ss << getColor("compact_network", "[Network]", "red") << "[Network]" << r
                 << getColor("compact_network", "->", "blue") << " -> " << r;
 
             if (isSubEnabled("compact_network", "show_name")) {
@@ -420,7 +420,7 @@ int main() {
             if (isSubEnabled("compact_disk", "show_usage")) {
                 auto disks = disk.getAllDiskUsage();
                 std::ostringstream ss;
-                ss << getColor("compact_disk", "(", "red") << "[Disk Usage]" << r << getColor("compact_disk", "->", "blue") << " -> " << r;
+                ss << getColor("compact_disk", "[Disk Usage]", "red") << "[Disk Usage]" << r << getColor("compact_disk", "->", "blue") << " -> " << r;
                 for (const auto& d : disks) {
                     ss << getColor("compact_disk", "(", "red") << "(" << r << getColor("compact_disk", "letter_color", "green") << d.first[0] << ":" << r
                         << " " << getColor("compact_disk", "percent_color", "yellow") << std::fixed << std::setprecision(1) << d.second << "%" << r
@@ -432,7 +432,7 @@ int main() {
             if (isSubEnabled("compact_disk", "show_capacity")) {
                 auto caps = disk.getDiskCapacity();
                 std::ostringstream sc;
-                sc << getColor("compact_disk", "(", "red") << "[Disk Cap]" << r << getColor("compact_disk", "->", "blue") << " -> " << r;
+                sc << getColor("compact_disk", "[Disk Cap]", "red") << "[Disk Cap]" << r << getColor("compact_disk", "->", "blue") << " -> " << r;
                 for (const auto& c : caps) {
                     sc << getColor("compact_disk", "(", "red") << "(" << r << getColor("compact_disk", "letter_color", "green") << c.first[0] << r
                         << getColor("compact_disk", "separator_color", "blue") << "-" << r << getColor("compact_disk", "capacity_color", "yellow") << c.second << "GB" << r
