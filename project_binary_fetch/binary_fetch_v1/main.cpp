@@ -348,7 +348,7 @@ int main() {
         // Compact Performance
         if (isEnabled("compact_performance")) {
             std::ostringstream ss;
-            ss << getColor("compact_performance", "[Performancece", "red") << "[Performance]" << r
+            ss << getColor("compact_performance", "[Performance]", "red") << "[Performance]" << r
                 << getColor("compact_performance", "->", "blue") << " -> " << r;
 
             auto addP = [&](const std::string& subKey, const std::string& label, const std::string& colorKey, auto val) {
