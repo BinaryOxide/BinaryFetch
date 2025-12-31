@@ -1306,8 +1306,72 @@ int main() {
             }
         }
 
+		// end of the GPU info section////////////////////////////////////////////////
 
 
+        // Display Info (JSON Driven)
+        if (isEnabled("display_info")) {
+            lp.push("");
+            auto monitors = display.get_all_displays();
+
+            if (monitors.empty()) {
+                if (isSubEnabled("display_info", "show_header")) {
+                    std::ostringstream ss;
+                    ss << getColor("display_info", "#-", "white") << "#- " << r
+                        << getColor("display_info", "error_header_color", "white") << "Display" << r
+                        << getColor("display_info", "separator_line", "white")
+                        << " ----------------------------------------------------------#" << r;
+                    lp.push(ss.str());
+                }
+                lp.push(getColor("display_info", "error_color", "white") + "No monitors detected." + r);
+            }
+            else {
+                for (size_t i = 0; i < monitors.size(); ++i) {
+                    auto& m = monitors[i];
+
+                    // Monitor Header
+                    if (isSubEnabled("display_info", "show_header")) {
+                        std::ostringstream ss;
+                        ss << getColor("display_info", "#-", "white") << "#- " << r
+                            << getColor("display_info", "header_text_color", "white") << "Monitor " << (i + 1) << " " << r
+                            << getColor("display_info", "separator_line", "white")
+                            << "--------------------------------------------------------#" << r;
+                        lp.push(ss.str());
+                    }
+
+                    // Brand
+                    if (isSubEnabled("display_info", "show_brand")) {
+                        std::ostringstream ss;
+                        ss << getColor("display_info", "~", "white") << "~ " << r
+                            << getColor("display_info", "label_color", "white") << "Brand                    " << r
+                            << getColor("display_info", ":", "white") << ": " << r
+                            << getColor("display_info", "brand_value_color", "white") << m.brand_name << r;
+                        lp.push(ss.str());
+                    }
+
+                    // Resolution
+                    if (isSubEnabled("display_info", "show_resolution")) {
+                        std::ostringstream ss;
+                        ss << getColor("display_info", "~", "white") << "~ " << r
+                            << getColor("display_info", "label_color", "white") << "Resolution               " << r
+                            << getColor("display_info", ":", "white") << ": " << r
+                            << getColor("display_info", "resolution_value_color", "white") << m.resolution << r;
+                        lp.push(ss.str());
+                    }
+
+                    // Refresh Rate
+                    if (isSubEnabled("display_info", "show_refresh_rate")) {
+                        std::ostringstream ss;
+                        ss << getColor("display_info", "~", "white") << "~ " << r
+                            << getColor("display_info", "label_color", "white") << "Refresh Rate             " << r
+                            << getColor("display_info", ":", "white") << ": " << r
+                            << getColor("display_info", "refresh_rate_value_color", "white") << m.refresh_rate << r
+                            << getColor("display_info", "unit_color", "white") << " Hz" << r;
+                        lp.push(ss.str());
+                    }
+                }
+            }
+        }
 
 
 

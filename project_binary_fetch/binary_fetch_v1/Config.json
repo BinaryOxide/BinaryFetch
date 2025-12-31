@@ -404,6 +404,28 @@
     "temp_value_color": "cyan",
     "cores_value_color": "cyan",
     "freq_value_color": "cyan"
+  },
+  "display_info": {
+    "enabled": true,
+    "show_header": true,
+    "show_brand": true,
+    "show_resolution": true,
+    "show_refresh_rate": true,
+
+    "#-": "cyan",
+    "~": "cyan",
+    ":": "cyan",
+    "unit_color": "cyan",
+    "separator_line": "cyan",
+
+    "header_text_color": "cyan",
+    "error_header_color": "cyan",
+    "label_color": "cyan",
+    "error_color": "cyan",
+
+    "brand_value_color": "cyan",
+    "resolution_value_color": "cyan",
+    "refresh_rate_value_color": "cyan"
   }
 
 }
