@@ -1560,9 +1560,104 @@ int main() {
             }
         }
 
+		// end of the Performance info section////////////////////////////////////////
 
+        // Audio & Power Info (JSON Driven)
+        if (isEnabled("audio_power_info")) {
+            lp.push("");
+            ExtraInfo audio;
 
+            // --- Output devices ---
+            // Declare this here so it's accessible to the loop regardless of header status
+            vector<AudioDevice> outputDevices = audio.get_output_devices();
 
+            if (isSubEnabled("audio_power_info", "show_output_header")) {
+                std::ostringstream ss;
+                ss << getColor("audio_power_info", "#-", "white") << "#- " << r
+                    << getColor("audio_power_info", "header_text_color", "white") << "Audio Output " << r
+                    << getColor("audio_power_info", "separator_line", "white")
+                    << "---------------------------------------------------#" << r;
+                lp.push(ss.str());
+            }
+
+            int audio_output_device_count = 0;
+            for (const auto& device : outputDevices) {
+                audio_output_device_count++;
+                ostringstream oss;
+                oss << getColor("audio_power_info", "~", "white") << "~ " << r
+                    << getColor("audio_power_info", "index_color", "white") << audio_output_device_count << r << " "
+                    << getColor("audio_power_info", "device_name_color", "white") << device.name << r;
+
+                if (device.isActive && isSubEnabled("audio_power_info", "show_active_status")) {
+                    oss << " " << getColor("audio_power_info", "active_label_color", "white") << "(active)" << r;
+                }
+                lp.push(oss.str());
+            }
+
+            // --- Input devices ---
+            // FIX: Declare inputDevices here so the loop below can find it!
+            vector<AudioDevice> inputDevices = audio.get_input_devices();
+
+            if (isSubEnabled("audio_power_info", "show_input_header")) {
+                std::ostringstream ss;
+                ss << getColor("audio_power_info", "#-", "white") << "#- " << r
+                    << getColor("audio_power_info", "header_text_color", "white") << "Audio Input " << r
+                    << getColor("audio_power_info", "separator_line", "white")
+                    << "-----------------------------------------------------#" << r;
+                lp.push(ss.str());
+            }
+
+            int audio_input_device_count = 0;
+            for (const auto& device : inputDevices) {
+                audio_input_device_count++;
+                ostringstream oss;
+                oss << getColor("audio_power_info", "~", "white") << "~ " << r
+                    << getColor("audio_power_info", "index_color", "white") << audio_input_device_count << r << " "
+                    << getColor("audio_power_info", "device_name_color", "white") << device.name << r;
+
+                if (device.isActive && isSubEnabled("audio_power_info", "show_active_status")) {
+                    oss << " " << getColor("audio_power_info", "active_label_color", "white") << "(active)" << r;
+                }
+                lp.push(oss.str());
+            }
+
+            // --- Power Status ---
+            if (isSubEnabled("audio_power_info", "show_power_info")) {
+                lp.push("");
+                PowerStatus power = audio.get_power_status();
+
+                if (isSubEnabled("audio_power_info", "show_power_header")) {
+                    std::ostringstream ss;
+                    ss << getColor("audio_power_info", "#-", "white") << "#- " << r
+                        << getColor("audio_power_info", "header_text_color", "white") << "Power  " << r
+                        << getColor("audio_power_info", "separator_line", "white")
+                        << "---------------------------------------------------------#" << r;
+                    lp.push(ss.str());
+                }
+
+                ostringstream ossPower;
+                if (!power.hasBattery) {
+                    ossPower << getColor("audio_power_info", "bracket_color", "white") << "[" << r
+                        << getColor("audio_power_info", "wired_text_color", "white") << "Wired connection" << r
+                        << getColor("audio_power_info", "bracket_color", "white") << "]" << r;
+                }
+                else {
+                    ossPower << getColor("audio_power_info", "~", "white") << "~ " << r
+                        << getColor("audio_power_info", "label_color", "white") << "Battery powered " << r
+                        << getColor("audio_power_info", "bracket_color", "white") << "(" << r
+                        << getColor("audio_power_info", "battery_percent_color", "white") << power.batteryPercent << r
+                        << getColor("audio_power_info", "unit_color", "white") << "%)" << r;
+
+                    if (power.isCharging) {
+                        ossPower << " " << getColor("audio_power_info", "charging_status_color", "white") << "(Charging)" << r;
+                    }
+                    else {
+                        ossPower << " " << getColor("audio_power_info", "not_charging_status_color", "white") << "(Not Charging)" << r;
+                    }
+                }
+                lp.push(ossPower.str());
+            }
+        }
 
 
 

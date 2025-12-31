@@ -490,5 +490,30 @@
 
     "uptime_value_color": "cyan",
     "usage_value_color": "cyan"
+  },
+  "audio_power_info": {
+    "enabled": true,
+    "show_output_header": true,
+    "show_input_header": true,
+    "show_active_status": true,
+    "show_power_info": true,
+    "show_power_header": true,
+
+    "#-": "cyan",
+    "~": "cyan",
+    "separator_line": "cyan",
+    "bracket_color": "cyan",
+    "unit_color": "cyan",
+
+    "header_text_color": "cyan",
+    "label_color": "cyan",
+    "index_color": "cyan",
+    "device_name_color": "cyan",
+    "active_label_color": "cyan",
+
+    "wired_text_color": "cyan",
+    "battery_percent_color": "cyan",
+    "charging_status_color": "cyan",
+    "not_charging_status_color": "cyan"
   }
 }
