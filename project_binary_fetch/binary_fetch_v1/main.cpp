@@ -826,6 +826,107 @@ int main() {
         }
         // ----------------- END DETAILED STORAGE ----------------- //
 
+
+
+        // Network Info (Compact + Extra)
+        if (isEnabled("network_info")) {
+
+            // Header
+            if (isSubEnabled("network_info", "show_header")) {
+                std::ostringstream ss;
+                ss << getColor("network_info", "#-", "blue") << "#- " << r
+                    << getColor("network_info", "header_text_color", "green") << "Network Info " << r
+                    << getColor("network_info", "separator_line", "blue")
+                    << "----------------------------------------------------#" << r;
+                lp.push(ss.str());
+            }
+
+            // Network Name
+            if (isSubEnabled("network_info", "show_name")) {
+                std::ostringstream ss;
+                ss << getColor("network_info", "~", "blue") << "~ " << r
+                    << getColor("network_info", "label_color", "green")
+                    << "Network Name              " << r
+                    << getColor("network_info", ":", "blue") << ": " << r
+                    << getColor("network_info", "name_value_color", "yellow")
+                    << net.get_network_name() << r;
+                lp.push(ss.str());
+            }
+
+            // Network Type
+            if (isSubEnabled("network_info", "show_type")) {
+                std::ostringstream ss;
+                ss << getColor("network_info", "~", "blue") << "~ " << r
+                    << getColor("network_info", "label_color", "green")
+                    << "Network Type              " << r
+                    << getColor("network_info", ":", "blue") << ": " << r
+                    << getColor("network_info", "type_value_color", "yellow")
+                    << c_net.get_network_type() << r;
+                lp.push(ss.str());
+            }
+
+            // IP (dummy / real handled elsewhere)
+            if (isSubEnabled("network_info", "show_ip")) {
+                std::ostringstream ss;
+                ss << getColor("network_info", "~", "blue") << "~ " << r
+                    << getColor("network_info", "label_color", "green")
+                    << "IP                        " << r
+                    << getColor("network_info", ":", "blue") << ": " << r
+                    << getColor("network_info", "ip_value_color", "magenta")
+                    << "12.23.34.5.345" << r;
+                lp.push(ss.str());
+            }
+
+            // Locale
+            if (isSubEnabled("network_info", "show_locale")) {
+                std::ostringstream ss;
+                ss << getColor("network_info", "~", "blue") << "~ " << r
+                    << getColor("network_info", "label_color", "green")
+                    << "Locale                    " << r
+                    << getColor("network_info", ":", "blue") << ": " << r
+                    << getColor("network_info", "locale_value_color", "cyan")
+                    << net.get_locale() << r;
+                lp.push(ss.str());
+            }
+
+            // MAC Address
+            if (isSubEnabled("network_info", "show_mac")) {
+                std::ostringstream ss;
+                ss << getColor("network_info", "~", "blue") << "~ " << r
+                    << getColor("network_info", "label_color", "green")
+                    << "Mac address               " << r
+                    << getColor("network_info", ":", "blue") << ": " << r
+                    << getColor("network_info", "mac_value_color", "cyan")
+                    << net.get_mac_address() << r;
+                lp.push(ss.str());
+            }
+
+            // Upload Speed
+            if (isSubEnabled("network_info", "show_upload")) {
+                std::ostringstream ss;
+                ss << getColor("network_info", "~", "blue") << "~ " << r
+                    << getColor("network_info", "label_color", "green")
+                    << "avg upload speed          " << r
+                    << getColor("network_info", ":", "blue") << ": " << r
+                    << getColor("network_info", "upload_value_color", "yellow")
+                    << net.get_network_upload_speed() << r;
+                lp.push(ss.str());
+            }
+
+            // Download Speed
+            if (isSubEnabled("network_info", "show_download")) {
+                std::ostringstream ss;
+                ss << getColor("network_info", "~", "blue") << "~ " << r
+                    << getColor("network_info", "label_color", "green")
+                    << "avg download speed        " << r
+                    << getColor("network_info", ":", "blue") << ": " << r
+                    << getColor("network_info", "download_value_color", "yellow")
+                    << net.get_network_download_speed() << r;
+                lp.push(ss.str());
+            }
+        }
+
+
  
 
 	lp.push(""); // blank line
