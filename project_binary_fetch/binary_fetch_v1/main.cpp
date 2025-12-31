@@ -1373,10 +1373,73 @@ int main() {
             }
         }
 
+		// end of the Display info section////////////////////////////////////////////////
 
 
+        // BIOS & Motherboard Info (JSON Driven)
+        if (isEnabled("bios_mb_info")) {
+            lp.push("");
 
+            // Header
+            if (isSubEnabled("bios_mb_info", "show_header")) {
+                std::ostringstream ss;
+                ss << getColor("bios_mb_info", "#-", "white") << "#- " << r
+                    << getColor("bios_mb_info", "header_text_color", "white") << "BIOS & Motherboard Info " << r
+                    << getColor("bios_mb_info", "separator_line", "white")
+                    << "----------------------------------------#" << r;
+                lp.push(ss.str());
+            }
 
+            // Bios Vendor
+            if (isSubEnabled("bios_mb_info", "show_bios_vendor")) {
+                std::ostringstream ss;
+                ss << getColor("bios_mb_info", "~", "white") << "~ " << r
+                    << getColor("bios_mb_info", "label_color", "white") << "Bios Vendor              " << r
+                    << getColor("bios_mb_info", ":", "white") << ": " << r
+                    << getColor("bios_mb_info", "vendor_value_color", "white") << sys.get_bios_vendor() << r;
+                lp.push(ss.str());
+            }
+
+            // Bios Version
+            if (isSubEnabled("bios_mb_info", "show_bios_version")) {
+                std::ostringstream ss;
+                ss << getColor("bios_mb_info", "~", "white") << "~ " << r
+                    << getColor("bios_mb_info", "label_color", "white") << "Bios Version             " << r
+                    << getColor("bios_mb_info", ":", "white") << ": " << r
+                    << getColor("bios_mb_info", "version_value_color", "white") << sys.get_bios_version() << r;
+                lp.push(ss.str());
+            }
+
+            // Bios Date
+            if (isSubEnabled("bios_mb_info", "show_bios_date")) {
+                std::ostringstream ss;
+                ss << getColor("bios_mb_info", "~", "white") << "~ " << r
+                    << getColor("bios_mb_info", "label_color", "white") << "Bios Date                " << r
+                    << getColor("bios_mb_info", ":", "white") << ": " << r
+                    << getColor("bios_mb_info", "date_value_color", "white") << sys.get_bios_date() << r;
+                lp.push(ss.str());
+            }
+
+            // Motherboard Model
+            if (isSubEnabled("bios_mb_info", "show_mb_model")) {
+                std::ostringstream ss;
+                ss << getColor("bios_mb_info", "~", "white") << "~ " << r
+                    << getColor("bios_mb_info", "label_color", "white") << "Motherboard Model        " << r
+                    << getColor("bios_mb_info", ":", "white") << ": " << r
+                    << getColor("bios_mb_info", "model_value_color", "white") << sys.get_motherboard_model() << r;
+                lp.push(ss.str());
+            }
+
+            // Motherboard Manufacturer
+            if (isSubEnabled("bios_mb_info", "show_mb_manufacturer")) {
+                std::ostringstream ss;
+                ss << getColor("bios_mb_info", "~", "white") << "~ " << r
+                    << getColor("bios_mb_info", "label_color", "white") << "Motherboard Manufacturer " << r
+                    << getColor("bios_mb_info", ":", "white") << ": " << r
+                    << getColor("bios_mb_info", "mfg_value_color", "white") << sys.get_motherboard_manufacturer() << r;
+                lp.push(ss.str());
+            }
+        }
 
 
 

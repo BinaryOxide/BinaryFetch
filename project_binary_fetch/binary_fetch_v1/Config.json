@@ -426,6 +426,29 @@
     "brand_value_color": "cyan",
     "resolution_value_color": "cyan",
     "refresh_rate_value_color": "cyan"
+  },
+  "bios_mb_info": {
+    "enabled": true,
+    "show_header": true,
+    "show_bios_vendor": true,
+    "show_bios_version": true,
+    "show_bios_date": true,
+    "show_mb_model": true,
+    "show_mb_manufacturer": true,
+
+    "#-": "cyan",
+    "~": "cyan",
+    ":": "cyan",
+    "separator_line": "cyan",
+
+    "header_text_color": "cyan",
+    "label_color": "cyan",
+
+    "vendor_value_color": "cyan",
+    "version_value_color": "cyan",
+    "date_value_color": "cyan",
+    "model_value_color": "cyan",
+    "mfg_value_color": "cyan"
   }
 
 }
