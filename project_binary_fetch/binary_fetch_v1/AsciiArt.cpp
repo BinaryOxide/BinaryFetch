@@ -1,5 +1,4 @@
 ﻿
-
 #include "AsciiArt.h"
 #include <iostream>
 #include <fstream>
@@ -104,13 +103,7 @@ AsciiArt::AsciiArt() : maxWidth(0), height(0), enabled(true), spacing(2) {
 // Get the path to user's ASCII art file in AppData
 std::string AsciiArt::getUserArtPath() const {
 #ifdef _WIN32
-    char appDataPath[MAX_PATH];
-    if (SUCCEEDED(SHGetFolderPathA(NULL, CSIDL_LOCAL_APPDATA, NULL, 0, appDataPath))) {
-        std::string fullPath = std::string(appDataPath) + "\\BinaryFetch\\BinaryArt.txt";
-        return fullPath;
-    }
-    // Fallback if SHGetFolderPath fails
-    return "BinaryArt.txt";
+    return "C:\\Users\\Default\\AppData\\Local\\BinaryFetch\\BinaryArt.txt";
 #else
     // Linux/Mac: use ~/.config/BinaryFetch/BinaryArt.txt
     const char* home = getenv("HOME");
