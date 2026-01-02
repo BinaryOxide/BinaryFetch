@@ -45,6 +45,7 @@
     <ClInclude Include="personalization_info.h" />
     <ClInclude Include="StorageInfo.h" />
     <ClInclude Include="SystemInfo.h" />
+    <ClInclude Include="TimeInfo.h" />
     <ClInclude Include="UserInfo.h" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +100,7 @@
     <ClCompile Include="personalization_info.cpp" />
     <ClCompile Include="StorageInfo.cpp" />
     <ClCompile Include="SystemInfo.cpp" />
+    <ClCompile Include="TimeInfo.cpp" />
     <ClCompile Include="UserInfo.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -101,6 +101,9 @@
     <ClInclude Include="ConfigReader.h">
       <Filter>include\Utlis</Filter>
     </ClInclude>
+    <ClInclude Include="TimeInfo.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="DefaultAsciiArt.txt">
@@ -223,6 +226,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="compact_disk_info.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeInfo.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
