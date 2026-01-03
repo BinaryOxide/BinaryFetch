@@ -42,7 +42,7 @@
 #include "CompactUser.h"        // Lightweight user info
 #include "CompactNetwork.h"     // Lightweight network info
 #include "compact_disk_info.h"  // Lightweight storage/disk info (compact mode)
-
+#include "TimeInfo.h"           //returns current time info (second, minute, hour, day, week, month, year, leap year, etc)
 
 
 
@@ -149,6 +149,20 @@ int main() {
     CompactNetwork c_net;
     DiskInfo disk;
 
+
+    TimeInfo time;
+
+    lp.push("[Second] -> " + std::to_string(time.getSecond()));
+    lp.push("[Minute] -> " + std::to_string(time.getMinute()));
+    lp.push("[Hour] -> " + std::to_string(time.getHour()));
+    lp.push("[Day] -> " + std::to_string(time.getDay()));
+    lp.push("[Week] -> Week " + std::to_string(time.getWeekNumber()));
+    lp.push("[Day Name] -> " + time.getDayName());
+    lp.push("[Month] -> " + std::to_string(time.getMonthNumber()));
+    lp.push("[Month Name] -> " + time.getMonthName());
+    lp.push("[Year] -> " + std::to_string(time.getYearNumber()));
+    lp.push("[Leap Year] -> " + time.getLeapYear());
+
     //----------------- JSON CONFIG SYSTEM -----------------//
     // 1. Color Map
     std::map<std::string, std::string> colors = {
@@ -221,6 +235,129 @@ int main() {
             ss << getColor("header", "prefix_color", "bright_red") << "~>> " << r
                 << getColor("header", "title_color", "green") << "BinaryFetch" << r
                 << getColor("header", "line_color", "red") << "_____________________________________________________" << r;
+            lp.push(ss.str());
+        }
+
+        // Compact Time
+        if (isEnabled("compact_time")) {
+            TimeInfo time;
+            std::ostringstream ss;
+
+            // Helper to get colors from nested time structure
+            auto getTimeColor = [&](const std::string& subsection, const std::string& key, const std::string& defaultColor = "white") -> std::string {
+                if (!config_loaded || !config.contains("compact_time")) return colors[defaultColor];
+                if (!config["compact_time"].contains(subsection)) return colors[defaultColor];
+                if (!config["compact_time"][subsection].contains("colors")) return colors[defaultColor];
+                if (!config["compact_time"][subsection]["colors"].contains(key)) return colors[defaultColor];
+
+                std::string colorName = config["compact_time"][subsection]["colors"][key].get<std::string>();
+                return colors.count(colorName) ? colors[colorName] : colors[defaultColor];
+                };
+
+
+
+            // ---------- TIME SECTION ----------
+            if (isSubEnabled("compact_time", "time_section.enabled")) {
+                ss << getTimeColor("time_section", "bracket", "white") << "(" << r;
+
+                if (isSubEnabled("compact_time", "time_section.show_label")) {
+                    ss << getTimeColor("time_section", "label", "white") << "Time: " << r;
+                }
+
+                bool wrote = false;
+
+                if (isSubEnabled("compact_time", "time_section.show_hour")) {
+                    ss << getTimeColor("time_section", "hour", "white")
+                        << std::setw(2) << std::setfill('0') << time.getHour() << r;
+                    wrote = true;
+                }
+
+                if (isSubEnabled("compact_time", "time_section.show_minute")) {
+                    if (wrote) ss << getTimeColor("time_section", "sep", "white") << ":" << r;
+                    ss << getTimeColor("time_section", "minute", "white")
+                        << std::setw(2) << std::setfill('0') << time.getMinute() << r;
+                    wrote = true;
+                }
+
+                if (isSubEnabled("compact_time", "time_section.show_second")) {
+                    if (wrote) ss << getTimeColor("time_section", "sep", "white") << ":" << r;
+                    ss << getTimeColor("time_section", "second", "white")
+                        << std::setw(2) << std::setfill('0') << time.getSecond() << r;
+                }
+
+                ss << getTimeColor("time_section", "bracket", "white") << ") " << r;
+            }
+
+            // ---------- DATE SECTION ----------
+            if (isSubEnabled("compact_time", "date_section.enabled")) {
+                ss << getTimeColor("date_section", "bracket", "white") << "(" << r;
+
+                if (isSubEnabled("compact_time", "date_section.show_label")) {
+                    ss << getTimeColor("date_section", "label", "white") << "Date: " << r;
+                }
+
+                if (isSubEnabled("compact_time", "date_section.show_day")) {
+                    ss << getTimeColor("date_section", "day", "white")
+                        << std::setw(2) << std::setfill('0') << time.getDay() << r << " ";
+                }
+
+                if (isSubEnabled("compact_time", "date_section.show_day_name")) {
+                    ss << getTimeColor("date_section", "day_name", "white")
+                        << time.getDayName() << r;
+                }
+
+                if (isSubEnabled("compact_time", "date_section.show_month_name")) {
+                    ss << getTimeColor("date_section", "sep", "white") << ":" << r
+                        << getTimeColor("date_section", "month_name", "white")
+                        << time.getMonthName() << r << " ";
+                }
+
+                if (isSubEnabled("compact_time", "date_section.show_month_num")) {
+                    ss << getTimeColor("date_section", "month_num", "white")
+                        << time.getMonthNumber() << r;
+                }
+
+                if (isSubEnabled("compact_time", "date_section.show_year")) {
+                    ss << getTimeColor("date_section", "sep", "white") << ":" << r
+                        << getTimeColor("date_section", "year", "white")
+                        << time.getYearNumber() << r;
+                }
+
+                ss << getTimeColor("date_section", "bracket", "white") << ") " << r;
+            }
+
+            // ---------- WEEK SECTION ----------
+            if (isSubEnabled("compact_time", "week_section.enabled")) {
+                ss << getTimeColor("week_section", "bracket", "white") << "(" << r;
+
+                if (isSubEnabled("compact_time", "week_section.show_label")) {
+                    ss << getTimeColor("week_section", "label", "white") << "Week: " << r;
+                }
+
+                if (isSubEnabled("compact_time", "week_section.show_num")) {
+                    ss << getTimeColor("week_section", "num", "white")
+                        << time.getWeekNumber() << r;
+                }
+
+                ss << getTimeColor("week_section", "bracket", "white") << ") " << r;
+            }
+
+            // ---------- LEAP YEAR SECTION ----------
+            if (isSubEnabled("compact_time", "leap_section.enabled")) {
+                ss << getTimeColor("leap_section", "bracket", "white") << "(" << r;
+
+                if (isSubEnabled("compact_time", "leap_section.show_label")) {
+                    ss << getTimeColor("leap_section", "label", "white") << "Leap Year: " << r;
+                }
+
+                if (isSubEnabled("compact_time", "leap_section.show_val")) {
+                    ss << getTimeColor("leap_section", "val", "white")
+                        << time.getLeapYear() << r;
+                }
+
+                ss << getTimeColor("leap_section", "bracket", "white") << ")" << r;
+            }
+
             lp.push(ss.str());
         }
 

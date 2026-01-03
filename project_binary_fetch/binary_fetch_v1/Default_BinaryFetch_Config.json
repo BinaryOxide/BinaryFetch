@@ -5,22 +5,62 @@
     "title_color": "bright_cyan",
     "line_color": "bright_blue"
   },
-  "compact_os": {
+
+  "compact_time": {
     "enabled": true,
-    "show_name": true,
-    "show_build": true,
-    "show_arch": true,
-    "show_uptime": true,
-    "colors": {
-      "[OS]": "red",
-      "(": "blue",
-      ")": "blue",
-      "->": "blue",
-      "name_color": "red",
-      "build_color": "cyan",
-      "arch_color": "blue",
-      "uptime_label_color": "red",
-      "uptime_value_color": "cyan"
+    "time_section": {
+      "enabled": true,
+      "show_label": true,
+      "show_hour": true,
+      "show_minute": true,
+      "show_second": true,
+      "colors": {
+        "bracket": "red",
+        "label": "blue",
+        "hour": "red",
+        "minute": "red",
+        "second": "red",
+        "sep": "red"
+      }
+    },
+    "date_section": {
+      "enabled": true,
+      "show_label": true,
+      "show_day": true,
+      "show_day_name": true,
+      "show_month_name": true,
+      "show_month_num": true,
+      "show_year": true,
+      "colors": {
+        "bracket": "red",
+        "label": "red",
+        "day": "red",
+        "day_name": "red",
+        "month_name": "red",
+        "month_num": "red",
+        "year": "red",
+        "sep": "white"
+      }
+    },
+    "week_section": {
+      "enabled": true,
+      "show_label": true,
+      "show_num": true,
+      "colors": {
+        "bracket": "red",
+        "label": "green",
+        "num": "magenta"
+      }
+    },
+    "leap_section": {
+      "enabled": true,
+      "show_label": true,
+      "show_val": true,
+      "colors": {
+        "bracket": "red",
+        "label": "green",
+        "val": "bright_magenta"
+      }
     }
   },
   "compact_cpu": {
