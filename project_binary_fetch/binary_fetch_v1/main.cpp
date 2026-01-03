@@ -152,16 +152,16 @@ int main() {
 
     TimeInfo time;
 
-    lp.push("[Second] -> " + std::to_string(time.getSecond()));
-    lp.push("[Minute] -> " + std::to_string(time.getMinute()));
-    lp.push("[Hour] -> " + std::to_string(time.getHour()));
-    lp.push("[Day] -> " + std::to_string(time.getDay()));
-    lp.push("[Week] -> Week " + std::to_string(time.getWeekNumber()));
-    lp.push("[Day Name] -> " + time.getDayName());
-    lp.push("[Month] -> " + std::to_string(time.getMonthNumber()));
-    lp.push("[Month Name] -> " + time.getMonthName());
-    lp.push("[Year] -> " + std::to_string(time.getYearNumber()));
-    lp.push("[Leap Year] -> " + time.getLeapYear());
+    //lp.push("[Second] -> " + std::to_string(time.getSecond()));
+    //lp.push("[Minute] -> " + std::to_string(time.getMinute()));
+    //lp.push("[Hour] -> " + std::to_string(time.getHour()));
+    //lp.push("[Day] -> " + std::to_string(time.getDay()));
+    //lp.push("[Week] -> Week " + std::to_string(time.getWeekNumber()));
+    //lp.push("[Day Name] -> " + time.getDayName());
+    //lp.push("[Month] -> " + std::to_string(time.getMonthNumber()));
+    //lp.push("[Month Name] -> " + time.getMonthName());
+    //lp.push("[Year] -> " + std::to_string(time.getYearNumber()));
+    //lp.push("[Leap Year] -> " + time.getLeapYear());
 
     //----------------- JSON CONFIG SYSTEM -----------------//
     // 1. Color Map
