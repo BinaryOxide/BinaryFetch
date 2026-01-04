@@ -196,7 +196,7 @@ int main(){
 // ================= CONFIG LOAD SWITCH =================
 // true  = load Default_BinaryFetch_Config.json
 // false = load user config from AppData
-    bool LOAD_DEFAULT_CONFIG = false;
+    bool LOAD_DEFAULT_CONFIG = true;
     // ======================================================
 
 
@@ -346,7 +346,7 @@ int main(){
                 }
 
                 if (isNestedEnabled("compact_time", "date_section", "show_month_name")) {
-                    if (wrote) ss << getTimeColor("date_section", "sep", "white") << "  : " << r;
+                    if (wrote) ss << getTimeColor("date_section", "sep", "white") << " : " << r;
                     ss << getTimeColor("date_section", "month_name", "white")
                         << time.getMonthName() << r;
                     wrote = true;

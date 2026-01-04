@@ -19,7 +19,7 @@
         "hour": "cyan",
         "minute": "cyan",
         "second": "cyan",
-        "sep": "green"
+        "sep": "yellow"
       }
     },
     "date_section": {
@@ -31,12 +31,12 @@
       "show_year": true,
       "colors": {
         "bracket": "cyan",
-        "label": "red",
+        "label": "yellow",
         "day": "red",
         "month_name": "red",
         "month_num": "red",
         "year": "red",
-        "sep": "white"
+        "sep": "yellow"
       }
     },
     "week_section": {
@@ -49,7 +49,7 @@
         "label": "blue",
         "num": "cyan",
         "day_name": "cyan",
-        "sep": "red"
+        "sep": "yellow"
       }
     },
     "leap_section": {
@@ -156,14 +156,14 @@
     "show_freq": true,
     "colors": {
       "[GPU]": "blue",
-      "(": "magenta",
-      ")": "magenta",
+      "(": "yellow",
+      ")": "yellow",
       "->": "magenta",
-      "name_color": "magenta",
+      "name_color": "red",
       "usage_color": "magenta",
-      "vram_color": "magenta",
-      "at_symbol_color": "magenta",
-      "freq_color": "magenta"
+      "vram_color": "green",
+      "at_symbol_color": "blue",
+      "freq_color": "red"
     }
   },
   "compact_performance": {
@@ -174,8 +174,8 @@
     "show_disk": true,
     "colors": {
       "[Performance]": "blue",
-      "(": "bright_cyan",
-      ")": "bright_cyan",
+      "(": "red",
+      ")": "red",
       "->": "bright_cyan",
       "label_color": "bright_cyan",
       "cpu_color": "bright_cyan",
@@ -191,8 +191,8 @@
     "show_type": true,
     "colors": {
       "[User]": "cyan",
-      "(": "bright_magenta",
-      ")": "bright_magenta",
+      "(": "red",
+      ")": "red",
       "->": "bright_magenta",
       "username_color": "bright_magenta",
       "label_color": "bright_magenta",
@@ -207,8 +207,8 @@
     "show_ip": true,
     "colors": {
       "[Network]": "cyan",
-      "(": "bright_cyan",
-      ")": "bright_cyan",
+      "(": "red",
+      ")": "red",
       "->": "bright_cyan",
       "label_color": "bright_cyan",
       "name_color": "bright_cyan",
@@ -223,8 +223,8 @@
     "colors": {
       "[Disk Usage]": "green",
       "[Disk Cap]": "green",
-      "(": "bright_cyan",
-      ")": "bright_cyan",
+      "(": "red",
+      ")": "red",
       "->": "bright_cyan",
       "letter_color": "bright_cyan",
       "percent_color": "bright_cyan",
