@@ -1524,7 +1524,7 @@ int main(){
                             << getColor("gpu_info", "freq_value_color", "white") << primary.frequency_ghz << r
                             << getColor("gpu_info", "unit_color", "white") << " GHz" << r;
                         lp.push(ss.str());
-                    }
+                    } 
                 } 
             }  
         } 
