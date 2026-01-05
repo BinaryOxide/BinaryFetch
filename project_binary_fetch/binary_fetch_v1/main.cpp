@@ -1114,15 +1114,27 @@ int main(){
                 lp.push(ss.str());
             }
 
-            // IP 
-            if (isSubEnabled("network_info", "show_ip")) {
+            // local IP 
+            if (isSubEnabled("network_info", "show_local_ip")) {
                 std::ostringstream ss;
                 ss << getColor("network_info", "~", "blue") << "~ " << r
                     << getColor("network_info", "label_color", "green")
-                    << "IP                        " << r
+                    << "Local IP                  " << r
                     << getColor("network_info", ":", "blue") << ": " << r
-                    << getColor("network_info", "ip_value_color", "magenta")
+                    << getColor("network_info", "local_ip_color", "magenta")
                     << net.get_local_ip() << r;
+                lp.push(ss.str());
+            }
+
+            // public ip
+            if (isSubEnabled("network_info", "show_public_ip")) {
+                std::ostringstream ss;
+                ss << getColor("network_info", "~", "blue") << "~ " << r
+                    << getColor("network_info", "label_color", "green")
+                    << "Public IP:                " << r
+                    << getColor("network_info", ":", "blue") << ": " << r
+                    << getColor("network_info", "public_ip_color", "yellow")
+                    << net.get_public_ip() << r;
                 lp.push(ss.str());
             }
 
@@ -1162,6 +1174,7 @@ int main(){
                 lp.push(ss.str());
             }
 
+
             // Download Speed
             if (isSubEnabled("network_info", "show_download")) {
                 std::ostringstream ss;
@@ -1173,6 +1186,8 @@ int main(){
                     << net.get_network_download_speed() << r;
                 lp.push(ss.str());
             }
+
+
         }
 // end of the detailed network section////////////////////////////////////////////////
 
