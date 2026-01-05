@@ -35,6 +35,8 @@ public:
 
     // Get GPU core count (estimated)
     static int get_gpu_core_count();
+
+	
 };
 
 #endif // GPUINFO_H
