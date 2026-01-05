@@ -646,7 +646,7 @@ int main(){
             if (isSubEnabled("compact_network", "show_name")) {
                 ss << getColor("compact_network", "(", "red") << "(" << r
                     << getColor("compact_network", "label_color", "green") << "Name: " << r
-                    << getColor("compact_network", "name_color", "green") << "Interblink" << r
+                    << getColor("compact_network", "name_color", "green") << c_net.get_network_name()<< r
                     << getColor("compact_network", ")", "red") << ") " << r;
             }
             if (isSubEnabled("compact_network", "show_type")) {
@@ -658,7 +658,7 @@ int main(){
             if (isSubEnabled("compact_network", "show_ip")) {
                 ss << getColor("compact_network", "(", "red") << "(" << r
                     << getColor("compact_network", "label_color", "green") << "ip: " << r
-                    << getColor("compact_network", "ip_color", "magenta") << "123.23.423.1" << r
+                    << getColor("compact_network", "ip_color", "magenta") << c_net.get_network_ip() << r
                     << getColor("compact_network", ")", "red") << ")" << r;
             }
             lp.push(ss.str());
