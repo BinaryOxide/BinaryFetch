@@ -1114,7 +1114,7 @@ int main(){
                 lp.push(ss.str());
             }
 
-            // IP (dummy / real handled elsewhere)
+            // IP 
             if (isSubEnabled("network_info", "show_ip")) {
                 std::ostringstream ss;
                 ss << getColor("network_info", "~", "blue") << "~ " << r
@@ -1122,7 +1122,7 @@ int main(){
                     << "IP                        " << r
                     << getColor("network_info", ":", "blue") << ": " << r
                     << getColor("network_info", "ip_value_color", "magenta")
-                    << "12.23.34.5.345" << r;
+                    << net.get_local_ip() << r;
                 lp.push(ss.str());
             }
 
