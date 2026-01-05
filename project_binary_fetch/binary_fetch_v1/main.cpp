@@ -192,6 +192,15 @@ int main(){
     */
 
 
+/*
+    By default, BinaryFetch loads its configuration from the BinaryFetch system folder.
+    For developers, repeatedly navigating to this location during testing can quickly become a nightmare.
+
+    To solve this, I added an option that lets developers choose where the config is loaded from.
+    Now, you can switch between a direct method (loading the config locally) and the standard method (loading from the system folder).
+
+    For development and continuous testing, the direct method is far more convenient and efficient.
+ */
 
 // ================= CONFIG LOAD SWITCH =================
 // true  = load Default_BinaryFetch_Config.json
