@@ -1718,7 +1718,7 @@ int main(){
                 ss << getColor("user_info", "#-", "white") << "#- " << r
                     << getColor("user_info", "header_text_color", "white") << "User Info " << r
                     << getColor("user_info", "separator_line", "white")
-                    << "------------------------------------------------------#" << r;
+                    << "----------------------------------------------------#" << r;
                 lp.push(ss.str());
             }
 
