@@ -305,6 +305,8 @@ int main(){
             lp.push(ss.str());
         }
 
+
+
         // Compact Time
         if (isEnabled("compact_time"))
         {
@@ -486,34 +488,65 @@ int main(){
             lp.push(ss.str());
         }
 
-        // Compact Display
+
+        /*
+        
+                // Compact Screen
         if (isEnabled("compact_display")) {
-            auto screens = c_screen.get_screens();
+            const auto& screens = c_screen.getScreens();
             int idx = 1;
+
             if (screens.empty()) {
-                lp.push(getColor("compact_display", "[Display]", "red") + "[Display]" + r +
-                    getColor("compact_display", "->", "blue") + " -> " + r + "No displays detected");
+                lp.push(
+                    getColor("compact_display", "[Display]", "red") + "[Display]" + r +
+                    getColor("compact_display", "->", "blue") + " -> " + r +
+                    "No displays detected"
+                );
             }
             else {
                 for (const auto& s : screens) {
                     std::ostringstream ss;
-                    ss << getColor("compact_display", "[Display]", "red") << "[Display " << idx++ << "]" << r
-                        << getColor("compact_display", "->", "blue") << " -> " << r;
 
-                    if (isSubEnabled("compact_display", "show_name")) ss << getColor("compact_display", "name_color", "green") << s.brand_name << r;
+                    ss << getColor("compact_display", "[Display]", "red")
+                        << "[Display " << idx++ << "]" << r
+                        << getColor("compact_display", "->", "blue")
+                        << " -> " << r;
+
+                    // ---- Display name ----
+                    if (isSubEnabled("compact_display", "show_name")) {
+                        ss << getColor("compact_display", "name_color", "green")
+                            << s.name << r << " ";
+                    }
+
+                    // ---- Native resolution + scale ----
                     if (isSubEnabled("compact_display", "show_resolution")) {
-                        ss << getColor("compact_display", "(", "red") << " (" << r
-                            << getColor("compact_display", "resolution_color", "yellow") << s.resolution << r
-                            << getColor("compact_display", ")", "red") << ") " << r;
+                        ss << getColor("compact_display", "(", "red") << "(" << r
+                            << getColor("compact_display", "resolution_color", "yellow")
+                            << s.native_width << " x " << s.native_height
+                            << r
+                            << getColor("compact_display", "scale_color", "magenta")
+                            << " | " << s.scale_percent << "% (" << s.scale_mul << ")"
+                            << r
+                            << getColor("compact_display", ")", "red")
+                            << ")" << r << " ";
                     }
+
+                    // ---- Refresh rate ----
                     if (isSubEnabled("compact_display", "show_refresh")) {
-                        ss << getColor("compact_display", "at_symbol_color", "green") << "@" << r
-                            << getColor("compact_display", "refresh_color", "cyan") << s.refresh_rate << "Hz" << r;
+                        ss << getColor("compact_display", "at_symbol_color", "green")
+                            << "@" << r
+                            << getColor("compact_display", "refresh_color", "cyan")
+                            << s.refresh_rate << "Hz" << r;
                     }
+
                     lp.push(ss.str());
                 }
             }
         }
+
+        
+        */
+
 
         // Compact Memory
         if (isEnabled("compact_memory")) {
