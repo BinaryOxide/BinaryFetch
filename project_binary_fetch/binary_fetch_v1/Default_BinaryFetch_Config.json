@@ -27,7 +27,7 @@
       "show_label": true,
       "show_day": true,
       "show_month_name": true,
-      "show_month_num": true,
+      "show_month_num": false,
       "show_year": true,
       "colors": {
         "bracket": "cyan",
