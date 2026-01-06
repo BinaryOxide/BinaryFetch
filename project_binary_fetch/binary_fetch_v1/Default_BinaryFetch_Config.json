@@ -169,7 +169,7 @@
       ")": "yellow",
       "->": "magenta",
       "name_color": "red",
-      "usage_color": "magenta",
+      "usage_color": "cyan",
       "vram_color": "green",
       "at_symbol_color": "blue",
       "freq_color": "red"
@@ -203,10 +203,10 @@
       "(": "red",
       ")": "red",
       "->": "bright_magenta",
-      "username_color": "bright_magenta",
-      "label_color": "bright_magenta",
-      "domain_color": "bright_magenta",
-      "type_color": "bright_magenta"
+      "username_color": "red",
+      "label_color": "blue",
+      "domain_color": "blue",
+      "type_color": "green"
     }
   },
   "compact_network": {
