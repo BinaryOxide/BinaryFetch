@@ -170,7 +170,140 @@ int main(){
 
 
     //-----------------------------testing site start-------------------------
-   
+    std::cout << "Initializing display detector...\n\n";
+
+    DetailedScreen detector;
+
+    if (!detector.refresh()) {
+        std::cout << "ERROR: Failed to detect displays!\n";
+        return 1;
+    }
+
+    auto screens = detector.getScreens();
+
+    if (screens.empty()) {
+        std::cout << "No displays detected.\n";
+        return 1;
+    }
+
+    // System Info
+    std::cout << "======================================\n";
+    std::cout << "SYSTEM INFORMATION\n";
+    std::cout << "======================================\n";
+    std::cout << "GPU Vendor:      " << DetailedScreen::getGPUVendor() << "\n";
+    std::cout << "Total Displays:  " << screens.size() << "\n";
+    std::cout << "\n";
+
+    // Display detailed information for each screen
+    for (size_t i = 0; i < screens.size(); ++i) {
+        const auto& s = screens[i];
+
+        std::cout << "======================================\n";
+        std::cout << "DISPLAY " << (i + 1);
+        if (s.isPrimary) std::cout << " (PRIMARY)";
+        std::cout << "\n";
+        std::cout << "======================================\n\n";
+
+        // Basic Information
+        std::cout << "--- Basic Information ---\n";
+        std::cout << "Model Name:          " << s.name << "\n";
+        std::cout << "Device Name:         " << s.deviceName << "\n";
+        if (!s.manufacturer.empty()) {
+            std::cout << "Manufacturer:        " << s.manufacturer << "\n";
+        }
+        if (!s.serial_number.empty()) {
+            std::cout << "Serial Number:       " << s.serial_number << "\n";
+        }
+        if (s.manufacture_year > 0) {
+            std::cout << "Manufacture Date:    Week " << s.manufacture_week
+                << ", " << s.manufacture_year << "\n";
+        }
+        if (!s.edid_version.empty()) {
+            std::cout << "EDID Version:        " << s.edid_version << "\n";
+        }
+        std::cout << "\n";
+
+        // Resolution & Scaling
+        std::cout << "--- Resolution & Scaling ---\n";
+        std::cout << "Native Resolution:   " << s.native_width << " x " << s.native_height;
+        if (s.diagonal_inches > 0) {
+            std::cout << std::fixed << std::setprecision(1);
+            std::cout << " @ " << s.diagonal_inches << " inches";
+        }
+        std::cout << "\n";
+
+        std::cout << "Current Resolution:  " << s.current_width << " x " << s.current_height << "\n";
+        std::cout << "Desktop Resolution:  " << s.desktop_width << " x " << s.desktop_height << "\n";
+
+        std::cout << "Windows DPI Scale:   " << s.scale_percent << "% (" << s.scale_mul << ")\n";
+        std::cout << "Raw DPI:             " << s.raw_dpi_x << " x " << s.raw_dpi_y << "\n";
+
+        if (s.ppi > 0) {
+            std::cout << "Pixel Density:       " << std::fixed << std::setprecision(0)
+                << s.ppi << " PPI\n";
+        }
+
+        if (s.has_upscaling) {
+            std::cout << "GPU Upscaling:       " << s.upscale << " ("
+                << s.upscale_technology << ")\n";
+        }
+        else {
+            std::cout << "GPU Upscaling:       None\n";
+        }
+        std::cout << "\n";
+
+        // Display Properties
+        std::cout << "--- Display Properties ---\n";
+        std::cout << "Refresh Rate:        " << s.refresh_rate << " Hz\n";
+        if (s.max_refresh_rate > 0) {
+            std::cout << "Max Refresh Rate:    " << s.max_refresh_rate << " Hz\n";
+        }
+        if (s.bit_depth > 0) {
+            std::cout << "Color Bit Depth:     " << s.bit_depth << "-bit\n";
+        }
+        std::cout << "Color Format:        " << s.color_format << "\n";
+        std::cout << "HDR Capable:         " << (s.hdr_capable ? "Yes" : "No") << "\n";
+
+        if (!s.connection_type.empty()) {
+            std::cout << "Connection Type:     " << s.connection_type << "\n";
+        }
+
+        if (s.g_sync) {
+            std::cout << "G-SYNC:              Enabled\n";
+        }
+        if (s.freesync) {
+            std::cout << "FreeSync:            Enabled\n";
+        }
+        std::cout << "\n";
+
+        // Physical & Position
+        std::cout << "--- Physical & Position ---\n";
+        if (s.width_mm > 0 && s.height_mm > 0) {
+            std::cout << std::fixed << std::setprecision(1);
+            std::cout << "Physical Size:       " << (s.width_mm / 10.0f) << " cm x "
+                << (s.height_mm / 10.0f) << " cm\n";
+        }
+
+        std::cout << "Screen Position:     X=" << s.pos_x << ", Y=" << s.pos_y << "\n";
+
+        if (s.rotation > 0) {
+            std::cout << "Rotation:            " << s.rotation << " degrees\n";
+        }
+
+        if (!s.panel_type.empty()) {
+            std::cout << "Panel Type:          " << s.panel_type << "\n";
+        }
+
+        if (!s.deviceID.empty()) {
+            std::cout << "Device ID:           " << s.deviceID << "\n";
+        }
+
+        std::cout << "\n";
+    }
+
+    std::cout << "======================================\n";
+    std::cout << "Test completed successfully!\n";
+    std::cout << "======================================\n";
 
     //-----------------------------testing site end-------------------------
 
