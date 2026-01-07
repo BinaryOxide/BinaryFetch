@@ -101,6 +101,9 @@
     <ClInclude Include="TimeInfo.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="DetailedScreen.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="DefaultAsciiArt.txt">
@@ -223,6 +226,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="TimeInfo.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="DetailedScreen.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
