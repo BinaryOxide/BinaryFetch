@@ -849,7 +849,7 @@ int main(){
 
                     // Capacity, Type, and Speed
                     ss << getColor("detailed_memory", "capacity", "white") << capOut.str() << r << " "
-                        << getColor("detailed_memory", "type", "cyan") << modules[i].type << r << " "
+                        << getColor("detailed_memory", "type", "white") << modules[i].type << r << " "
                         << getColor("detailed_memory", "speed", "white") << modules[i].speed << r;
 
                     lp.push(ss.str());
@@ -862,13 +862,7 @@ int main(){
         if (isEnabled("detailed_storage")) {
             lp.push("");
 
-           // DEBUG: Check if config is loaded
-           // std::cout << "[DEBUG] Config loaded: " << (config_loaded ? "YES" : "NO") << std::endl;
-           //  if (config_loaded && config.contains("detailed_storage")) {
-           //std::cout << "[DEBUG] detailed_storage section found!" << std::endl;
-           //}
-
-            // Helper function to get nested color values
+            // Helper function to get nested color values - Defaulted to white
             auto getNestedColor = [&](const std::string& path, const std::string& defaultColor = "white") -> std::string {
                 if (!config_loaded || !config.contains("detailed_storage")) return colors[defaultColor];
 
@@ -946,9 +940,9 @@ int main(){
                 // Header
                 if (getNestedBool("storage_summary.header.show_header", true)) {
                     std::ostringstream ss;
-                    ss << getNestedColor("storage_summary.header.line_color", "red") << "------------------------- " << r
-                        << getNestedColor("storage_summary.header.title_color", "blue") << "STORAGE SUMMARY" << r
-                        << getNestedColor("storage_summary.header.line_color", "red") << " --------------------------" << r;
+                    ss << getNestedColor("storage_summary.header.line_color", "white") << "------------------------- " << r
+                        << getNestedColor("storage_summary.header.title_color", "white") << "STORAGE SUMMARY" << r
+                        << getNestedColor("storage_summary.header.line_color", "white") << " --------------------------" << r;
                     lp.push(ss.str());
                 }
 
@@ -960,58 +954,58 @@ int main(){
 
                     // Storage type
                     if (getNestedBool("storage_summary.show_storage_type", true)) {
-                        ss << getNestedColor("storage_summary.storage_type_color", "yellow") << d.storage_type << r << " ";
+                        ss << getNestedColor("storage_summary.storage_type_color", "white") << d.storage_type << r << " ";
                     }
 
                     // Drive letter
                     if (getNestedBool("storage_summary.show_drive_letter", true)) {
-                        ss << getNestedColor("storage_summary.drive_letter_color", "cyan") << d.drive_letter << r;
+                        ss << getNestedColor("storage_summary.drive_letter_color", "white") << d.drive_letter << r;
                     }
 
                     // Opening bracket
-                    ss << getNestedColor("storage_summary.[", "green") << " [" << r;
+                    ss << getNestedColor("storage_summary.[", "white") << " [" << r;
 
                     // (Used) label
                     if (getNestedBool("storage_summary.show_used_label", true)) {
                         ss << getNestedColor("storage_summary.(", "white") << " (" << r
-                            << getNestedColor("storage_summary.used_label_color", "green") << "Used" << r
+                            << getNestedColor("storage_summary.used_label_color", "white") << "Used" << r
                             << getNestedColor("storage_summary.)", "white") << ") " << r;
                     }
 
                     // Used space
                     if (getNestedBool("storage_summary.show_used_space", true)) {
-                        ss << getNestedColor("storage_summary.used_space_color", "green") << fmt_storage(d.used_space) << r;
+                        ss << getNestedColor("storage_summary.used_space_color", "white") << fmt_storage(d.used_space) << r;
                     }
 
-                    ss << getNestedColor("storage_summary.used_GIB", "green") << " GiB " << r;
+                    ss << getNestedColor("storage_summary.used_GIB", "white") << " GiB " << r;
 
                     // Separator
-                    ss << getNestedColor("storage_summary./", "green") << "/" << r;
+                    ss << getNestedColor("storage_summary./", "white") << "/" << r;
 
                     // Total space
                     if (getNestedBool("storage_summary.show_total_space", true)) {
-                        ss << getNestedColor("storage_summary.total_space_color", "green") << fmt_storage(d.total_space) << r;
+                        ss << getNestedColor("storage_summary.total_space_color", "white") << fmt_storage(d.total_space) << r;
                     }
 
-                    ss << getNestedColor("storage_summary.total_GIB", "green") << " GiB  " << r;
+                    ss << getNestedColor("storage_summary.total_GIB", "white") << " GiB  " << r;
 
                     // Percentage
                     if (getNestedBool("storage_summary.show_used_percentage", true)) {
-                        ss << getNestedColor("storage_summary.used_percentage_color", "red") << d.used_percentage << r;
+                        ss << getNestedColor("storage_summary.used_percentage_color", "white") << d.used_percentage << r;
                     }
 
                     // Separator
-                    ss << getNestedColor("storage_summary.-", "green") << " - " << r;
+                    ss << getNestedColor("storage_summary.-", "white") << " - " << r;
 
                     // File system
                     if (getNestedBool("storage_summary.show_file_system", true)) {
-                        ss << getNestedColor("storage_summary.file_system_color", "magenta") << d.file_system << r << " ";
+                        ss << getNestedColor("storage_summary.file_system_color", "white") << d.file_system << r << " ";
                     }
 
                     // External/Internal status
                     if (getNestedBool("storage_summary.show_external_status", true)) {
                         if (d.is_external) {
-                            ss << getNestedColor("storage_summary.external_text_color", "blue") << "Ext" << r;
+                            ss << getNestedColor("storage_summary.external_text_color", "white") << "Ext" << r;
                         }
                         else {
                             ss << getNestedColor("storage_summary.internal_text_color", "white") << "Int" << r;
@@ -1019,13 +1013,13 @@ int main(){
                     }
 
                     // Closing bracket
-                    ss << getNestedColor("storage_summary.]", "green") << " ]" << r;
+                    ss << getNestedColor("storage_summary.]", "white") << " ]" << r;
 
                     lp.push(ss.str());
                     });
             }
 
-            // DISK PERFORMANCE SECTION ////////////////////////////////////////////////////////////////////////////////////////
+            // DISK PERFORMANCE SECTION
             if (!all_disks_captured.empty() && getNestedBool("sections.disk_performance", true)) {
 
                 lp.push("");
@@ -1033,9 +1027,9 @@ int main(){
                 // Header
                 if (getNestedBool("disk_performance.header.show_header", true)) {
                     std::ostringstream ss;
-                    ss << getNestedColor("disk_performance.header.line_color", "red") << "-------------------- " << r
-                        << getNestedColor("disk_performance.header.title_color", "blue") << "DISK PERFORMANCE & DETAILS" << r
-                        << getNestedColor("disk_performance.header.line_color", "red") << " --------------------" << r;
+                    ss << getNestedColor("disk_performance.header.line_color", "white") << "-------------------- " << r
+                        << getNestedColor("disk_performance.header.title_color", "white") << "DISK PERFORMANCE & DETAILS" << r
+                        << getNestedColor("disk_performance.header.line_color", "white") << " --------------------" << r;
                     lp.push(ss.str());
                 }
 
@@ -1044,51 +1038,51 @@ int main(){
 
                     // Drive letter
                     if (getNestedBool("disk_performance.show_drive_letter", true)) {
-                        ss << getNestedColor("disk_performance.drive_letter_color", "cyan") << d.drive_letter << r;
+                        ss << getNestedColor("disk_performance.drive_letter_color", "white") << d.drive_letter << r;
                     }
 
-                    ss << getNestedColor("storage_summary.[", "green") << " [" << r << " ";
+                    ss << getNestedColor("storage_summary.[", "white") << " [" << r << " ";
 
                     // Read speed
                     if (getNestedBool("disk_performance.show_read_speed", true)) {
-                        ss << getNestedColor("disk_performance.read_label_color", "green") << "Read:" << r << " "
-                            << getNestedColor("disk_performance.read_speed_color", "yellow") << fmt_speed(d.read_speed) << r;
+                        ss << getNestedColor("disk_performance.read_label_color", "white") << "Read:" << r << " "
+                            << getNestedColor("disk_performance.read_speed_color", "white") << fmt_speed(d.read_speed) << r;
                     }
 
-                    ss << getNestedColor("disk_performance.speed_unit_color", "green") << " MB/s " << r
-                        << getNestedColor("disk_performance.|", "green") << "|" << r << " ";
+                    ss << getNestedColor("disk_performance.speed_unit_color", "white") << " MB/s " << r
+                        << getNestedColor("disk_performance.|", "white") << "|" << r << " ";
 
                     // Write speed
                     if (getNestedBool("disk_performance.show_write_speed", true)) {
-                        ss << getNestedColor("disk_performance.write_label_color", "green") << "Write:" << r << " "
-                            << getNestedColor("disk_performance.write_speed_color", "yellow") << fmt_speed(d.write_speed) << r;
+                        ss << getNestedColor("disk_performance.write_label_color", "white") << "Write:" << r << " "
+                            << getNestedColor("disk_performance.write_speed_color", "white") << fmt_speed(d.write_speed) << r;
                     }
 
-                    ss << getNestedColor("disk_performance.speed_unit_color", "green") << " MB/s " << r
-                        << getNestedColor("disk_performance.|", "green") << "|" << r << " ";
+                    ss << getNestedColor("disk_performance.speed_unit_color", "white") << " MB/s " << r
+                        << getNestedColor("disk_performance.|", "white") << "|" << r << " ";
 
                     // Serial number
                     if (getNestedBool("disk_performance.show_serial_number", true)) {
-                        ss << getNestedColor("disk_performance.serial_number_color", "magenta") << d.serial_number << r;
+                        ss << getNestedColor("disk_performance.serial_number_color", "white") << d.serial_number << r;
                     }
 
                     // External/Internal status
                     if (getNestedBool("disk_performance.show_external_status", true)) {
                         if (d.is_external) {
-                            ss << getNestedColor("storage_summary.external_text_color", "blue") << " Ext" << r;
+                            ss << getNestedColor("storage_summary.external_text_color", "white") << " Ext" << r;
                         }
                         else {
                             ss << getNestedColor("storage_summary.internal_text_color", "white") << " Int" << r;
                         }
                     }
 
-                    ss << getNestedColor("storage_summary.]", "green") << " ]" << r;
+                    ss << getNestedColor("storage_summary.]", "white") << " ]" << r;
 
                     lp.push(ss.str());
                 }
             }
 
-            // DISK PERFORMANCE PREDICTED ////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // DISK PERFORMANCE PREDICTED
             if (!all_disks_captured.empty() && getNestedBool("sections.disk_performance_predicted", true)) {
 
                 lp.push("");
@@ -1096,9 +1090,9 @@ int main(){
                 // Header
                 if (getNestedBool("disk_performance_predicted.header.show_header", true)) {
                     std::ostringstream ss;
-                    ss << getNestedColor("disk_performance_predicted.header.line_color", "red") << "---------------- " << r
-                        << getNestedColor("disk_performance_predicted.header.title_color", "blue") << "DISK PERFORMANCE & DETAILS (Predicted)" << r
-                        << getNestedColor("disk_performance_predicted.header.line_color", "red") << " ------------" << r;
+                    ss << getNestedColor("disk_performance_predicted.header.line_color", "white") << "---------------- " << r
+                        << getNestedColor("disk_performance_predicted.header.title_color", "white") << "DISK PERFORMANCE & DETAILS (Predicted)" << r
+                        << getNestedColor("disk_performance_predicted.header.line_color", "white") << " ------------" << r;
                     lp.push(ss.str());
                 }
 
@@ -1107,45 +1101,45 @@ int main(){
 
                     // Drive letter
                     if (getNestedBool("disk_performance_predicted.show_drive_letter", true)) {
-                        ss << getNestedColor("disk_performance_predicted.drive_letter_color", "cyan") << d.drive_letter << r;
+                        ss << getNestedColor("disk_performance_predicted.drive_letter_color", "white") << d.drive_letter << r;
                     }
 
-                    ss << getNestedColor("storage_summary.[", "green") << " [" << r << " ";
+                    ss << getNestedColor("storage_summary.[", "white") << " [" << r << " ";
 
                     // Read speed
                     if (getNestedBool("disk_performance_predicted.show_read_speed", true)) {
-                        ss << getNestedColor("disk_performance_predicted.read_label_color", "green") << "Read: " << r
-                            << getNestedColor("disk_performance_predicted.read_speed_color", "yellow") << fmt_speed(d.predicted_read_speed) << r;
+                        ss << getNestedColor("disk_performance_predicted.read_label_color", "white") << "Read: " << r
+                            << getNestedColor("disk_performance_predicted.read_speed_color", "white") << fmt_speed(d.predicted_read_speed) << r;
                     }
 
-                    ss << getNestedColor("disk_performance_predicted.speed_unit_color", "green") << " MB/s " << r
-                        << getNestedColor("disk_performance_predicted.|", "green") << "|" << r << " ";
+                    ss << getNestedColor("disk_performance_predicted.speed_unit_color", "white") << " MB/s " << r
+                        << getNestedColor("disk_performance_predicted.|", "white") << "|" << r << " ";
 
                     // Write speed
                     if (getNestedBool("disk_performance_predicted.show_write_speed", true)) {
-                        ss << getNestedColor("disk_performance_predicted.write_label_color", "green") << "Write: " << r
-                            << getNestedColor("disk_performance_predicted.write_speed_color", "yellow") << fmt_speed(d.predicted_write_speed) << r;
+                        ss << getNestedColor("disk_performance_predicted.write_label_color", "white") << "Write: " << r
+                            << getNestedColor("disk_performance_predicted.write_speed_color", "white") << fmt_speed(d.predicted_write_speed) << r;
                     }
 
-                    ss << getNestedColor("disk_performance_predicted.speed_unit_color", "green") << " MB/s " << r
-                        << getNestedColor("disk_performance_predicted.|", "green") << "|" << r << " ";
+                    ss << getNestedColor("disk_performance_predicted.speed_unit_color", "white") << " MB/s " << r
+                        << getNestedColor("disk_performance_predicted.|", "white") << "|" << r << " ";
 
                     // Serial number
                     if (getNestedBool("disk_performance_predicted.show_serial_number", true)) {
-                        ss << getNestedColor("disk_performance_predicted.serial_number_color", "magenta") << d.serial_number << r;
+                        ss << getNestedColor("disk_performance_predicted.serial_number_color", "white") << d.serial_number << r;
                     }
 
                     // External/Internal status
                     if (getNestedBool("disk_performance_predicted.show_external_status", true)) {
                         if (d.is_external) {
-                            ss << getNestedColor("storage_summary.external_text_color", "blue") << " Ext" << r;
+                            ss << getNestedColor("storage_summary.external_text_color", "white") << " Ext" << r;
                         }
                         else {
                             ss << getNestedColor("storage_summary.internal_text_color", "white") << " Int" << r;
                         }
                     }
 
-                    ss << getNestedColor("storage_summary.]", "green") << " ]" << r;
+                    ss << getNestedColor("storage_summary.]", "white") << " ]" << r;
 
                     lp.push(ss.str());
                 }
