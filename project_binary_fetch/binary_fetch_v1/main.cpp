@@ -651,8 +651,8 @@ int main(){
         // Compact GPU
         if (isEnabled("compact_gpu")) {
             std::ostringstream ss;
-            ss << getColor("compact_gpu", "[GPU]", "white") << "[GPU]" << r
-                << getColor("compact_gpu", "->", "white") << " -> " << r;
+            ss << getColor("compact_gpu", "GPU", "white") << "GPU" << r
+                << getColor("compact_gpu", "GPU_:", "white") << ": " << r;
 
             if (isSubEnabled("compact_gpu", "show_name")) ss << getColor("compact_gpu", "name_color", "white") << c_gpu.getGPUName() << r;
 
@@ -680,8 +680,8 @@ int main(){
         // Compact Performance
         if (isEnabled("compact_performance")) {
             std::ostringstream ss;
-            ss << getColor("compact_performance", "[Performance]", "white") << "[Performance]" << r
-                << getColor("compact_performance", "->", "white") << " -> " << r;
+            ss << getColor("compact_performance", "Performance", "white") << "Performance" << r
+                << getColor("compact_performance", "Performance_:", "white") << ": " << r;
 
             auto addP = [&](const std::string& subKey, const std::string& label, const std::string& colorKey, auto val) {
                 if (isSubEnabled("compact_performance", subKey)) {
