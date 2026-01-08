@@ -170,170 +170,7 @@ int main(){
 
 
     //-----------------------------testing site start-------------------------
-    std::cout << "DetailedScreen Test Program\n";
-    std::cout << "==========================\n\n";
 
-    std::cout << "Initializing display detector...\n";
-    DetailedScreen detector;
-
-    if (!detector.refresh()) {
-        std::cerr << "ERROR: Failed to detect displays!\n";
-        std::cerr << "Press Enter to exit...";
-        std::cin.get();
-        return 1;
-    }
-
-    auto screens = detector.getScreens();
-
-    if (screens.empty()) {
-        std::cerr << "ERROR: No displays detected.\n";
-        std::cerr << "Press Enter to exit...";
-        std::cin.get();
-        return 1;
-    }
-
-    std::cout << "Detection successful!\n";
-
-    // System Information
-    std::cout << "\n========================================\n";
-    std::cout << "SYSTEM INFORMATION\n";
-    std::cout << "========================================\n";
-    std::cout << "GPU Vendor:      " << DetailedScreen::getGPUVendor() << "\n";
-    std::cout << "Total Displays:  " << screens.size() << "\n";
-
-    // Display detailed information for each screen
-    for (size_t i = 0; i < screens.size(); ++i) {
-        const auto& s = screens[i];
-
-        std::cout << "\n========================================\n";
-        std::cout << "DISPLAY " << (i + 1);
-        if (s.isPrimary) std::cout << " (PRIMARY)";
-        std::cout << "\n========================================\n";
-
-        // Basic Information
-        std::cout << "\n--- Basic Information ---\n";
-        std::cout << "Model Name:          " << s.name << "\n";
-        std::cout << "Device Name:         " << s.deviceName << "\n";
-        if (!s.manufacturer.empty()) {
-            std::cout << "Manufacturer:        " << s.manufacturer << "\n";
-        }
-        if (!s.edid_version.empty()) {
-            std::cout << "EDID Version:        " << s.edid_version << "\n";
-        }
-
-        // Resolution & Scaling
-        std::cout << "\n--- Resolution & Scaling ---\n";
-        std::cout << "Native Resolution:   " << s.native_width << " x " << s.native_height;
-        if (s.diagonal_inches > 0) {
-            std::cout << std::fixed << std::setprecision(1);
-            std::cout << " @ " << s.diagonal_inches << " inches";
-        }
-        std::cout << "\n";
-
-        std::cout << "Current Resolution:  " << s.current_width << " x " << s.current_height << "\n";
-        std::cout << "Desktop Resolution:  " << s.desktop_width << " x " << s.desktop_height << "\n";
-        std::cout << "Windows DPI Scale:   " << s.scale_percent << "% (" << s.scale_mul << ")\n";
-        std::cout << "Raw DPI:             " << s.raw_dpi_x << " x " << s.raw_dpi_y << "\n";
-
-        if (s.ppi > 0) {
-            std::cout << "Pixel Density:       " << std::fixed << std::setprecision(0)
-                << s.ppi << " PPI\n";
-        }
-
-        if (s.has_upscaling) {
-            std::cout << "GPU Upscaling:       " << s.upscale << " ("
-                << s.upscale_technology << ")\n";
-        }
-        else {
-            std::cout << "GPU Upscaling:       None\n";
-        }
-
-        // Display Properties
-        std::cout << "\n--- Display Properties ---\n";
-        std::cout << "Refresh Rate:        " << s.refresh_rate << " Hz\n";
-        if (s.bit_depth > 0) {
-            std::cout << "Color Bit Depth:     " << s.bit_depth << "-bit\n";
-        }
-        std::cout << "Color Format:        " << s.color_format << "\n";
-        std::cout << "HDR Capable:         " << (s.hdr_capable ? "Yes" : "No") << "\n";
-
-        if (!s.connection_type.empty() && s.connection_type != "Unknown") {
-            std::cout << "Connection Type:     " << s.connection_type << "\n";
-        }
-
-        if (s.g_sync) {
-            std::cout << "G-SYNC:              Enabled\n";
-        }
-        if (s.freesync) {
-            std::cout << "FreeSync:            Enabled\n";
-        }
-
-        // Physical & Position
-        std::cout << "\n--- Physical & Position ---\n";
-        if (s.width_mm > 0 && s.height_mm > 0) {
-            std::cout << std::fixed << std::setprecision(1);
-            std::cout << "Physical Size:       " << (s.width_mm / 10.0f) << " cm x "
-                << (s.height_mm / 10.0f) << " cm\n";
-        }
-
-        std::cout << "Screen Position:     X=" << s.pos_x << ", Y=" << s.pos_y << "\n";
-
-        if (s.rotation > 0) {
-            std::cout << "Rotation:            " << s.rotation << " degrees\n";
-        }
-
-        if (!s.panel_type.empty()) {
-            std::cout << "Panel Type:          " << s.panel_type << "\n";
-        }
-
-        if (!s.deviceID.empty()) {
-            std::cout << "Device ID:           " << s.deviceID << "\n";
-        }
-    }
-
-    // Summary Table
-    std::cout << "\n========================================\n";
-    std::cout << "QUICK SUMMARY\n";
-    std::cout << "========================================\n\n";
-
-    std::cout << std::left;
-    std::cout << std::setw(4) << "#"
-        << std::setw(25) << "Model"
-        << std::setw(15) << "Resolution"
-        << std::setw(10) << "Refresh"
-        << std::setw(10) << "Scale"
-        << std::setw(8) << "HDR"
-        << "\n";
-    std::cout << std::string(72, '-') << "\n";
-
-    for (size_t i = 0; i < screens.size(); ++i) {
-        const auto& s = screens[i];
-
-        std::cout << std::setw(4) << (i + 1);
-
-        std::string displayName = s.name;
-        if (displayName.length() > 24) {
-            displayName = displayName.substr(0, 21) + "...";
-        }
-        std::cout << std::setw(25) << displayName;
-
-        std::string resolution = std::to_string(s.current_width) + "x" + std::to_string(s.current_height);
-        std::cout << std::setw(15) << resolution;
-
-        std::string refresh = std::to_string(s.refresh_rate) + "Hz";
-        std::cout << std::setw(10) << refresh;
-
-        std::string scale = std::to_string(s.scale_percent) + "%";
-        std::cout << std::setw(10) << scale;
-
-        std::cout << std::setw(8) << (s.hdr_capable ? "Yes" : "No");
-
-        if (s.isPrimary) {
-            std::cout << " [PRIMARY]";
-        }
-
-        std::cout << "\n";
-    }
     //-----------------------------testing site end-------------------------
 
 
@@ -618,23 +455,23 @@ int main(){
         // Compact OS
         if (isEnabled("compact_os")) {
             std::ostringstream ss;
-            ss << getColor("compact_os", "[OS]", "red") << "[OS]" << r
-                << getColor("compact_os", "->", "blue") << "  -> " << r;
+            ss << getColor("compact_os", "[OS]", "white") << "[OS]" << r
+                << getColor("compact_os", "->", "white") << "  -> " << r;
 
-            if (isSubEnabled("compact_os", "show_name")) ss << getColor("compact_os", "name_color", "green") << c_os.getOSName() << r << " ";
-            if (isSubEnabled("compact_os", "show_build")) ss << getColor("compact_os", "build_color", "yellow") << c_os.getOSBuild() << r;
+            if (isSubEnabled("compact_os", "show_name")) ss << getColor("compact_os", "name_color", "white") << c_os.getOSName() << r << " ";
+            if (isSubEnabled("compact_os", "show_build")) ss << getColor("compact_os", "build_color", "white") << c_os.getOSBuild() << r;
 
             if (isSubEnabled("compact_os", "show_arch")) {
-                ss << getColor("compact_os", "(", "red") << " (" << r
-                    << getColor("compact_os", "arch_color", "cyan") << c_os.getArchitecture() << r
-                    << getColor("compact_os", ")", "red") << ")" << r;
+                ss << getColor("compact_os", "(", "white") << " (" << r
+                    << getColor("compact_os", "arch_color", "white") << c_os.getArchitecture() << r
+                    << getColor("compact_os", ")", "white") << ")" << r;
             }
 
             if (isSubEnabled("compact_os", "show_uptime")) {
-                ss << getColor("compact_os", "(", "red") << " (" << r
-                    << getColor("compact_os", "uptime_label_color", "green") << "uptime: " << r
-                    << getColor("compact_os", "uptime_value_color", "magenta") << c_os.getUptime() << r
-                    << getColor("compact_os", ")", "red") << ")" << r;
+                ss << getColor("compact_os", "(", "white") << " (" << r
+                    << getColor("compact_os", "uptime_label_color", "white") << "uptime: " << r
+                    << getColor("compact_os", "uptime_value_color", "white") << c_os.getUptime() << r
+                    << getColor("compact_os", ")", "white") << ")" << r;
             }
             lp.push(ss.str());
         }
@@ -643,9 +480,9 @@ int main(){
         if (isEnabled("compact_cpu")) {
             std::ostringstream ss;
             ss << getColor("compact_cpu", "[CPU]", "red") << "[CPU]" << r
-                << getColor("compact_cpu", "->", "blue") << " -> " << r;
+                << getColor("compact_cpu", "->", "white") << " -> " << r;
 
-            if (isSubEnabled("compact_cpu", "show_name")) ss << getColor("compact_cpu", "name_color", "green") << c_cpu.getCPUName() << r;
+            if (isSubEnabled("compact_cpu", "show_name")) ss << getColor("compact_cpu", "name_color", "white") << c_cpu.getCPUName() << r;
 
             if (isSubEnabled("compact_cpu", "show_cores") || isSubEnabled("compact_cpu", "show_threads")) {
                 ss << getColor("compact_cpu", "(", "red") << " (" << r;
