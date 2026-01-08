@@ -133,10 +133,10 @@
     "show_free": true,
     "show_percent": true,
     "colors": {
-      "[Memory]": "cyan",
+      "Memory": "cyan",
       "(": "red",
       ")": "red",
-      "->": "cyan",
+      "Memory_:": "cyan",
       "label_color": "cyan",
       "total_color": "cyan",
       "free_color": "cyan",

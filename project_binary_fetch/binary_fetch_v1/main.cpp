@@ -601,8 +601,8 @@ int main(){
         // Compact Memory
         if (isEnabled("compact_memory")) {
             std::ostringstream ss;
-            ss << getColor("compact_memory", "[Memory]", "white") << "[Memory]" << r
-                << getColor("compact_memory", "->", "white") << " -> " << r;
+            ss << getColor("compact_memory", "Memory", "white") << "Memory" << r
+                << getColor("compact_memory", "Memory_:", "white") << ": " << r;
 
             if (isSubEnabled("compact_memory", "show_total")) {
                 ss << getColor("compact_memory", "(", "white") << "(" << r
