@@ -97,11 +97,30 @@
       "core_color": "red",
       "thread_color": "red",
       "text_color": "red",
-      "separator_color": "red", 
+      "separator_color": "red",
       "at_symbol_color": "red",
       "clock_color": "red"
     }
   },
+  "compact_gpu": {
+    "enabled": true,
+    "show_name": true,
+    "show_usage": true,
+    "show_vram": true,
+    "show_freq": true,
+    "colors": {
+      "GPU": "blue",
+      "(": "yellow",
+      ")": "yellow",
+      "GPU_:": "magenta",
+      "name_color": "red",
+      "usage_color": "cyan",
+      "vram_color": "green",
+      "at_symbol_color": "blue",
+      "freq_color": "red"
+    }
+  },
+
   "compact_screen": {
     "enabled": true,
     "show_header": true,
@@ -151,30 +170,12 @@
       "Audio Input": "red",
       "Audio_Input_:": "blue",
       "Audio Output": "red",
-      "Audio_Output_:": "blue", 
+      "Audio_Output_:": "blue",
       "(": "cyan",
       ")": "cyan",
       "->": "cyan",
       "device_color": "blue",
       "status_color": "blue"
-    }
-  },
-  "compact_gpu": {
-    "enabled": true,
-    "show_name": true,
-    "show_usage": true,
-    "show_vram": true,
-    "show_freq": true,
-    "colors": {
-      "GPU": "blue",
-      "(": "yellow",
-      ")": "yellow",
-      "GPU_:": "magenta",
-      "name_color": "red",
-      "usage_color": "cyan",
-      "vram_color": "green",
-      "at_symbol_color": "blue",
-      "freq_color": "red"
     }
   },
   "compact_performance": {
