@@ -601,25 +601,25 @@ int main(){
         // Compact Memory
         if (isEnabled("compact_memory")) {
             std::ostringstream ss;
-            ss << getColor("compact_memory", "[Memory]", "red") << "[Memory]" << r
-                << getColor("compact_memory", "->", "blue") << " -> " << r;
+            ss << getColor("compact_memory", "[Memory]", "white") << "[Memory]" << r
+                << getColor("compact_memory", "->", "white") << " -> " << r;
 
             if (isSubEnabled("compact_memory", "show_total")) {
-                ss << getColor("compact_memory", "(", "red") << "(" << r
-                    << getColor("compact_memory", "label_color", "green") << "total: " << r
-                    << getColor("compact_memory", "total_color", "green") << c_memory.get_total_memory() << " GB" << r
-                    << getColor("compact_memory", ")", "red") << ")" << r;
+                ss << getColor("compact_memory", "(", "white") << "(" << r
+                    << getColor("compact_memory", "label_color", "white") << "total: " << r
+                    << getColor("compact_memory", "total_color", "white") << c_memory.get_total_memory() << " GB" << r
+                    << getColor("compact_memory", ")", "white") << ")" << r;
             }
             if (isSubEnabled("compact_memory", "show_free")) {
                 ss << " " << getColor("compact_memory", "(", "red") << "(" << r
-                    << getColor("compact_memory", "label_color", "green") << "free: " << r
-                    << getColor("compact_memory", "free_color", "yellow") << c_memory.get_free_memory() << " GB" << r
-                    << getColor("compact_memory", ")", "red") << ")" << r;
+                    << getColor("compact_memory", "label_color", "white") << "free: " << r
+                    << getColor("compact_memory", "free_color", "white") << c_memory.get_free_memory() << " GB" << r
+                    << getColor("compact_memory", ")", "white") << ")" << r;
             }
             if (isSubEnabled("compact_memory", "show_percent")) {
-                ss << " " << getColor("compact_memory", "(", "red") << "(" << r
-                    << getColor("compact_memory", "percent_color", "magenta") << c_memory.get_used_memory_percent() << "%" << r
-                    << getColor("compact_memory", ")", "red") << ")" << r;
+                ss << " " << getColor("compact_memory", "(", "white") << "(" << r
+                    << getColor("compact_memory", "percent_color", "white") << c_memory.get_used_memory_percent() << "%" << r
+                    << getColor("compact_memory", ")", "white") << ")" << r;
             }
             lp.push(ss.str());
         }
