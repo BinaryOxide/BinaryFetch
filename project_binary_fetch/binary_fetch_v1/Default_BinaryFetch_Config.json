@@ -111,8 +111,8 @@
     "show_upscale": false,
     "show_refresh": true,
     "colors": {
-      "[Display]": "red",
-      "->": "red",
+      "Display": "red",
+      "Display_:": "red",
       "header_text": "red",
       "name_color": "blue",
       "(": "cyan",

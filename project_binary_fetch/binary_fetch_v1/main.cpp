@@ -509,8 +509,8 @@ int main(){
             if (screens.empty()) {
                 // No displays detected - show error message
                 std::ostringstream ss;
-                ss << getColor("compact_screen", "[Display]", "white") << "[Display]" << r
-                    << getColor("compact_screen", "->", "blue") << " -> " << r
+                ss << getColor("compact_screen", "Display", "white") << "Display" << r
+                    << getColor("compact_screen", "Display_:", "blue") << ": " << r
                     << getColor("compact_screen", "name_color", "white") << "No displays detected" << r;
                 lp.push(ss.str());
             }
@@ -521,9 +521,9 @@ int main(){
                     std::ostringstream ss;
 
                     // Header: [Display N] ->
-                    ss << getColor("compact_screen", "[Display]", "white")
-                        << "[Display " << (i + 1) << "]" << r
-                        << getColor("compact_screen", "->", "white") << " -> " << r;
+                    ss << getColor("compact_screen", "Display", "white")
+                        << "Display " << (i + 1) << "" << r
+                        << getColor("compact_screen", "Display_:", "white") << ": " << r;
 
                     // Display name
                     if (isSubEnabled("compact_screen", "show_name")) {
