@@ -487,7 +487,7 @@ int main(){
             if (isSubEnabled("compact_cpu", "show_cores") || isSubEnabled("compact_cpu", "show_threads")) {
                 ss << getColor("compact_cpu", "(", "white") << " (" << r;
                 if (isSubEnabled("compact_cpu", "show_cores")) ss << getColor("compact_cpu", "core_color", "white") << c_cpu.getCPUCores() << r << getColor("compact_cpu", "text_color", "white") << "C" << r;
-                if (isSubEnabled("compact_cpu", "show_cores") && isSubEnabled("compact_cpu", "show_threads")) ss << getColor("compact_cpu", "separator_color", "blue") << "/" << r;
+                if (isSubEnabled("compact_cpu", "show_cores") && isSubEnabled("compact_cpu", "show_threads")) ss << getColor("compact_cpu", "separator_color", "white") << "/" << r;
                 if (isSubEnabled("compact_cpu", "show_threads")) ss << getColor("compact_cpu", "thread_color", "white") << c_cpu.getCPUThreads() << r << getColor("compact_cpu", "text_color", "white") << "T" << r;
                 ss << getColor("compact_cpu", ")", "white") << ")" << r;
             }
@@ -509,9 +509,9 @@ int main(){
             if (screens.empty()) {
                 // No displays detected - show error message
                 std::ostringstream ss;
-                ss << getColor("compact_screen", "[Display]", "red") << "[Display]" << r
+                ss << getColor("compact_screen", "[Display]", "white") << "[Display]" << r
                     << getColor("compact_screen", "->", "blue") << " -> " << r
-                    << getColor("compact_screen", "name_color", "red") << "No displays detected" << r;
+                    << getColor("compact_screen", "name_color", "white") << "No displays detected" << r;
                 lp.push(ss.str());
             }
             else {
@@ -521,52 +521,52 @@ int main(){
                     std::ostringstream ss;
 
                     // Header: [Display N] ->
-                    ss << getColor("compact_screen", "[Display]", "red")
+                    ss << getColor("compact_screen", "[Display]", "white")
                         << "[Display " << (i + 1) << "]" << r
-                        << getColor("compact_screen", "->", "blue") << " -> " << r;
+                        << getColor("compact_screen", "->", "white") << " -> " << r;
 
                     // Display name
                     if (isSubEnabled("compact_screen", "show_name")) {
-                        ss << getColor("compact_screen", "name_color", "green")
+                        ss << getColor("compact_screen", "name_color", "white")
                             << screen.name << r << " ";
                     }
 
                     // Resolution: (3840 x 2160)
                     if (isSubEnabled("compact_screen", "show_resolution")) {
-                        ss << getColor("compact_screen", "(", "red") << "(" << r
-                            << getColor("compact_screen", "resolution_color", "yellow")
+                        ss << getColor("compact_screen", "(", "white") << "(" << r
+                            << getColor("compact_screen", "resolution_color", "white")
                             << screen.native_width << r
-                            << getColor("compact_screen", "x", "blue") << " x " << r
-                            << getColor("compact_screen", "resolution_color", "yellow")
+                            << getColor("compact_screen", "x", "white") << " x " << r
+                            << getColor("compact_screen", "resolution_color", "white")
                             << screen.native_height << r
-                            << getColor("compact_screen", ")", "red") << ") " << r;
+                            << getColor("compact_screen", ")", "white") << ") " << r;
                     }
 
                     // Scale: (scale: 175%)
                     if (isSubEnabled("compact_screen", "show_scale")) {
-                        ss << getColor("compact_screen", "(", "red") << "(" << r
-                            << getColor("compact_screen", "scale_label", "green") << "scale: " << r
-                            << getColor("compact_screen", "scale_value", "magenta")
+                        ss << getColor("compact_screen", "(", "white") << "(" << r
+                            << getColor("compact_screen", "scale_label", "white") << "white: " << r
+                            << getColor("compact_screen", "scale_value", "white")
                             << screen.scale_percent << "%" << r
-                            << getColor("compact_screen", ")", "red") << ") " << r;
+                            << getColor("compact_screen", ")", "white") << ") " << r;
                     }
 
                     // Upscale: (upscale: 4x)
                     if (isSubEnabled("compact_screen", "show_upscale")) {
-                        ss << getColor("compact_screen", "(", "red") << "(" << r
-                            << getColor("compact_screen", "upscale_label", "green") << "upscale: " << r
-                            << getColor("compact_screen", "upscale_value", "cyan")
+                        ss << getColor("compact_screen", "(", "white") << "(" << r
+                            << getColor("compact_screen", "upscale_label", "white") << "upscale: " << r
+                            << getColor("compact_screen", "upscale_value", "white")
                             << screen.upscale << r
-                            << getColor("compact_screen", ")", "red") << ") " << r;
+                            << getColor("compact_screen", ")", "white") << ") " << r;
                     }
 
                     // Refresh rate: (60Hz)
                     if (isSubEnabled("compact_screen", "show_refresh")) {
-                        ss << getColor("compact_screen", "(", "red") << "(" << r
-                            << getColor("compact_screen", "@", "green") << "@" << r
-                            << getColor("compact_screen", "refresh_color", "cyan")
+                        ss << getColor("compact_screen", "(", "white") << "(" << r
+                            << getColor("compact_screen", "@", "white") << "@" << r
+                            << getColor("compact_screen", "refresh_color", "white")
                             << screen.refresh_rate << "Hz" << r
-                            << getColor("compact_screen", ")", "red") << ")" << r;
+                            << getColor("compact_screen", ")", "white") << ")" << r;
                     }
 
                     lp.push(ss.str());
