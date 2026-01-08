@@ -680,15 +680,15 @@ int main(){
         // Compact Performance
         if (isEnabled("compact_performance")) {
             std::ostringstream ss;
-            ss << getColor("compact_performance", "[Performance]", "red") << "[Performance]" << r
-                << getColor("compact_performance", "->", "blue") << " -> " << r;
+            ss << getColor("compact_performance", "[Performance]", "white") << "[Performance]" << r
+                << getColor("compact_performance", "->", "white") << " -> " << r;
 
             auto addP = [&](const std::string& subKey, const std::string& label, const std::string& colorKey, auto val) {
                 if (isSubEnabled("compact_performance", subKey)) {
-                    ss << getColor("compact_performance", "(", "red") << "(" << r
-                        << getColor("compact_performance", "label_color", "green") << label << ": " << r
-                        << getColor("compact_performance", colorKey, "cyan") << val << "%" << r
-                        << getColor("compact_performance", ")", "red") << ") " << r;
+                    ss << getColor("compact_performance", "(", "white") << "(" << r
+                        << getColor("compact_performance", "label_color", "white") << label << ": " << r
+                        << getColor("compact_performance", colorKey, "white") << val << "%" << r
+                        << getColor("compact_performance", ")", "white") << ") " << r;
                 }
                 };
             addP("show_cpu", "CPU", "cpu_color", c_perf.getCPUUsage());
@@ -701,21 +701,21 @@ int main(){
         // Compact User
         if (isEnabled("compact_user")) {
             std::ostringstream ss;
-            ss << getColor("compact_user", "[User]", "red") << "[User]" << r
-                << getColor("compact_user", "->", "blue") << " -> " << r;
+            ss << getColor("compact_user", "[User]", "white") << "[User]" << r
+                << getColor("compact_user", "->", "white") << " -> " << r;
 
-            if (isSubEnabled("compact_user", "show_username")) ss << getColor("compact_user", "username_color", "green") << "@" << c_user.getUsername() << r;
+            if (isSubEnabled("compact_user", "show_username")) ss << getColor("compact_user", "username_color", "white") << "@" << c_user.getUsername() << r;
             if (isSubEnabled("compact_user", "show_domain")) {
-                ss << " " << getColor("compact_user", "(", "red") << "(" << r
-                    << getColor("compact_user", "label_color", "green") << "Domain: " << r
-                    << getColor("compact_user", "domain_color", "yellow") << c_user.getDomain() << r
-                    << getColor("compact_user", ")", "red") << ")" << r;
+                ss << " " << getColor("compact_user", "(", "white") << "(" << r
+                    << getColor("compact_user", "label_color", "white") << "Domain: " << r
+                    << getColor("compact_user", "domain_color", "white") << c_user.getDomain() << r
+                    << getColor("compact_user", ")", "white") << ")" << r;
             }
             if (isSubEnabled("compact_user", "show_type")) {
-                ss << " " << getColor("compact_user", "(", "red") << "(" << r
-                    << getColor("compact_user", "label_color", "green") << "Type: " << r
-                    << getColor("compact_user", "type_color", "cyan") << c_user.isAdmin() << r
-                    << getColor("compact_user", ")", "red") << ")" << r;
+                ss << " " << getColor("compact_user", "(", "white") << "(" << r
+                    << getColor("compact_user", "label_color", "white") << "Type: " << r
+                    << getColor("compact_user", "type_color", "white") << c_user.isAdmin() << r
+                    << getColor("compact_user", ")", "white") << ")" << r;
             }
             lp.push(ss.str());
         }
