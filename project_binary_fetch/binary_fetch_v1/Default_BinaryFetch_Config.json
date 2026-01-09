@@ -159,7 +159,9 @@
     "show_total": true,
     "show_free": true,
     "show_percent": true,
+    "show_emoji": true,
     "colors": {
+      "emoji_color": "green",
       "Memory": "cyan",
       "(": "red",
       ")": "red",
