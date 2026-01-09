@@ -678,6 +678,9 @@ int main(){
         if (isEnabled("compact_audio")) {
             if (isSubEnabled("compact_audio", "show_input")) {
                 std::ostringstream ss1;
+
+                if (isSubEnabled("compact_audio", "show_audio_input_emoji")) ss1 << getColor("compact_audio", "audio_output_emoji_color", "white") << u8"🧩" << r << " ";
+
                 ss1 << getColor("compact_audio", "Audio Input", "white") << "Audio Input" << r
                     << getColor("compact_audio", "Audio_Input_:", "white") << ": " << r
                     << getColor("compact_audio", "device_color", "white") << c_audio.active_audio_input() << r << " "
@@ -688,6 +691,9 @@ int main(){
             }
             if (isSubEnabled("compact_audio", "show_output")) {
                 std::ostringstream ss2;
+
+                if (isSubEnabled("compact_audio", "show_audio_output_emoji")) ss2 << getColor("compact_audio", "audio_input_emoji_color", "white") << u8"🧩" << r << " ";
+
                 ss2 << getColor("compact_audio", "Audio Output", "white") << "Audio Output" << r
                     << getColor("compact_audio", "Audio_Output_:", "white") << ": " << r
                     << getColor("compact_audio", "device_color", "white") << c_audio.active_audio_output() << r << " "

@@ -176,7 +176,11 @@
     "enabled": true,
     "show_input": true,
     "show_output": true,
+    "show_audio_input_emoji": true,
+    "show_audio_output_emoji": true,
     "colors": {
+      "audio_input_emoji_color": "green",
+      "audio_output_emoji_color": "green",
       "Audio Input": "red",
       "Audio_Input_:": "blue",
       "Audio Output": "red",
