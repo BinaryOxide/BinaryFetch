@@ -72,7 +72,7 @@
     "show_uptime": true,
     "show_emoji": true,
     "colors": {
-      "emoji_color":"green",
+      "emoji_color": "yellow",
       "OS": "red",
       "(": "blue",
       ")": "blue",
@@ -92,7 +92,7 @@
     "show_clock": true,
     "show_emoji": true,
     "colors": {
-      "emoji_color": "green",
+      "emoji_color": "yellow",
       "CPU": "blue",
       "(": "red",
       ")": "red",
@@ -114,7 +114,7 @@
     "show_freq": true,
     "show_emoji": true,
     "colors": {
-      "emoji_color": "green",
+      "emoji_color": "yellow",
       "GPU": "blue",
       "(": "yellow",
       ")": "yellow",
@@ -137,7 +137,7 @@
     "show_refresh": true,
     "show_emoji": true,
     "colors": {
-      "emoji_color": "green",
+      "emoji_color": "yellow",
       "Display": "red",
       "Display_:": "red",
       "header_text": "red",
@@ -161,7 +161,7 @@
     "show_percent": true,
     "show_emoji": true,
     "colors": {
-      "emoji_color": "green",
+      "emoji_color": "yellow",
       "Memory": "cyan",
       "(": "red",
       ")": "red",
@@ -179,8 +179,8 @@
     "show_audio_input_emoji": true,
     "show_audio_output_emoji": true,
     "colors": {
-      "audio_input_emoji_color": "green",
-      "audio_output_emoji_color": "green",
+      "audio_input_emoji_color": "yellow",
+      "audio_output_emoji_color": "yellow",
       "Audio Input": "red",
       "Audio_Input_:": "blue",
       "Audio Output": "red",
@@ -200,7 +200,7 @@
     "show_disk": true,
     "show_emoji": true,
     "colors": {
-      "emoji_color": "green",
+      "emoji_color": "yellow",
       "Performance": "blue",
       "(": "red",
       ")": "red",
@@ -219,7 +219,7 @@
     "show_type": true,
     "show_emoji": true,
     "colors": {
-      "emoji_color": "green",
+      "emoji_color": "yellow",
       "User": "cyan",
       "(": "red",
       ")": "red",
@@ -237,7 +237,7 @@
     "show_ip": true,
     "show_emoji": true,
     "colors": {
-      "emoji_color": "green",
+      "emoji_color": "yellow",
       "Network": "cyan",
       "(": "red",
       ")": "red",
@@ -255,8 +255,8 @@
     "show_disk_usage_emoji": true,
     "show_disk_capacity_emoji": true,
     "colors": {
-      "disk_usage_emoji_color": "green",
-      "disk_capacity_emoji_color": "green",
+      "disk_usage_emoji_color": "yellow",
+      "disk_capacity_emoji_color": "yellow",
       "Disk Usage": "green",
       "Disk_Usage_:": "red",
       "Disk Cap": "green",
