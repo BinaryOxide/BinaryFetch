@@ -734,7 +734,7 @@ int main(){
         if (isEnabled("compact_user")) {
             std::ostringstream ss;
 
-            if (isSubEnabled("compact_user", "show_emoji")) ss << getColor("compact_user", "emoji_color", "white") << u8"🧩" << r << " ";
+            if (isSubEnabled("compact_user", "show_emoji")) ss << getColor("compact_user", "emoji_color", "white") << u8"☕" << r << " ";
 
             ss << getColor("compact_user", "User", "white") << "User" << r
                 << getColor("compact_user", "User_:", "white") << ": " << r;
