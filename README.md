@@ -195,12 +195,12 @@ BinaryFetch **never breaks** due to user mistakes.
                                                Disk (Y:) [ Read:  140.00 MB/s | Write:  120.00 MB/s | SN-1005 Int ]
 
                                                #- Network Info ---------------------------------------------------#
-                                               ~ Network Name              : Maruf Hasan
+                                               ~ Network Name              : InterCentury
                                                ~ Network Type              : WiFi
-                                               ~ Local IP                  : 192.168.56.1/24
-                                               ~ Public IP:                : 103.204.209.14
+                                               ~ Local IP                  : 192.---.56.1/--
+                                               ~ Public IP:                : 103.---.209.--
                                                ~ Locale                    : en-US
-                                               ~ Mac address               : 0A:00:27:00:00:0F
+                                               ~ Mac address               : 0A:00:--:00:--:0F
                                                ~ avg upload speed          : 21.4 Mbps
                                                ~ avg download speed        : 14.8 Mbps
 
@@ -284,8 +284,8 @@ BinaryFetch **never breaks** due to user mistakes.
                                                ~ Motherboard Manufacturer  : ASUSTeK COMPUTER INC.
 
                                                #- User Info ------------------------------------------------------#
-                                               ~ Username                  : coffee~
-                                               ~ Computer Name             : MARUF
+                                               ~ Username                  : MarufHasan~
+                                               ~ Computer Name             : InterCentury
                                                ~ Domain                    : WORKGROUP
 
                                                #- Performance Info -----------------------------------------------#
