@@ -174,26 +174,7 @@ int main(){
     // std::cout << u8"😄 ❤️ 🎉 🚀 ⭐ 🐱 🍕 🎮 😭 🌈\n";
     
     
-    if (!di.refresh()) {
-        std::cerr << "Failed to enumerate displays.\n";
-        return 1;
-    }
 
-    const auto& screens = di.getScreens();
-    for (size_t i = 0; i < screens.size(); ++i) {
-        const auto& s = screens[i];
-        std::cout << "=== Display " << (i + 1) << " ===\n";
-        std::cout << "Name: " << s.name << "\n";
-        std::cout << "Applied Resolution: " << s.current_width << "x" << s.current_height
-            << " @" << s.refresh_rate << "Hz\n";
-        std::cout << "Native Resolution: " << s.native_resolution << "\n";
-        std::cout << "Aspect Ratio: " << s.aspect_ratio << "\n";
-        std::cout << "Scaling: " << s.scale_percent << ")" <<endl; // << "% (" << s.scale_mul << ")\n";
-        std::cout << "Upscale: " << s.upscale << "\n";
-        std::cout << "DSR/VSR: " << (s.dsr_enabled ? "Enabled" : "Disabled")
-            << " (" << s.dsr_type << ")\n";
-        std::cout << "\n";
-    }
     
     //-----------------------------testing site end-------------------------
 
