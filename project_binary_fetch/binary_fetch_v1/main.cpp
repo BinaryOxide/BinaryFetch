@@ -150,7 +150,7 @@ int main(){
     NetworkInfo net;
     UserInfo user;
     PerformanceInfo perf;
-    DisplayInfo display;
+   // DisplayInfo display;
     ExtraInfo extra;
     SystemInfo sys;
 
@@ -172,6 +172,29 @@ int main(){
 
     //-----------------------------testing site start-------------------------
     // std::cout << u8"😄 ❤️ 🎉 🚀 ⭐ 🐱 🍕 🎮 😭 🌈\n";
+    
+    DisplayInfo di;
+    if (!di.refresh()) {
+        std::cerr << "Failed to enumerate displays.\n";
+        return 1;
+    }
+
+    const auto& screens = di.getScreens();
+    for (size_t i = 0; i < screens.size(); ++i) {
+        const auto& s = screens[i];
+        std::cout << "=== Display " << (i + 1) << " ===\n";
+        std::cout << "Name: " << s.name << "\n";
+        std::cout << "Applied Resolution: " << s.current_width << "x" << s.current_height
+            << " @" << s.refresh_rate << "Hz\n";
+        std::cout << "Native Resolution: " << s.native_resolution << "\n";
+        std::cout << "Aspect Ratio: " << s.aspect_ratio << "\n";
+        std::cout << "Scaling: " << s.scale_percent << ")" <<endl; // << "% (" << s.scale_mul << ")\n";
+        std::cout << "Upscale: " << s.upscale << "\n";
+        std::cout << "DSR/VSR: " << (s.dsr_enabled ? "Enabled" : "Disabled")
+            << " (" << s.dsr_type << ")\n";
+        std::cout << "\n";
+    }
+    
     //-----------------------------testing site end-------------------------
 
 
@@ -1697,7 +1720,16 @@ int main(){
 		// end of the GPU info section////////////////////////////////////////////////
          
 
-        // Display Info (JSON Driven)
+
+
+
+
+
+        /*
+        
+
+
+                // Display Info (JSON Driven)
         if (isEnabled("display_info")) {
             lp.push("");
             auto monitors = display.get_all_displays();
@@ -1761,7 +1793,17 @@ int main(){
             }
         }
 
-		// end of the Display info section////////////////////////////////////////////////
+        // end of the Display info section////////////////////////////////////////////////
+
+
+
+
+
+
+        */
+
+
+
 
 
         // BIOS & Motherboard Info (JSON Driven)
@@ -2049,7 +2091,12 @@ int main(){
 
 
 
-
+        /*
+        
+        
+        
+        
+        
 	lp.push(""); // blank line
     lp.push(""); // blank line
     lp.push(""); // blank line
@@ -2081,6 +2128,12 @@ int main(){
     lp.push(""); // blank line
     lp.push(""); // blank line
     lp.push(""); // blank line
+        
+        
+        
+        
+        */
+
 
 
     //----------------- END OF JSON-CONTROLLED COMPACT SECTIONS -----------------//
