@@ -1570,17 +1570,16 @@ int main(){
                     if (isSubEnabled("gpu_info", "show_gpu_index")) {
                         std::ostringstream label;
                         if (i == 0) {
-                            label << getColor("gpu_info", "gpu_label_color", "white") << "GPU " << (i + 1) << r;
+                            label << getColor("gpu_info", "gpu_index_label_color", "white") << "GPU " << (i + 1) << r;
                         }
                         else {
                             label << getColor("gpu_info", "#-", "white") << "#-" << r
-                                << getColor("gpu_info", "gpu_label_color", "white") << "GPU " << (i + 1) << r
+                                << getColor("gpu_info", "gpu_index_label_color", "white") << "GPU " << (i + 1) << r
                                 << getColor("gpu_info", "separator_line", "white")
                                 << "------------------------------------------------------------#" << r;
                         }
 
                         std::string lbl = label.str();
-                        // Padding logic (adjusted for dynamic colors)
                         if (lbl.length() < 27) lbl += std::string(27 - lbl.length(), ' ');
                         lp.push(lbl);
                     }
@@ -1588,7 +1587,7 @@ int main(){
                     if (isSubEnabled("gpu_info", "show_name")) {
                         std::ostringstream ss;
                         ss << getColor("gpu_info", "|->", "white") << "|-> " << r
-                            << getColor("gpu_info", "label_color", "white") << "Name                   " << r
+                            << getColor("gpu_info", "name_label_color", "white") << "Name                   " << r
                             << getColor("gpu_info", ":", "white") << ": " << r
                             << getColor("gpu_info", "name_value_color", "white") << g.gpu_name << r;
                         lp.push(ss.str());
@@ -1597,7 +1596,7 @@ int main(){
                     if (isSubEnabled("gpu_info", "show_memory")) {
                         std::ostringstream ss;
                         ss << getColor("gpu_info", "|->", "white") << "|-> " << r
-                            << getColor("gpu_info", "label_color", "white") << "Memory                 " << r
+                            << getColor("gpu_info", "memory_label_color", "white") << "Memory                 " << r
                             << getColor("gpu_info", ":", "white") << ": " << r
                             << getColor("gpu_info", "memory_value_color", "white") << g.gpu_memory << r;
                         lp.push(ss.str());
@@ -1606,7 +1605,7 @@ int main(){
                     if (isSubEnabled("gpu_info", "show_usage")) {
                         std::ostringstream ss;
                         ss << getColor("gpu_info", "|->", "white") << "|-> " << r
-                            << getColor("gpu_info", "label_color", "white") << "Usage                  " << r
+                            << getColor("gpu_info", "usage_label_color", "white") << "Usage                  " << r
                             << getColor("gpu_info", ":", "white") << ": " << r
                             << getColor("gpu_info", "usage_value_color", "white") << g.gpu_usage << r
                             << getColor("gpu_info", "%", "white") << "%" << r;
@@ -1616,7 +1615,7 @@ int main(){
                     if (isSubEnabled("gpu_info", "show_vendor")) {
                         std::ostringstream ss;
                         ss << getColor("gpu_info", "|->", "white") << "|-> " << r
-                            << getColor("gpu_info", "label_color", "white") << "Vendor                 " << r
+                            << getColor("gpu_info", "vendor_label_color", "white") << "Vendor                 " << r
                             << getColor("gpu_info", ":", "white") << ": " << r
                             << getColor("gpu_info", "vendor_value_color", "white") << g.gpu_vendor << r;
                         lp.push(ss.str());
@@ -1625,7 +1624,7 @@ int main(){
                     if (isSubEnabled("gpu_info", "show_driver")) {
                         std::ostringstream ss;
                         ss << getColor("gpu_info", "|->", "white") << "|-> " << r
-                            << getColor("gpu_info", "label_color", "white") << "Driver Version         " << r
+                            << getColor("gpu_info", "driver_label_color", "white") << "Driver Version         " << r
                             << getColor("gpu_info", ":", "white") << ": " << r
                             << getColor("gpu_info", "driver_value_color", "white") << g.gpu_driver_version << r;
                         lp.push(ss.str());
@@ -1634,7 +1633,7 @@ int main(){
                     if (isSubEnabled("gpu_info", "show_temperature")) {
                         std::ostringstream ss;
                         ss << getColor("gpu_info", "|->", "white") << "|-> " << r
-                            << getColor("gpu_info", "label_color", "white") << "Temperature            " << r
+                            << getColor("gpu_info", "temp_label_color", "white") << "Temperature            " << r
                             << getColor("gpu_info", ":", "white") << ": " << r
                             << getColor("gpu_info", "temp_value_color", "white") << g.gpu_temperature << r
                             << getColor("gpu_info", "unit_color", "white") << " C" << r;
@@ -1644,7 +1643,7 @@ int main(){
                     if (isSubEnabled("gpu_info", "show_cores")) {
                         std::ostringstream ss;
                         ss << getColor("gpu_info", "#->", "white") << "#-> " << r
-                            << getColor("gpu_info", "label_color", "white") << "Core Count             " << r
+                            << getColor("gpu_info", "cores_label_color", "white") << "Core Count             " << r
                             << getColor("gpu_info", ":", "white") << ": " << r
                             << getColor("gpu_info", "cores_value_color", "white") << g.gpu_core_count << r;
                         lp.push(ss.str());
@@ -1666,7 +1665,7 @@ int main(){
                     {
                         std::ostringstream ss;
                         ss << getColor("gpu_info", "|->", "white") << "|-> " << r
-                            << getColor("gpu_info", "label_color", "white") << "Name                   " << r
+                            << getColor("gpu_info", "p_name_label_color", "white") << "Name                   " << r
                             << getColor("gpu_info", ":", "white") << ": " << r
                             << getColor("gpu_info", "name_value_color", "white") << primary.name << r;
                         lp.push(ss.str());
@@ -1675,7 +1674,7 @@ int main(){
                     {
                         std::ostringstream ss;
                         ss << getColor("gpu_info", "|->", "white") << "|-> " << r
-                            << getColor("gpu_info", "label_color", "white") << "VRAM                   " << r
+                            << getColor("gpu_info", "p_vram_label_color", "white") << "VRAM                   " << r
                             << getColor("gpu_info", ":", "white") << ": " << r
                             << getColor("gpu_info", "memory_value_color", "white") << primary.vram_gb << r
                             << getColor("gpu_info", "unit_color", "white") << " GiB" << r;
@@ -1685,16 +1684,15 @@ int main(){
                     {
                         std::ostringstream ss;
                         ss << getColor("gpu_info", "#->", "white") << "#-> " << r
-                            << getColor("gpu_info", "label_color", "white") << "Frequency              " << r
+                            << getColor("gpu_info", "p_freq_label_color", "white") << "Frequency              " << r
                             << getColor("gpu_info", ":", "white") << ": " << r
                             << getColor("gpu_info", "freq_value_color", "white") << primary.frequency_ghz << r
                             << getColor("gpu_info", "unit_color", "white") << " GHz" << r;
                         lp.push(ss.str());
-                    } 
-                } 
-            }  
-        } 
-
+                    }
+                }
+            }
+        }
 		// end of the GPU info section////////////////////////////////////////////////
          
         // ================= DISPLAY INFO (FULLY JSON DRIVEN) =================
