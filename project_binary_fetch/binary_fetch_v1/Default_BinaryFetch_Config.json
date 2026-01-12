@@ -300,7 +300,7 @@
     }
   },
   "detailed_storage": {
-    "enabled": false,
+    "enabled": true,
     "sections": {
       "storage_summary": true,
       "disk_performance": true,
@@ -675,7 +675,7 @@
     "battery_label_color": "blue",
     "index_color": "red",
     "device_name_color": "cyan",
-    "active_label_color": "bright_cyan",
+    "active_label_color": "red",
     "wired_text_color": "bright_blue",
     "battery_percent_color": "bright_blue",
     "charging_status_color": "bright_cyan",
