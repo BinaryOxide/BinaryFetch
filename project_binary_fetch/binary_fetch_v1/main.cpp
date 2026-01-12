@@ -165,10 +165,11 @@ int main(){
     CompactUser c_user;
     CompactNetwork c_net;
     DiskInfo disk;
-
-
     TimeInfo time;
 
+    // toggle dummy ip for network section for better DX testing
+    bool dummy_compact_network = true;
+	bool dummy_detailed_network = true;
 
     //-----------------------------testing site start-------------------------
     // std::cout << u8"😄 ❤️ 🎉 🚀 ⭐ 🐱 🍕 🎮 😭 🌈\n";
@@ -234,7 +235,7 @@ int main(){
 // false = load user config from AppData
 // appdata path: C:\Users\Default\AppData\Local\BinaryFetch
 
-    bool LOAD_DEFAULT_CONFIG = true;
+    bool LOAD_DEFAULT_CONFIG = false;
     // ======================================================
 
 
