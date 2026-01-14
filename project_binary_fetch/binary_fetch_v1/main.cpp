@@ -2298,3 +2298,347 @@ int main(){
     CoUninitialize();
     return 0;
 }
+
+
+
+/*
+===============================================================================
+                    BINARYFETCH MAIN.CPP - COMPREHENSIVE DOCUMENTATION
+===============================================================================
+
+OVERVIEW:
+---------
+BinaryFetch is a Windows system information tool that displays comprehensive
+hardware, software, and performance data in both compact and detailed formats.
+This main.cpp file serves as the central orchestrator, managing:
+1. Module initialization and data collection
+2. Configuration loading and JSON-driven output control
+3. Live printing with ASCII art integration
+4. Color-coded output formatting
+
+KEY ARCHITECTURAL PRINCIPLES:
+-----------------------------
+- main() acts as an orchestrator/controller ONLY
+- All logic resides in dedicated modules/classes
+- No heavy calculations or system queries directly in main()
+- Output formatting controlled entirely via LivePrinter
+- Configuration-driven display via JSON
+
+COMPONENT STRUCTURE:
+====================
+
+I. HEADER INCLUDES
+------------------
+
+A. SYSTEM HEADERS:
+   - <iostream>, <iomanip>, <vector>, <functional>, <sstream>
+   - <fstream>, <string>, <regex>
+   - Windows API: <windows.h>, <shlobj.h>, <direct.h>
+   - COM/WMI: <comdef.h>, <Wbemidl.h>
+
+B. ASCII ART MODULE:
+   - #include "AsciiArt.h" - Handles ASCII art loading and display
+
+C. FULL SYSTEM INFO MODULES (Detailed Mode):
+   - OSInfo.h          - OS name, version, build, architecture, uptime
+   - CPUInfo.h         - CPU model, cores, threads, clocks, cache
+   - MemoryInfo.h      - RAM capacity, usage, modules, speed, type
+   - GPUInfo.h         - Basic GPU information (name, memory, usage)
+   - DetailedGPUInfo.h - Advanced GPU details (VRAM, clocks, temps)
+   - StorageInfo.h     - Disk drives, partitions, usage, performance
+   - NetworkInfo.h     - Network adapters, IP, speeds, MAC
+   - PerformanceInfo.h - Real-time CPU/RAM/GPU/Disk usage
+   - UserInfo.h        - Username, PC name, domain, admin status
+   - SystemInfo.h      - Motherboard, BIOS, manufacturer
+   - DisplayInfo.h     - Monitor resolution, refresh, scaling
+   - ExtraInfo.h       - Audio devices, power status
+   - DetailedScreen.h  - EDID, PPI, HDR, detailed display info
+
+D. COMPACT MODE MODULES:
+   - CompactAudio.h      - Audio device summary
+   - CompactOS.h         - Lightweight OS summary
+   - CompactCPU.h        - Lightweight CPU summary
+   - CompactMemory.h     - Lightweight RAM summary
+   - CompactScreen.h     - Screen resolution/refresh summary
+   - CompactSystem.h     - Motherboard/system summary
+   - CompactGPU.h        - Lightweight GPU summary
+   - CompactPerformance.h - Performance stats
+   - CompactUser.h       - User info summary
+   - CompactNetwork.h    - Network info summary
+   - compact_disk_info.h - Storage summary
+   - TimeInfo.h          - Current time/date information
+
+E. THIRD-PARTY:
+   - nlohmann/json.hpp - JSON parsing and manipulation
+
+II. JSON CONFIGURATION SYSTEM:
+-------------------------------
+
+A. CONFIG FILE LOCATIONS:
+   1. Development Mode (LOAD_DEFAULT_CONFIG=true):
+      - Loads from: "Default_BinaryFetch_Config.json" (project folder)
+   2. Production Mode (LOAD_DEFAULT_CONFIG=false):
+      - User config: C:\Users\Public\BinaryFetch\BinaryFetch_Config.json
+      - Self-healing: If missing, extracts from EXE resource (IDR_DEFAULT_CONFIG=101)
+
+B. CONFIG STRUCTURE HIERARCHY:
+   {
+     "section_name": {
+       "enabled": true/false,
+       "colors": {
+         "key": "color_name"
+       },
+       "sections": {
+         "subsection": {
+           "enabled": true/false,
+           "colors": {
+             "nested_key": "color_name"
+           }
+         }
+       }
+     }
+   }
+
+C. COLOR SUPPORT:
+   Available colors: red, green, yellow, blue, magenta, cyan, white,
+   bright_red, bright_green, bright_yellow, bright_blue, bright_magenta,
+   bright_cyan, bright_white, reset
+
+D. HELPER LAMBDA FUNCTIONS:
+   1. getColor() - Retrieves color codes from JSON config
+   2. isEnabled() - Checks if a main section is enabled
+   3. isSubEnabled() - Checks if subsection is enabled
+   4. isSectionEnabled() - Checks nested sections
+   5. isNestedEnabled() - Deep nested configuration checking
+
+III. LIVE PRINTER SYSTEM:
+-------------------------
+
+A. PURPOSE:
+   - Synchronizes ASCII art with system info output
+   - Maintains column alignment across both text and art
+   - Handles real-time streaming of formatted output
+
+B. KEY METHODS (AsciiArt class):
+   1. loadFromFile() - Loads ASCII art from user config location
+      - Checks: C:\Users\<User>\AppData\BinaryFetch\BinaryArt.txt
+      - Falls back to Default_Ascii_Art.txt if missing
+      - Auto-creates directory and file if needed
+
+   2. LivePrinter.push() - Adds formatted line to output queue
+   3. LivePrinter.finish() - Prints remaining ASCII art lines
+
+IV. MODULE FUNCTIONALITY SUMMARY:
+---------------------------------
+
+A. TIME MODULES:
+   - TimeInfo: Returns current time info (second, minute, hour, day, week, month, year, leap year)
+
+B. COMPACT MODULES (Single-line summaries):
+   1. CompactOS: OS name, build, architecture, uptime
+   2. CompactCPU: CPU name, cores/threads, clock speed
+   3. CompactGPU: GPU name, usage, VRAM, frequency
+   4. CompactScreen: Multi-display detection with resolution, scale, refresh
+   5. CompactMemory: Total/free RAM, usage percentage
+   6. CompactAudio: Active input/output audio devices
+   7. CompactPerformance: CPU/GPU/RAM/Disk usage percentages
+   8. CompactUser: Username, domain, admin status
+   9. CompactNetwork: Network name, type, IP address
+   10. DiskInfo: Disk usage percentages and capacities
+
+C. DETAILED MODULES (Multi-line expanded info):
+   1. MemoryInfo: RAM modules with capacity, type, speed, usage
+   2. StorageInfo: Comprehensive disk info with performance metrics
+   3. NetworkInfo: Full network details including IPs, speeds, MAC
+   4. OSInfo: Complete OS information including kernel, serial, install date
+   5. CPUInfo: Detailed CPU specs including caches, virtualization, sockets
+   6. GPUInfo: Multi-GPU support with vendor, driver, temperature
+   7. DisplayInfo: Per-display details including resolution, scaling, DSR/VSR
+   8. SystemInfo: BIOS and motherboard information
+   9. UserInfo: User and computer identification
+   10. PerformanceInfo: Real-time performance metrics
+   11. ExtraInfo: Audio devices and power/battery status
+
+V. OUTPUT SECTIONS ORGANIZATION:
+--------------------------------
+
+A. COMPACT MODE SECTIONS (Top-to-bottom flow):
+   1. BinaryFetch Header
+   2. Compact Time
+   3. Compact OS
+   4. Compact CPU
+   5. Compact GPU
+   6. Compact Screen
+   7. Compact Memory
+   8. Compact Audio
+   9. Compact Performance
+   10. Compact User
+   11. Compact Network
+   12. Compact Disk
+
+B. DETAILED MODE SECTIONS:
+   1. Detailed Memory
+   2. Detailed Storage
+   3. Network Info
+   4. OS Info
+   5. CPU Info
+   6. GPU Info
+   7. Display Info
+   8. BIOS & Motherboard Info
+   9. User Info
+   10. Performance Info
+   11. Audio & Power Info
+
+VI. CONFIGURATION-DRIVEN FEATURES:
+-----------------------------------
+
+A. ENABLE/DISABLE CONTROL:
+   Each section can be independently enabled/disabled via JSON config
+
+B. COLOR CUSTOMIZATION:
+   Every text element can have its color defined in JSON
+
+C. SUB-SECTION CONTROL:
+   Fine-grained control over individual data points within sections
+
+D. EMOJI SUPPORT:
+   UTF-8 emoji display with configurable on/off toggle
+
+VII. DEVELOPER FEATURES:
+------------------------
+
+A. DUMMY DATA MODES:
+   - dummy_compact_network: Test compact network with fake data
+   - dummy_detailed_network: Test detailed network with fake data
+
+B. TESTING SITE:
+   Designated area for quick testing (currently commented out)
+
+C. COM INITIALIZATION:
+   Proper COM library initialization for WMI queries
+
+D. ERROR HANDLING:
+   - Graceful degradation when modules fail
+   - Config file fallback to defaults
+   - ASCII art load failure doesn't crash program
+
+VIII. OUTPUT FORMATTING PATTERNS:
+---------------------------------
+
+A. COMPACT MODE PATTERN:
+   [Emoji] Label: Value (Additional Info) @ Unit
+
+B. DETAILED MODE PATTERNS:
+   1. Header: "#- Section Name ---------------------------------------#"
+   2. Data Line: "~ Label: Value" or "|-> Label: Value"
+   3. Sub-sections: "#-> Subsection Label: Value"
+
+C. MEMORY MODULE FORMATTING:
+   - Zero-padded capacity (02GB, 16GB, etc.)
+   - Percentage-based usage display
+
+D. STORAGE FORMATTING:
+   - Fixed-width numeric alignment
+   - GiB units for consistency
+   - Performance prediction display
+
+IX. KEY DATA STRUCTURES:
+------------------------
+
+A. storage_data (StorageInfo.h):
+   - drive_letter, total_space, used_space, used_percentage
+   - file_system, is_external, serial_number
+   - read_speed, write_speed, predicted_read/write_speed
+   - storage_type
+
+B. AudioDevice (ExtraInfo.h):
+   - name, isActive
+
+C. PowerStatus (ExtraInfo.h):
+   - hasBattery, batteryPercent, isCharging
+
+D. ScreenInfo (DisplayInfo.h):
+   - name, current_width/height, native_resolution
+   - refresh_rate, aspect_ratio, scale_percent
+   - upscale, dsr_enabled, dsr_type
+
+X. PERFORMANCE CONSIDERATIONS:
+-------------------------------
+
+A. LAZY EVALUATION:
+   - Modules only query data when their section is enabled
+   - No unnecessary system calls
+
+B. CACHING:
+   - Some modules cache results for repeated access
+   - Time-sensitive data (performance) queried real-time
+
+C. MEMORY MANAGEMENT:
+   - Proper COM initialization/deinitialization
+   - RAII principles in module design
+
+XI. EXTENSION GUIDELINES:
+-------------------------
+
+A. ADDING NEW MODULES:
+   1. Create header/implementation files
+   2. Include in appropriate section (compact/detailed)
+   3. Add to initialization section in main()
+   4. Create JSON configuration schema
+   5. Add to output section with proper formatting
+
+B. MODIFYING EXISTING MODULES:
+   1. Update JSON configuration structure
+   2. Modify helper functions as needed
+   3. Update output formatting in main()
+
+C. CONFIGURATION UPDATES:
+   1. Update Default_BinaryFetch_Config.json
+   2. Add resource to EXE (resource.h)
+   3. Update self-healing extraction logic if needed
+
+XII. KNOWN LIMITATIONS:
+------------------------
+
+A. PLATFORM: Windows only (uses Windows-specific APIs)
+B. ADMIN PRIVILEGES: Some info requires admin rights
+C. PERFORMANCE: Initial load may be slow on older systems
+D. UNICODE: Some terminals may not display emojis properly
+
+XIII. TROUBLESHOOTING:
+----------------------
+
+A. ASCII ART NOT DISPLAYING:
+   1. Check C:\Users\<User>\AppData\BinaryFetch\BinaryArt.txt exists
+   2. Verify file is not empty
+   3. Check console supports UTF-8
+
+B. MISSING INFORMATION:
+   1. Verify module is enabled in config
+   2. Check if admin privileges are needed
+   3. Verify WMI services are running
+
+C. COLOR ISSUES:
+   1. Check terminal supports ANSI colors
+   2. Verify color names in JSON are correct
+   3. Reset code (\033[0m) should follow colored text
+
+XIV. FUTURE ENHANCEMENTS:
+--------------------------
+
+A. PLANNED FEATURES:
+   1. Export to JSON/HTML/Text file
+   2. Real-time monitoring mode
+   3. Historical tracking
+   4. Plugin system for custom modules
+
+B. POSSIBLE IMPROVEMENTS:
+   1. Async data fetching
+   2. More detailed hardware detection
+   3. Cross-platform support
+   4. GUI version
+
+===============================================================================
+                             END OF DOCUMENTATION
+===============================================================================
+*/
