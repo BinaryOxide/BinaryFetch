@@ -1,5 +1,5 @@
 
-
+![alt](https://github.com/InterCentury/BinaryFetch/blob/main/Previews/Info_preview.png?raw=true)
 ![Alt text](https://github.com/InterCentury/BinaryFetch/blob/main/Previews/BinaryFetch_banner_v3.png?raw=true)
 # 🍁 BinaryFetch-CLI based fully customizable system information tool 
 An advanced Windows system information fetcher written in C++ — featuring self-healing configuration, modular architecture, compact & detailed modes, and extreme customization.
