@@ -255,7 +255,18 @@ int main(){
         return config[module]["sections"].value(section, true);
         };
      
-
+   // checks whether a deeply nested key inside a module + section is enabled
+   // example:
+     // module  -> "network"
+     // section -> "ipv4"
+     // key     -> "public_ip"
+     //
+   // logic:
+     // - if config is not loaded, allow it (default ON)
+     // - if the module does not exist, allow it
+     // - if the section does not exist inside the module, allow it
+     // - otherwise, read the value from: config[module][section][key]
+     // - if the key is missing, default to true
     auto isNestedEnabled = [&](const std::string& module, const std::string& section, const std::string& key) -> bool {
         if (!config_loaded || !config.contains(module)) return true;
         if (!config[module].contains(section)) return true;
@@ -295,9 +306,13 @@ int main(){
     TimeInfo time;
 
 
+
+
+    
+
     // removed these feature....now we can toggle them straight form the json config
     //-----------------------------testing site start-------------------------
-    // std::cout << u8"😄 ❤️ 🎉 🚀 ⭐ 🐱 🍕 🎮 😭 🌈\n";
+    
     
    
     
