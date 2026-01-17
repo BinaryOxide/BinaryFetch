@@ -186,7 +186,7 @@ int main(){
 
             // provide warning msg if the json parsing fails
         }
-        config_file.close();
+        config_file.close(); // close the file after reading 
     }
     else {
         std::cout << "Warning: Could not open config file: " << configPath << std::endl;
@@ -205,39 +205,47 @@ int main(){
     };
 
     // Helper functions 
-    auto getColor = [&](const std::string& section, const std::string& key, const std::string& defaultColor = "white") -> std::string {
+    // here, we've assigned the default color as white 
+    auto getColor = [&](const std::string& section, const std::string& key, const std::string& defaultColor = "white") -> std::string 
+     {
         if (!config_loaded || !config.contains(section)) return colors[defaultColor];
 
-        //
-        if (config[section].contains("colors") && config[section]["colors"].contains(key)) {
+        // First...try to get the color from the nested "colors" object
+        if (config[section].contains("colors") && config[section]["colors"].contains(key)) 
+        {
             std::string colorName = config[section]["colors"][key].get<std::string>();
             return colors.count(colorName) ? colors[colorName] : colors[defaultColor];
         }
-
+        // next...try to get the color directly from the section
         if (config[section].contains(key)) {
             std::string colorName = config[section][key].get<std::string>();
             return colors.count(colorName) ? colors[colorName] : colors[defaultColor];
         }
 
         return colors[defaultColor];
-        };
+     };
 
+    // check for each section, is it enabled or not (Aka Core-Module)
+    // Example of core-module: CPU,GPU,OS,Netwrok....bla bla bla
     auto isEnabled = [&](const std::string& section) -> bool {
         if (!config_loaded || !config.contains(section)) return true;
         return config[section].value("enabled", true);
         };
-
+    // check for each subsection inside a section,
+    // is it enabled or not (Aka sub-module)
+	// example of sub-module: CPU base speed, CPU cores, CPU threads...bla bla bla
     auto isSubEnabled = [&](const std::string& section, const std::string& key) -> bool {
         if (!config_loaded || !config.contains(section)) return true;
         return config[section].value(key, true);
         };
-
+	// check for each section inside a module,
+	// is it enabled or not (Aka section-module)
     auto isSectionEnabled = [&](const std::string& module, const std::string& section) -> bool {
         if (!config_loaded || !config.contains(module)) return true;
         if (!config[module].contains("sections")) return true;
         return config[module]["sections"].value(section, true);
         };
-
+     
     auto isNestedEnabled = [&](const std::string& module, const std::string& section, const std::string& key) -> bool {
         if (!config_loaded || !config.contains(module)) return true;
         if (!config[module].contains(section)) return true;
