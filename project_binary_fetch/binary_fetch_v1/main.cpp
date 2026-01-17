@@ -1,36 +1,23 @@
-﻿// main.cpp (AsciiArt separated into header and implementation files)
+﻿// Welcome to BinaryFetch entry point (main.cpp) 
 
-#include <iostream>
-#include <iomanip>        // Formatting utilities (setw, precision)
-#include <vector>
-#include <functional>
-#include <sstream>        // For string stream operations
-#include <fstream>
-#include <string>
-#include <fstream>
-#include <regex>
-#include <windows.h>
-#include <shlobj.h>
-#include <direct.h>
-#include <comdef.h>
-#include <Wbemidl.h>
+#include <iostream>       // Standard input/output stream (cin, cout) 
+#include <iomanip>        // Formatting utilities (setw, precision, setfill) 
+#include <vector>         // Dynamic array container 
+#include <functional>     // Function objects and wrappers (std::function) 
+#include <sstream>        // String stream operations for parsing/conversion 
+#include <fstream>        // File stream operations (reading/writing files) 
+#include <string>         // Standard string class and methods ✍
+#include <regex>          // Regular expressions for pattern matching 
+#include <windows.h>      // Core Windows API functions (handles, processes) 
+#include <shlobj.h>       // Shell object functions (folder paths, UI) 
+#include <direct.h>       // Directory and file handling functions (_mkdir, _chdir) 
+#include <comdef.h>       // Native C++ compiler COM support 
+#include <Wbemidl.h>      // WMI (Windows Management Instrumentation) interfaces 
+
+
 // ASCII Art functionality
 #include "AsciiArt.h" // main.cpp (AsciiArt separated into header and implementation files)
 
-#include <iostream>
-#include <iomanip>        // Formatting utilities (setw, precision)
-#include <vector>
-#include <functional>
-#include <sstream>        // For string stream operations
-#include <fstream>
-#include <string>
-#include <fstream>
-#include <regex>
-#include <windows.h>
-#include <shlobj.h>
-#include <direct.h>
-// ASCII Art functionality
-#include "AsciiArt.h"
 
 // ------------------ Full System Info Modules ------------------
 #include "OSInfo.h"             // OS name, version, build info
